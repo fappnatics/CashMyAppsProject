@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">CashMyApps</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="titulo_lista_apps">Lista de aplicaciones</string>
+    <string name="titulo_compartir">Invita a un amigo</string>
+    <string name="titulo_ranking">Clasificación</string>
+    <string name="titulo_cobros">Cobrar tus beneficios</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_tabs">Tabs</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_tab1">Tab1</string>
+    <string name="title_activity_tab2">Tab2</string>
+    <string name="title_activity_tab3">Tab3</string>
+    <string name="title_activity_prueba_lista">PruebaLista</string>
+
+    <!-- Lista de elementos e navegación -->
+    <string-array name="nav_options">
+        <item>Compártelo</item>
+        <item>Ver ofertas</item>
+        <item>Ranking</item>
+        <item>Obtener mis beneficios</item>
+    </string-array>
+    <!-- Iconos de navegación -->
+    <array name="navigation_iconos">
+        <item>@drawable/share48</item>
+        <item>@drawable/lista32</item>
+        <item>@drawable/podium64</item>
+        <item>@drawable/billetes64</item>
+    </array>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_splash_screen">SplashScreen</string>
+    <string name="title_activity_login">Login</string>
+
+</resources>

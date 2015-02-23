@@ -1,0 +1,341 @@
+package com.cashmyapps.core.cashmyappsproject;
+
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
+import android.os.*;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.ShareActionProvider;
+import android.util.Log;
+import android.util.Patterns;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.support.v4.widget.DrawerLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.regex.Pattern;
+
+
+public class MainActivity extends ActionBarActivity
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+
+    /**
+     * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
+     */
+    private OnFragmentInteractionListener mListener;
+    private NavigationDrawerFragment mNavigationDrawerFragment;
+    private Fragment fragment;
+    private Intent intent;
+    private Bundle savedinstance;
+    private Context context;
+    private Account[] accounts;
+    private String[] cuentas_array;
+    private View header;
+    private String cuenta;
+
+
+    /**
+     * Used to store the last screen title. For use in {@link #restoreActionBar()}.
+     */
+    private CharSequence mTitle;
+
+
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        public void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        savedinstance = savedInstanceState;
+        context = this.getApplicationContext();
+
+
+        mNavigationDrawerFragment = (NavigationDrawerFragment)
+                getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+        mTitle = getTitle();
+
+
+
+        // Set up the drawer.
+        mNavigationDrawerFragment.setUp(
+                R.id.navigation_drawer,
+                (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.rgb(120,0,47)));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+        TextView txNombre = (TextView)findViewById(R.id.txNombre);
+        Intent i = getIntent();
+
+
+        ImageView im = (ImageView)findViewById(R.id.backgrd);
+        Bitmap bm = RoundedImageView.getCroppedBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.user_info),180);
+        im.setImageBitmap(bm);
+
+        try {
+
+            TextView txCorreo = (TextView)findViewById(R.id.txCorreo);
+            TextView txSaldo = (TextView)findViewById(R.id.txSaldo);
+            cuenta = i.getExtras().getString("cuenta");
+
+
+
+            String resultado = new JSONParser(Constantes.URL_GET_BBDD_JSON+"?mail="+cuenta).execute(this,"foo").get();
+
+            if(resultado.contains("{\"success\":0}")){
+                Toast.makeText(context,"Oooops, ha sucedido un error en el alta de usuario, por favor, inténtalo de nuevo más tarde",Toast.LENGTH_LONG);
+
+            }
+
+            JSONObject jObject = new JSONObject(resultado);
+            JSONArray jArray = jObject.getJSONArray("usuarios");
+
+            txNombre.setText(jArray.getJSONObject(0).getString("NOMBRE"));
+            txCorreo.setText(jArray.getJSONObject(0).getString("MAIL"));
+            txSaldo.setText(jArray.getJSONObject(0).getString("SALDO")+" Coins");
+
+
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
+    }
+
+    @Override
+    public void onNavigationDrawerItemSelected(int position) {
+        // update the main content by replacing fragments
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        fragment = null;
+
+        switch (position){
+
+            case 0:
+
+                fragment = new UserInfo();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, UserInfo.newInstance(position + 1))
+                        .commit();
+
+                getSupportActionBar().setTitle("Mi cuenta");
+                getSupportActionBar().setSubtitle("Información");
+
+                break;
+
+            case 1:
+                fragment = new Compartir();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, Compartir.newInstance(position + 1))
+                        .commit();
+
+                getSupportActionBar().setTitle("Compartir");
+                getSupportActionBar().setSubtitle("Invita a un amigo");
+
+                break;
+            case 2:
+
+                fragment = new ListaApps();
+                 fragmentManager.beginTransaction()
+                        .replace(R.id.container, ListaApps.newInstance(position + 1))
+                        .commit();
+                getSupportActionBar().setTitle("Ofertas");
+                getSupportActionBar().setSubtitle("Lista de aplicaciones");
+
+                break;
+
+            case 3:
+                fragment = new Ranking();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, Ranking.newInstance(position+1))
+                        .commit();
+                getSupportActionBar().setTitle("Ranking");
+                getSupportActionBar().setSubtitle("Los más instalados");
+                break;
+
+            case 4:
+                fragment = new Beneficios();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, Beneficios.newInstance(position + 1))
+                        .commit();
+                getSupportActionBar().setTitle("Cobro");
+                getSupportActionBar().setSubtitle("Obtén tus beneficios");
+                break;
+            default:
+                Toast.makeText(this.getApplicationContext(), "Opcion no disponible", Toast.LENGTH_LONG);
+                fragment = new Compartir();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, Compartir.newInstance(position + 1))
+                        .commit();
+                break;
+        }
+
+    }
+
+    public void onSectionAttached(int number) {
+        switch (number) {
+            case 1:
+                mTitle = getString(R.string.titulo_lista_apps);
+                break;
+            case 2:
+                mTitle = getString(R.string.titulo_compartir);
+                break;
+            case 3:
+                mTitle = getString(R.string.titulo_cobros);
+                break;
+        }
+    }
+
+    public void restoreActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setNavigationMode(ActionBar.DISPLAY_USE_LOGO);
+        actionBar.setDisplayUseLogoEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        //actionBar.setTitle(mTitle);
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+
+
+        getMenuInflater().inflate(R.menu.main, menu);
+        MenuItem shareOpt = menu.findItem(R.id.action_settings);
+        ShareActionProvider myShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(shareOpt);
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType("text/plain");
+        i.putExtra(Intent.EXTRA_TEXT, "Únete a CashMyApps " + "http://oi58.tinypic.com/24wgivr.jpg");
+        myShareActionProvider.setShareIntent(i);
+
+        return true;
+    }
+
+
+
+    @Override
+    public void onBackPressed() {
+
+        LayoutInflater factory = LayoutInflater.from(this);
+        final View view = factory.inflate(R.layout.alerta_icono,null);
+        AlertDialog.Builder alerta = new AlertDialog.Builder(this);
+        alerta.setView(view);
+
+
+        alerta.setTitle("Salir");
+        alerta.setMessage("¿Seguro que quieres salir de la aplicación?");
+
+        alerta.setPositiveButton("Sí",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                android.os.Process.killProcess(android.os.Process.myPid());
+            }
+        });
+
+        alerta.setNegativeButton("No",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                return;
+            }
+        });
+
+        alerta.show();
+
+
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * A placeholder fragment containing a simple view.
+     */
+    public static class PlaceholderFragment extends Fragment {
+        /**
+         * The fragment argument representing the section number for this
+         * fragment.
+         */
+        private static final String ARG_SECTION_NUMBER = "section_number";
+
+        /**
+         * Returns a new instance of this fragment for the given section
+         * number.
+         */
+        public static PlaceholderFragment newInstance(int sectionNumber) {
+            PlaceholderFragment fragment = new PlaceholderFragment();
+            Bundle args = new Bundle();
+            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        public PlaceholderFragment() {
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+             
+            return rootView;
+        }
+
+        @Override
+        public void onAttach(Activity activity) {
+            super.onAttach(activity);
+            ((MainActivity) activity).onSectionAttached(
+                    getArguments().getInt(ARG_SECTION_NUMBER));
+        }
+    }
+
+}
