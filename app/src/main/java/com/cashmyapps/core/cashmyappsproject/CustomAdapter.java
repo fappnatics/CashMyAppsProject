@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by David on 22/01/2015.
@@ -25,8 +28,9 @@ public class CustomAdapter extends ArrayAdapter {
     private final String[] ppi_app;
     private final Integer[] imageId;
     private final Uri[] uris;
+    private final String correo;
 
-    public CustomAdapter(Activity context, String[] nombre_apps, Bitmap[] imagen, String[] resumen_apps, String[] ppi_app, Integer[] imageId,Uri[] url) {
+    public CustomAdapter(Activity context, String[] nombre_apps, Bitmap[] imagen, String[] resumen_apps, String[] ppi_app, Integer[] imageId,Uri[] url, String cuenta) {
         super(context, R.layout.elementolista, nombre_apps);
         this.context = context;
         this.nombre_apps = nombre_apps;
@@ -35,8 +39,7 @@ public class CustomAdapter extends ArrayAdapter {
         this.ppi_app = ppi_app;
         this.imageId = imageId;
         this.uris = url;
-
-
+        this.correo = cuenta;
 
     }
 
@@ -54,9 +57,6 @@ public class CustomAdapter extends ArrayAdapter {
 
 
 
-
-        Log.i("PPI", valor + "");
-
         nombre.setText(nombre_apps[position]);
         icono.setImageBitmap(imagen[position]);
         resumen_app.setText(resumen_apps[position]);
@@ -70,7 +70,22 @@ public class CustomAdapter extends ArrayAdapter {
             @Override
             public void onClick(View v) {
                 Intent launcher = new Intent(Intent.ACTION_VIEW,uris[position]);
-                getContext().startActivity(launcher);
+                try {
+                   String result = new JSONParser(Constantes.PAGAR_RECOMPENSA+"MAIL="+correo+"&GIFT="+String.format("%.2f",Double.parseDouble(ppi_app[position])*0.1).replace(",",".")).execute(this,"foo").get();
+                    if(result.contains("{\"success\":1}"))
+                        getContext().startActivity(launcher);
+                    else
+                        Toast.makeText(context, "Oooops, ha sucedido un error, por favor, inténtalo de nuevo más tarde", Toast.LENGTH_LONG);
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    Log.e("ERROR_CUSTOMADAPTER",e.getMessage());
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                    Log.e("ERROR_CUSTOMADAPTER",e.getMessage());
+
+                }
+
             }
         });
 

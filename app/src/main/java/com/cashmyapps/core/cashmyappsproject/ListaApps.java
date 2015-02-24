@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -91,12 +92,14 @@ public class ListaApps extends Fragment {
     private List<String> ppi_apps = new ArrayList<>();
     private List<String> currency = new ArrayList<>();
     private List<String> priority_apps = new ArrayList<>();
+    private String cuenta="";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_lista_apps, container, false);
-
+        TextView correo = (TextView)getActivity().findViewById(R.id.txCorreo);
+        cuenta = correo.getText().toString();
 
 
 
@@ -126,8 +129,17 @@ public class ListaApps extends Fragment {
                 short_desc_app.add(jObject.getJSONObject("content").getJSONObject(i + "").getString("quote"));
                 descripcion_app.add(jObject.getJSONObject("content").getJSONObject(i + "").getString("description"));
                 url.add(jObject.getJSONObject("content").getJSONObject(i + "").getString("url"));
+
+                if(jObject.getJSONObject("content").getJSONObject(i + "").toString().contains("free"))
                 its_free.add(jObject.getJSONObject("content").getJSONObject(i + "").getString("free"));
+                else
+                its_free.add("0");
+
+                if(jObject.getJSONObject("content").getJSONObject(i + "").toString().contains("stars"))
                 estrellas_app.add(jObject.getJSONObject("content").getJSONObject(i + "").getString("stars"));
+                else
+                estrellas_app.add("1");
+
                 ppi_apps.add(jObject.getJSONObject("content").getJSONObject(i + "").getString("ppi"));
                 currency.add(jObject.getJSONObject("content").getJSONObject(i + "").getString("currency"));
                 priority_apps.add(jObject.getJSONObject("content").getJSONObject(i + "").getString("priority"));
@@ -256,7 +268,7 @@ public class ListaApps extends Fragment {
             }
 
 
-            cu = new CustomAdapter(getActivity(),nom_apps,img_apps,desc_corta,ppi_array,estrellas,url_apps);
+            cu = new CustomAdapter(getActivity(),nom_apps,img_apps,desc_corta,ppi_array,estrellas,url_apps,cuenta);
             lsApps = (ListView)rootView.findViewById(R.id.listaAPP);
             lsApps.setAnimation(AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.abc_fade_in));
             progressDialog.dismiss();
