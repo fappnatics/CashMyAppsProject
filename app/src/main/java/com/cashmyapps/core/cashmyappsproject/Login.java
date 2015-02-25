@@ -5,6 +5,10 @@ import android.accounts.AccountManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -17,7 +21,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -25,15 +28,18 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
+import java.util.Locale;
 import java.util.regex.Pattern;
+import java.util.concurrent.ExecutionException;
+
 
 
 public class Login extends ActionBarActivity {
@@ -56,6 +62,7 @@ public class Login extends ActionBarActivity {
     private Context context;
     private String consulta;
     ProgressDialog progressDialog;
+    private String pais;
 
 
     @Override
@@ -92,6 +99,10 @@ public class Login extends ActionBarActivity {
                 }
             }
 
+           /*JSONObject jObject = new JSONObject(resultado);
+            String estado_cuenta = jObject.getJSONObject("usuarios").getString("ESTADO_CUENTA");*/
+
+
             titulo = (TextView) findViewById(R.id.txTituloSelec);
             titulo.setText("Selecciona una cuenta de acceso.");
 
@@ -119,8 +130,8 @@ public class Login extends ActionBarActivity {
 
             if (num_cuentas == 1) {
                 Intent i = new Intent(Login.this, MainActivity.class);
-                Log.i("CUENTA",cuentas.get(0));
-                i.putExtra("cuenta",multicuenta.get(0));
+                Log.i("CUENTA", cuentas.get(0));
+                i.putExtra("cuenta", multicuenta.get(0));
                 startActivity(i);
                 finish();
             }
@@ -141,15 +152,17 @@ public class Login extends ActionBarActivity {
                 public void onClick(View v) {
 
                     if (num_cuentas == 0) {
-                        Date d = new Date();
-                        cuenta = spinner.getSelectedItem().toString();
-                        nombre = etNombre.getText().toString();
-                        fecha_alta = new SimpleDateFormat("yyyy-MM-dd").format(d);
-                        Log.i("FECHA: ", fecha_alta);
-                        consulta = Constantes.ALTA_USUARIO + "ID_USUARIO=ESX&NOMBRE=" + nombre + "&MAIL=" + cuenta + "&SALDO=0&FECHA_ALTA=" + fecha_alta;
-                        AltaUser au = new AltaUser(consulta);
-                        au.execute(this,"foo");
 
+
+                        Date d = new Date();
+                        pais = Locale.getDefault().getCountry();
+                        cuenta = spinner.getSelectedItem().toString();
+                        nombre = etNombre.getText().toString().replace(" ", "%20");
+                        fecha_alta = new SimpleDateFormat("dd-MM-yyyy").format(d);
+                        Log.i("FECHA: ", fecha_alta);
+                        consulta = Constantes.ALTA_USUARIO + "NOMBRE=" + nombre + "&MAIL=" + cuenta + "&SALDO=0&FECHA_ALTA=" + fecha_alta + "&PAIS="+pais + "&ESTADO_CUENTA=A";
+                        AltaUser au = new AltaUser(consulta);
+                        au.execute(this, "foo");
 
 
                     }
@@ -191,15 +204,16 @@ public class Login extends ActionBarActivity {
 
         private String url_select;
 
-        public AltaUser(String url){
-            this.url_select= url;
+        public AltaUser(String url) {
+            this.url_select = url;
 
         }
 
-      @Override
-    protected void onPreExecute() {
+        @Override
+        protected void onPreExecute() {
 
-    }
+
+        }
 
         @Override
         protected String doInBackground(Object... params) {
@@ -216,6 +230,7 @@ public class Login extends ActionBarActivity {
                 result = EntityUtils.toString(httpResponse.getEntity(), "UTF-8");
 
 
+
             } catch (Exception e) {
                 Log.e("Error  result ", e.getMessage());
             }
@@ -223,22 +238,19 @@ public class Login extends ActionBarActivity {
         }
 
         @Override
-        protected void onPostExecute(String  v){
+        protected void onPostExecute(String v) {
 
-            if(v.contains("{\"success\":1}")){
+            if (v.contains("{\"success\":1}")) {
 
                 Intent i = new Intent(Login.this, MainActivity.class);
                 i.putExtra("cuenta", spinner.getSelectedItem().toString());
                 startActivity(i);
                 System.exit(0);
 
-            }
-            else
-            {
-                Log.i("ERROR PARSER","!!");
+            } else {
+                Log.i("ERROR PARSER", "!!");
                 return;
             }
-
 
 
         }
