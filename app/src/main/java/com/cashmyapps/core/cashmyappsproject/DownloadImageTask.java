@@ -1,14 +1,13 @@
 package com.cashmyapps.core.cashmyappsproject;
 
-import android.app.Activity;
-import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.util.Log;
+import android.util.LruCache;
+
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +19,7 @@ public class DownloadImageTask extends AsyncTask<List<String>, Void, List<Bitmap
 
     private ProgressDialog progressDialog;
     private Context context;
+    private LruCache<String, Bitmap> mMemoryCache;
 
     public DownloadImageTask(Context context) {
         this.context = context;
