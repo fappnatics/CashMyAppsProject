@@ -13,6 +13,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -69,8 +73,26 @@ public class CustomAdapter extends ArrayAdapter {
             @Override
             public void onClick(View v) {
                 Intent launcher = new Intent(Intent.ACTION_VIEW,uris[position]);
+                String pais = Locale.getDefault().getCountry();
+                Date d = new Date();
+                String fecha_alta = new SimpleDateFormat("dd-MM-yyyy").format(d);
+                String consulta= (Constantes.PAGAR_RECOMPENSA+"MAIL="+correo+"&GIFT="+String.format("%.2f",Double.parseDouble(ppi_app[position])*0.1).replace(",",".")
+
+                        +"&CUENTA="+correo+"&APP_INSTALADA="+nombre_apps[position]+"&PAIS="+pais+"&LINK_PLAYSTORE=NO LINK"+"&LINK_REFERIDO="+uris[position].toString().replace("http://","") +"&FECHA_INSTALACION="+fecha_alta).replace(" ","%20");
                 try {
-                   String result = new JSONParser(Constantes.PAGAR_RECOMPENSA+"MAIL="+correo+"&GIFT="+String.format("%.2f",Double.parseDouble(ppi_app[position])*0.1).replace(",",".")).execute(this,"foo").get();
+                   String result = new JSONParser(consulta).execute(this,"foo").get();
+
+                    //TODO Hacer INSERT en la tabla log de instalaciones del usuario.
+                    //TODO implementar el postback para no pagar inmediatamente las recompensas.
+                    /*
+                    *  `TAB_LOG_INSTALACIONES`
+                    *  (`MAIL`,
+                    *  `APP_INSTALADA`,
+                    *  `PAIS`,
+                    *  `LINK_PLAYSTORE`,
+                    *  `LINK_REFERIDO`,
+                    *  `FECHA_INSTALACION`)*/
+
                     if(result.contains("{\"success\":1}"))
                         getContext().startActivity(launcher);
                     else

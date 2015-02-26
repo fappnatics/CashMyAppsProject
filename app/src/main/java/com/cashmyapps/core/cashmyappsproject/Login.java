@@ -2,18 +2,17 @@ package com.cashmyapps.core.cashmyappsproject;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -28,17 +27,17 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 import java.util.regex.Pattern;
-import java.util.concurrent.ExecutionException;
 
 
 
@@ -63,6 +62,7 @@ public class Login extends ActionBarActivity {
     private String consulta;
     ProgressDialog progressDialog;
     private String pais;
+    private String cod_refer;
 
 
     @Override
@@ -99,8 +99,7 @@ public class Login extends ActionBarActivity {
                 }
             }
 
-           /*JSONObject jObject = new JSONObject(resultado);
-            String estado_cuenta = jObject.getJSONObject("usuarios").getString("ESTADO_CUENTA");*/
+
 
 
             titulo = (TextView) findViewById(R.id.txTituloSelec);
@@ -129,11 +128,42 @@ public class Login extends ActionBarActivity {
             }
 
             if (num_cuentas == 1) {
-                Intent i = new Intent(Login.this, MainActivity.class);
-                Log.i("CUENTA", cuentas.get(0));
-                i.putExtra("cuenta", multicuenta.get(0));
-                startActivity(i);
-                finish();
+
+                JSONArray jArray = new JSONObject(resultado).getJSONArray("usuarios");
+                JSONObject jObject = (JSONObject) jArray.get(0);
+                String estado_cuenta = jObject.getString("ESTADO_CUENTA");
+
+                if(estado_cuenta.equals("B")){
+
+                    LayoutInflater factory = LayoutInflater.from(this);
+                    final View view = factory.inflate(R.layout.alerta_icono,null);
+                    AlertDialog.Builder alerta = new AlertDialog.Builder(this);
+                    alerta.setView(view);
+
+
+                    alerta.setTitle("Atención");
+                    alerta.setMessage("La cuenta está bloqueada, por favor, póngase en contacto con nuestro soporte en soportecashmyapps@gmail.com");
+
+                    alerta.setPositiveButton("Aceptar",new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    });
+
+                    alerta.show();
+
+                }
+
+               if(estado_cuenta.equals("A"))
+               {
+                    Intent i = new Intent(Login.this, MainActivity.class);
+                    Log.i("CUENTA", cuentas.get(0));
+                    i.putExtra("cuenta", multicuenta.get(0));
+                    startActivity(i);
+                    finish();
+               }
+
             }
 
             if (num_cuentas > 1) {
@@ -160,7 +190,9 @@ public class Login extends ActionBarActivity {
                         nombre = etNombre.getText().toString().replace(" ", "%20");
                         fecha_alta = new SimpleDateFormat("dd-MM-yyyy").format(d);
                         Log.i("FECHA: ", fecha_alta);
-                        consulta = Constantes.ALTA_USUARIO + "NOMBRE=" + nombre + "&MAIL=" + cuenta + "&SALDO=0&FECHA_ALTA=" + fecha_alta + "&PAIS="+pais + "&ESTADO_CUENTA=A";
+                        cod_refer = generarReferido();
+                        //TODO Hay que consultar la base de datos para evitar códigos duplicados.
+                        consulta = Constantes.ALTA_USUARIO + "NOMBRE=" + nombre + "&MAIL=" + cuenta + "&SALDO=0&FECHA_ALTA=" + fecha_alta + "&PAIS="+pais + "&ESTADO_CUENTA=A"+"&COD_REFER="+cod_refer;
                         AltaUser au = new AltaUser(consulta);
                         au.execute(this, "foo");
 
@@ -258,4 +290,19 @@ public class Login extends ActionBarActivity {
 
     }
 
-}
+
+    private String generarReferido(){
+
+
+        char[] chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray();
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < 8; i++) {
+            char c = chars[random.nextInt(chars.length)];
+            sb.append(c);
+        }
+        String output = sb.toString();
+
+        return output;
+    }
+ }

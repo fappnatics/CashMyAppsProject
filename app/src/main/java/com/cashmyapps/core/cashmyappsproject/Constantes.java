@@ -11,7 +11,7 @@ import java.util.Date;
 @SuppressWarnings("unused")
 public final class Constantes {
 
-   public static final String URL_GEENAPP ="http://offer.geenapptool.com/162/?device=android&country=ES&lang=ES";
+   public static final String URL_GEENAPP ="http://offer.geenapptool.com/162/?device=android&country=US&lang=ES";
    public static  final String URL_GET_BBDD_JSON="http://www.cashmyapps.net/get_datos_usuario.php";
    public static  final String ALTA_USUARIO="http://www.cashmyapps.net/set_nuevo_usuario.php/?";
    public static final String PAGAR_RECOMPENSA="http://www.cashmyapps.net/set_usuario_pagar_recompensa.php?";
