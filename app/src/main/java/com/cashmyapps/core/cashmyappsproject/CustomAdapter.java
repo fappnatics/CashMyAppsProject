@@ -80,18 +80,13 @@ public class CustomAdapter extends ArrayAdapter {
 
                         +"&CUENTA="+correo+"&APP_INSTALADA="+nombre_apps[position]+"&PAIS="+pais+"&LINK_PLAYSTORE=NO LINK"+"&LINK_REFERIDO="+uris[position].toString().replace("http://","") +"&FECHA_INSTALACION="+fecha_alta).replace(" ","%20");
                 try {
+
+
                    String result = new JSONParser(consulta).execute(this,"foo").get();
 
-                    //TODO Hacer INSERT en la tabla log de instalaciones del usuario.
+                    //TODO recuperar lista de instalaciones para impedir que instala una app 2 veces.
                     //TODO implementar el postback para no pagar inmediatamente las recompensas.
-                    /*
-                    *  `TAB_LOG_INSTALACIONES`
-                    *  (`MAIL`,
-                    *  `APP_INSTALADA`,
-                    *  `PAIS`,
-                    *  `LINK_PLAYSTORE`,
-                    *  `LINK_REFERIDO`,
-                    *  `FECHA_INSTALACION`)*/
+
 
                     if(result.contains("{\"success\":1}"))
                         getContext().startActivity(launcher);

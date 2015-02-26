@@ -1,8 +1,26 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.cashmyapps.core.cashmyappsproject.Compartir"
-    android:background="#26A69A">
+    android:orientation="vertical"
+    android:background="@layout/fondo_login"
+    android:rowCount="3"
+    android:columnCount="3">
+
+    <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:textAppearance="?android:attr/textAppearanceMedium"
+    android:text="Comparte CashMyApps"
+    android:layout_marginTop="25dp"
+    android:textColor="#ffffff"
+    android:id="@+id/txTitulo"
+    android:textSize="30dp"
+    android:textStyle="bold"
+    android:layout_marginBottom="20dp"
+    android:layout_row="0"
+    android:layout_column="1" />
 
 
     <ImageView
@@ -10,5 +28,29 @@
         android:layout_height="wrap_content"
         android:id="@+id/imageView3"
         android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="30dp"
         android:src="@drawable/shareicon2"/>
-</FrameLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@layout/caja_texto"
+        android:layout_marginBottom="10dp"
+        android:textAlignment="center"
+        android:id="@+id/txReferido"
+        android:textSize="50dp"
+        android:text="XBU4FN54"
+        android:layout_gravity="center_horizontal|bottom" />
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="  Compartir  "
+        android:id="@+id/btCompatir"
+        android:background="@drawable/custom_btn_orange"
+        android:layout_gravity="center_horizontal" />
+
+</LinearLayout>

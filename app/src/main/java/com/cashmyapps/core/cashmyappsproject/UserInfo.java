@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +46,10 @@ public class UserInfo extends Fragment {
     private Account[] accounts;
     private Bundle extras;
     private Boolean success = false;
+    private TextView txNombre;
+    private TextView txMail ;
+    private TextView txCod_refer;
+    private Button btAceptar ;
 
 
 
@@ -75,12 +80,6 @@ public class UserInfo extends Fragment {
 
         }
 
-        TextView txNombre = (TextView)rootView.findViewById(R.id.txUENombre);
-        TextView txMail = (TextView)rootView.findViewById(R.id.txUEcorreo);
-        TextView txCod_refer = (TextView)rootView.findViewById(R.id.txUERefer);
-        Button btAceptar = (Button)rootView.findViewById(R.id.btUEAceptar);
-
-
         try {
 
             for(int s=0;s<cuentas.size();s++)
@@ -99,10 +98,9 @@ public class UserInfo extends Fragment {
             jArray = jObject.getJSONArray("usuarios");
             nombre = jArray.getJSONObject(0).getString("NOMBRE");
             mail = jArray.getJSONObject(0).getString("MAIL");
+            refer = jArray.getJSONObject(0).getString("COD_REFER");
 
-            txNombre.setText(nombre);
-            txMail.setText(mail);
-            txCod_refer.setText(refer);
+
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -115,6 +113,26 @@ public class UserInfo extends Fragment {
 
 
         return lf.inflate(R.layout.fragment_user_info, container, false);
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        txNombre = (TextView)getActivity().findViewById(R.id.txUENombre);
+        txMail = (TextView)getActivity().findViewById(R.id.txUEcorreo);
+        txCod_refer = (TextView)getActivity().findViewById(R.id.txUERefer);
+        btAceptar = (Button)getActivity().findViewById(R.id.btUEAceptar);
+
+        txNombre.setGravity(Gravity.CENTER);
+        txMail.setGravity(Gravity.CENTER);
+        txCod_refer.setGravity(Gravity.CENTER);
+
+        txNombre.setText(nombre);
+        txMail.setText(mail);
+        txCod_refer.setText(refer);
+
+
     }
 
     public static UserInfo newInstance(int sectionnumber){
