@@ -74,7 +74,12 @@ public class CustomAdapter extends ArrayAdapter {
         nombre.setText(nombre_apps[position]);
         icono.setImageBitmap(imagen[position]);
         resumen_app.setText(resumen_apps[position]);
-        ppi.setText("PPI: "+ String.format("%.2f",Double.parseDouble(ppi_app[position])*0.1)+"$");
+
+        if(String.format("%.2f",Double.parseDouble(ppi_app[position])*0.1).equals("0,00"))
+            ppi.setText("PPI: 0,01$");
+        else
+            ppi.setText("PPI: "+ String.format("%.2f",Double.parseDouble(ppi_app[position])*0.1)+"$");
+
         imgEstrellas.setImageResource(imageId[position]);
         botones.setMovementMethod(LinkMovementMethod.getInstance());
         botones.setText("Instalar");
