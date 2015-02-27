@@ -287,8 +287,8 @@ public class ListaApps extends Fragment {
         private String guardarImagen (Context context, String nombre, Bitmap imagen){
 
 
-            ContextWrapper cw = new ContextWrapper(context);
-            File dirImages = cw.getDir("imagenes", Context.MODE_PRIVATE);
+
+            File dirImages = context.getDir("imagenes", Context.MODE_PRIVATE);
             File myPath = new File(dirImages, nombre + ".png");
 
             FileOutputStream fos = null;
