@@ -1,6 +1,8 @@
 package com.cashmyapps.core.cashmyappsproject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -14,8 +16,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
@@ -32,6 +40,8 @@ public class CustomAdapter extends ArrayAdapter {
     private final Integer[] imageId;
     private final Uri[] uris;
     private final String correo;
+    private String result="";
+    private List<String> lista_apps;
 
     public CustomAdapter(Activity context, String[] nombre_apps, Bitmap[] imagen, String[] resumen_apps, String[] ppi_app, Integer[] imageId,Uri[] url, String cuenta) {
         super(context, R.layout.elementolista, nombre_apps);
@@ -47,7 +57,7 @@ public class CustomAdapter extends ArrayAdapter {
     }
 
     @Override
-    public View getView(final int position, View view, ViewGroup parent) {
+    public View getView(final int position, View view, final ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
         View rowView= inflater.inflate(R.layout.elementolista, null, true);
         TextView nombre = (TextView)rowView.findViewById(R.id.txTitulo);
@@ -57,6 +67,7 @@ public class CustomAdapter extends ArrayAdapter {
         ImageView imgEstrellas = (ImageView)rowView.findViewById(R.id.imgEstrellas);
         TextView botones = (TextView)rowView.findViewById(R.id.btInstalar);
         Double valor = Double.parseDouble(ppi_app[position]);
+
 
 
 
@@ -82,7 +93,43 @@ public class CustomAdapter extends ArrayAdapter {
                 try {
 
 
-                   String result = new JSONParser(consulta).execute(this,"foo").get();
+
+                   String control = new JSONParser(Constantes.CONTROL_INSTALACIONES+"&MAIL="+correo).execute(this,"foo").get();
+
+                    JSONArray jsonArray = new JSONObject(control).getJSONArray("instalaciones");
+                    lista_apps = new ArrayList<String>();
+
+                    for(int i=0;i<jsonArray.length();i++)
+                    {
+                        lista_apps.add(jsonArray.getJSONObject(i).getString("LINK_REFERIDO"));
+                    }
+
+                    if( lista_apps.contains(uris[position].toString().replace("http://","")))
+                    {
+
+                        AlertDialog.Builder alerta = new AlertDialog.Builder(context);
+
+                        alerta.setTitle("Atención");
+                        alerta.setMessage("Esta aplicación ya ha sido instalada");
+
+                        alerta.setNegativeButton("Aceptar",new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                return;
+                            }
+                        });
+
+                        alerta.show();
+                        return;
+                    }
+                    else
+                    {
+                        result = new JSONParser(consulta).execute(this,"foo").get();
+                    }
+
+
+
+
 
                     //TODO recuperar lista de instalaciones para impedir que instala una app 2 veces.
                     //TODO implementar el postback para no pagar inmediatamente las recompensas.
@@ -100,6 +147,8 @@ public class CustomAdapter extends ArrayAdapter {
                     e.printStackTrace();
                     Log.e("ERROR_CUSTOMADAPTER",e.getMessage());
 
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
 
             }

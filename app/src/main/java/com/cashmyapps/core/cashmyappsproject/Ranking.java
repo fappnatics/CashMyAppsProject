@@ -30,6 +30,14 @@ public class Ranking extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        
+    }
+
+
+
+    @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 

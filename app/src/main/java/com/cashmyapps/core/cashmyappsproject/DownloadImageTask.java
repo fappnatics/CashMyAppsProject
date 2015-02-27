@@ -2,12 +2,17 @@ package com.cashmyapps.core.cashmyappsproject;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.LruCache;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +52,7 @@ public class DownloadImageTask extends AsyncTask<List<String>, Void, List<Bitmap
                 InputStream in = new java.net.URL(urldisplay.get(i)).openStream();
                 imagenes.add(BitmapFactory.decodeStream(in));
 
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -62,4 +68,6 @@ public class DownloadImageTask extends AsyncTask<List<String>, Void, List<Bitmap
       progressDialog.dismiss();
 
     }
+
+
 }
