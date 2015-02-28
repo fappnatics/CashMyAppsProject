@@ -12,7 +12,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:textAppearance="?android:attr/textAppearanceMedium"
-    android:text="Comparte CashMyApps"
+    android:text="@string/cabecera_compartir"
     android:layout_marginTop="25dp"
     android:textColor="#ffffff"
     android:id="@+id/txTitulo"
@@ -48,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="  Compartir  "
+        android:text="@string/boton_compartir"
         android:id="@+id/btCompatir"
         android:background="@drawable/custom_btn_orange"
         android:layout_gravity="center_horizontal" />

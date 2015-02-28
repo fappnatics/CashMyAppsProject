@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">CashMyApps</string>
+
+    <!--ActionBar -->
+    <string name="titulo_user_info">Mein Profil</string>
+    <string name="subtitulo_user_info">Information</string>
+
+    <string name="titulo_lista_apps">Angebote</string>
+    <string name="subtitulo_lista_apps">Anwendungsliste</string>
+
+    <string name="titulo_compartir">Aktie</string>
+    <string name="subtitulo_compartir">Freund einladen</string>
+
+    <string name="titulo_ranking">Klassifikation</string>
+    <string name="subtitulo_ranking">Los más instalados</string>
+
+    <string name="titulo_cobros">Cobro</string>
+    <string name="subtitulo_cobros">Die meisten installiert</string>
+
+    <!--Botones -->
+    <string name="boton_instalar">Installieren</string>
+    <string name="boton_aceptar">Nimm An</string>
+    <string name="boton_compartir">Aktie</string>
+
+    <!--Diálogos -->
+    <string name="dialogo_carga_apps">Loading Liste der Angebote...</string>
+
+    <!--Contenido de los fragments -->
+    <string name="cabecera_user_info">Kontoinformationen</string>
+    <string name="cabecera_compartir">Aktie CashMyApps</string>
+
+
+    <!-- Lista de elementos e navegación -->
+    <string-array name="nav_options">
+        <item>Teilt es</item>
+        <item>Blättern</item>
+        <item>Klassifikation</item>
+        <item>Holen Meine Vorteile</item>
+    </string-array>
+    <!-- Iconos de navegación -->
+    <array name="navigation_iconos">
+        <item>@drawable/share48</item>
+        <item>@drawable/lista32</item>
+        <item>@drawable/podium64</item>
+        <item>@drawable/billetes64</item>
+    </array>
+
+    <string name="title_activity_login">Login</string>
+    <string name="action_settings">Settings</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+</resources>

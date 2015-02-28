@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Información de la cuenta"
+        android:text="@string/cabecera_user_info"
         android:layout_marginTop="25dp"
         android:textColor="#ffffff"
         android:id="@+id/txTitulo"
@@ -67,7 +67,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="  Aceptar  "
+        android:text="@string/boton_aceptar"
         android:id="@+id/btUEAceptar"
         android:background="@drawable/custom_btn_orange"
         android:layout_gravity="center_horizontal" />

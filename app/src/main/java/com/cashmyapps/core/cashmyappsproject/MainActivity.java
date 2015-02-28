@@ -155,8 +155,8 @@ public class MainActivity extends ActionBarActivity
                         .replace(R.id.container, UserInfo.newInstance(position + 1))
                         .commit();
 
-                getSupportActionBar().setTitle("Mi cuenta");
-                getSupportActionBar().setSubtitle("Información");
+                getSupportActionBar().setTitle(getResources().getString(R.string.titulo_user_info));
+                getSupportActionBar().setSubtitle(getResources().getString(R.string.subtitulo_cobros));
 
                 break;
 
@@ -166,8 +166,8 @@ public class MainActivity extends ActionBarActivity
                         .replace(R.id.container, Compartir.newInstance(position + 1))
                         .commit();
 
-                getSupportActionBar().setTitle("Compartir");
-                getSupportActionBar().setSubtitle("Invita a un amigo");
+                getSupportActionBar().setTitle(getResources().getString(R.string.titulo_compartir));
+                getSupportActionBar().setSubtitle(getResources().getString(R.string.subtitulo_compartir));
 
                 break;
             case 2:
@@ -176,8 +176,8 @@ public class MainActivity extends ActionBarActivity
                  fragmentManager.beginTransaction()
                         .replace(R.id.container, ListaApps.newInstance(position + 1))
                         .commit();
-                getSupportActionBar().setTitle("Ofertas");
-                getSupportActionBar().setSubtitle("Lista de aplicaciones");
+                getSupportActionBar().setTitle(getResources().getString(R.string.titulo_lista_apps));
+                getSupportActionBar().setSubtitle(getResources().getString(R.string.subtitulo_compartir));
 
                 break;
 
@@ -186,8 +186,8 @@ public class MainActivity extends ActionBarActivity
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, Ranking.newInstance(position+1))
                         .commit();
-                getSupportActionBar().setTitle("Ranking");
-                getSupportActionBar().setSubtitle("Los más instalados");
+                getSupportActionBar().setTitle(getResources().getString(R.string.titulo_ranking));
+                getSupportActionBar().setSubtitle(getResources().getString(R.string.subtitulo_ranking));
                 break;
 
             case 4:
@@ -195,8 +195,8 @@ public class MainActivity extends ActionBarActivity
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, Beneficios.newInstance(position + 1))
                         .commit();
-                getSupportActionBar().setTitle("Cobro");
-                getSupportActionBar().setSubtitle("Obtén tus beneficios");
+                getSupportActionBar().setTitle(getResources().getString(R.string.titulo_cobros));
+                getSupportActionBar().setSubtitle(getResources().getString(R.string.subtitulo_cobros));
                 break;
             default:
                 Toast.makeText(this.getApplicationContext(), "Opcion no disponible", Toast.LENGTH_LONG);
