@@ -107,7 +107,7 @@ public class Login extends ActionBarActivity {
                     num_cuentas++;
                     multicuenta.add(cuentas.get(i));
                     jArray = new JSONObject(resultado).getJSONArray("usuarios");
-                    jObject = (JSONObject) jArray.get(i);
+                    jObject = (JSONObject) jArray.get(0);
                     usuario.setId_usuario(jObject.getString("ID_USUARIO"));
                     usuario.setNombre(jObject.getString("NOMBRE"));
                     usuario.setMail(jObject.getString("MAIL"));
