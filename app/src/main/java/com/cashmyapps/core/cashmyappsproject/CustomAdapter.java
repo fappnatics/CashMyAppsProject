@@ -101,31 +101,39 @@ public class CustomAdapter extends ArrayAdapter {
 
                    String control = new JSONParser(Constantes.CONTROL_INSTALACIONES+"&MAIL="+correo).execute(this,"foo").get();
 
-                    JSONArray jsonArray = new JSONObject(control).getJSONArray("instalaciones");
-                    lista_apps = new ArrayList<String>();
+                    //Si no existen instalaciones del usuario, directamente le permitimos instalar.
+                    if(!control.contains("No user apps")){
+                                JSONArray jsonArray = new JSONObject(control).getJSONArray("instalaciones");
+                                lista_apps = new ArrayList<String>();
 
-                    for(int i=0;i<jsonArray.length();i++)
-                    {
-                        lista_apps.add(jsonArray.getJSONObject(i).getString("LINK_REFERIDO"));
-                    }
+                                for(int i=0;i<jsonArray.length();i++)
+                                {
+                                    lista_apps.add(jsonArray.getJSONObject(i).getString("LINK_REFERIDO"));
+                                }
 
-                    if( lista_apps.contains(uris[position].toString().replace("http://","")))
-                    {
+                                if( lista_apps.contains(uris[position].toString().replace("http://","")))
+                                {
 
-                        AlertDialog.Builder alerta = new AlertDialog.Builder(context);
+                                    AlertDialog.Builder alerta = new AlertDialog.Builder(context);
 
-                        alerta.setTitle("Atención");
-                        alerta.setMessage("Esta aplicación ya ha sido instalada");
+                                    alerta.setTitle("Atención");
+                                    alerta.setMessage("Esta aplicación ya ha sido instalada");
 
-                        alerta.setNegativeButton("Aceptar",new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                return;
-                            }
-                        });
+                                    alerta.setNegativeButton("Aceptar",new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            return;
+                                        }
+                                    });
 
-                        alerta.show();
-                        return;
+                                    alerta.show();
+                                    return;
+                                }
+                                else
+                                {
+                                    result = new JSONParser(consulta).execute(this,"foo").get();
+                                }
+
                     }
                     else
                     {

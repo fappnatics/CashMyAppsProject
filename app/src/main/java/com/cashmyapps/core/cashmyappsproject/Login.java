@@ -52,6 +52,7 @@ public class Login extends ActionBarActivity {
     private EditText etAmigo;
     private EditText etNombre;
     private TextView titulo;
+    private String id_user;
     private ProgressDialog pd;
     private String cuenta;
     private String nombre;
@@ -63,6 +64,11 @@ public class Login extends ActionBarActivity {
     ProgressDialog progressDialog;
     private String pais;
     private String cod_refer;
+    private String estado_cuenta;
+    private List<DatosUsuario> list_usuarios;
+    private DatosUsuario usuario;
+    private JSONArray jArray;
+    private JSONObject jObject;
 
 
     @Override
@@ -90,12 +96,27 @@ public class Login extends ActionBarActivity {
             }
 
             multicuenta = new ArrayList<>();
+            list_usuarios = new ArrayList<>();
+
 
             for (int i = 0; i < cuentas.size(); i++) {
                 resultado = new JSONParser(Constantes.URL_GET_BBDD_JSON + "?mail=" + cuentas.get(i)).execute(this, "foo").get();
                 if (resultado.contains("1")) {
+
+                    usuario = new DatosUsuario();
                     num_cuentas++;
                     multicuenta.add(cuentas.get(i));
+                    jArray = new JSONObject(resultado).getJSONArray("usuarios");
+                    jObject = (JSONObject) jArray.get(i);
+                    usuario.setId_usuario(jObject.getString("ID_USUARIO"));
+                    usuario.setNombre(jObject.getString("NOMBRE"));
+                    usuario.setMail(jObject.getString("MAIL"));
+                    usuario.setSaldo(jObject.getString("SALDO"));
+                    usuario.setPais(jObject.getString("PAIS"));
+                    usuario.setEstado_cuenta(jObject.getString("ESTADO_CUENTA"));
+                    usuario.setCod_refer(jObject.getString("COD_REFER"));
+                    fecha_alta = jObject.getString("FECH_ALTA");
+                    list_usuarios.add(usuario);
                 }
             }
 
@@ -129,11 +150,9 @@ public class Login extends ActionBarActivity {
 
             if (num_cuentas == 1) {
 
-                JSONArray jArray = new JSONObject(resultado).getJSONArray("usuarios");
-                JSONObject jObject = (JSONObject) jArray.get(0);
-                String estado_cuenta = jObject.getString("ESTADO_CUENTA");
+                String usuario_activo = list_usuarios.get(0).getEstado_cuenta();
 
-                if(estado_cuenta.equals("B")){
+                if(usuario_activo.equals("B")){
 
                     LayoutInflater factory = LayoutInflater.from(this);
                     final View view = factory.inflate(R.layout.alerta_icono,null);
@@ -155,7 +174,7 @@ public class Login extends ActionBarActivity {
 
                 }
 
-               if(estado_cuenta.equals("A"))
+               if(usuario_activo.equals("A"))
                {
                     Intent i = new Intent(Login.this, MainActivity.class);
                     Log.i("CUENTA", cuentas.get(0));
