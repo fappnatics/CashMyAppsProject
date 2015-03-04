@@ -58,6 +58,7 @@ public class Login extends ActionBarActivity {
     private String nombre;
     private String saldo;
     private String fecha_alta;
+    private String conectado;
     private String cod_usuario;
     private Context context;
     private String consulta;
@@ -116,6 +117,9 @@ public class Login extends ActionBarActivity {
                     usuario.setEstado_cuenta(jObject.getString("ESTADO_CUENTA"));
                     usuario.setCod_refer(jObject.getString("COD_REFER"));
                     fecha_alta = jObject.getString("FECH_ALTA");
+                    conectado = jObject.getString("CONECTADO");
+
+
                     list_usuarios.add(usuario);
                 }
             }
@@ -177,6 +181,7 @@ public class Login extends ActionBarActivity {
                if(usuario_activo.equals("A"))
                {
                     Intent i = new Intent(Login.this, MainActivity.class);
+
                     Log.i("CUENTA", cuentas.get(0));
                     i.putExtra("cuenta", multicuenta.get(0));
                     startActivity(i);

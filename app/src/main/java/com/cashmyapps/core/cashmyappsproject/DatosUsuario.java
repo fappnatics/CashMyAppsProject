@@ -13,6 +13,11 @@ public class DatosUsuario {
     private String estado_cuenta;
     private String cod_refer;
     private String fecha_alta;
+    private String conectado;
+
+
+
+
 
 
 
@@ -55,6 +60,9 @@ public class DatosUsuario {
         return fecha_alta;
     }
 
+    public String getConectado() {return conectado;}
+
+
     public void setId_usuario(String id_usuario) {
         this.id_usuario = id_usuario;
     }
@@ -86,4 +94,7 @@ public class DatosUsuario {
     public void setFecha_alta(String fecha_alta) {
         this.fecha_alta = fecha_alta;
     }
+
+    public void setConectado(String conectado) {this.conectado = conectado;}
+
 }

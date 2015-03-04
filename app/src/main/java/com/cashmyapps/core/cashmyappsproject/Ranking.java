@@ -1,6 +1,7 @@
 package com.cashmyapps.core.cashmyappsproject;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 public class Ranking extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
+    private Context contexto;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -32,7 +34,7 @@ public class Ranking extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        
+        contexto = getActivity();
     }
 
 
