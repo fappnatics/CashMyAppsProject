@@ -17,7 +17,7 @@
     <string name="subtitulo_ranking">Los más instalados</string>
 
     <string name="titulo_cobros">Cobro</string>
-    <string name="subtitulo_cobros">Obtén tu celebración</string>
+    <string name="subtitulo_cobros">Obtén tu beneficio</string>
 
     <!--Botones -->
     <string name="boton_instalar">Instalar</string>
@@ -26,6 +26,15 @@
 
     <!--Diálogos -->
     <string name="dialogo_carga_apps">Cargando lista de ofertas...</string>
+    <string name="dialogo_carga_splash">Cargando aplicación...</string>
+    <string name="dialogo_titulo_salir">Salir</string>
+    <string name="dialogo_titulo_atencion">Atención</string>
+    <string name="dialogo_cuerpo_salir">¿Seguro que quieres salir de la aplicación?</string>
+    <string name="dialogo_cuerpo_atencion">La cuenta está bloqueada, por favor, póngase en contacto con nuestro soporte en soportecashmyapps@gmail.com</string>
+    <string name="dialogo_si">Si</string>
+    <string name="dialogo_no">No</string>
+    <string name="dialogo_aceptar">Aceptar</string>
+    <string name="dialogo_cancelar">Cancelar</string>
 
     <!--Contenido de los fragments -->
     <string name="cabecera_user_info">Información de la cuenta</string>

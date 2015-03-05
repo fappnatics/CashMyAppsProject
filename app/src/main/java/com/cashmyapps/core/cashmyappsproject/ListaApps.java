@@ -30,6 +30,7 @@ import java.io.InputStream;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
 
@@ -87,6 +88,7 @@ public class ListaApps extends Fragment {
     private Uri[]url_apps;
     private View rootView;
     private String result="";
+    private String codigoPais;
     private List<String> id_app = new ArrayList<>();
     private List<String> nombre_app = new ArrayList<>();
     private List<String> imagen_app = new ArrayList<>();
@@ -99,6 +101,7 @@ public class ListaApps extends Fragment {
     private List<String> currency = new ArrayList<>();
     private List<String> priority_apps = new ArrayList<>();
     private String cuenta="";
+    private String market;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -106,13 +109,16 @@ public class ListaApps extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_lista_apps, container, false);
         TextView correo = (TextView)getActivity().findViewById(R.id.txCorreo);
         cuenta = correo.getText().toString();
+        Bundle b = getActivity().getIntent().getExtras();
 
+        codigoPais = b.getString("pais");
+        market = Constantes.URL_GEENAPP.replace("[PAIS]",codigoPais).replace("[LANG]", Locale.getDefault().getLanguage());
 
 
         JSONObject jObject= new JSONObject();
 
         try {
-            result = new JSONParser(Constantes.URL_GEENAPP).execute(this,"foo").get();
+            result = new JSONParser(market).execute(this,"foo").get();
         } catch (InterruptedException e) {
             Log.e("LISTAAPPS",e.getMessage().toString());
         } catch (ExecutionException e) {

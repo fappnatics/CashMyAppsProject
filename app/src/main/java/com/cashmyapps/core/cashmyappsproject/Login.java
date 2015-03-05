@@ -7,6 +7,10 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -30,6 +34,7 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -78,6 +83,7 @@ public class Login extends ActionBarActivity {
 
         context = getApplicationContext();
 
+
         try {
             getSupportActionBar().hide();
             setContentView(R.layout.activity_login);
@@ -125,8 +131,6 @@ public class Login extends ActionBarActivity {
             }
 
 
-
-
             titulo = (TextView) findViewById(R.id.txTituloSelec);
             titulo.setText("Selecciona una cuenta de acceso.");
 
@@ -156,10 +160,10 @@ public class Login extends ActionBarActivity {
 
                 String usuario_activo = list_usuarios.get(0).getEstado_cuenta();
 
-                if(usuario_activo.equals("B")){
+                if (usuario_activo.equals("B")) {
 
                     LayoutInflater factory = LayoutInflater.from(this);
-                    final View view = factory.inflate(R.layout.alerta_icono,null);
+                    final View view = factory.inflate(R.layout.alerta_icono, null);
                     AlertDialog.Builder alerta = new AlertDialog.Builder(this);
                     alerta.setView(view);
 
@@ -167,7 +171,7 @@ public class Login extends ActionBarActivity {
                     alerta.setTitle("Atención");
                     alerta.setMessage("La cuenta está bloqueada, por favor, póngase en contacto con nuestro soporte en soportecashmyapps@gmail.com");
 
-                    alerta.setPositiveButton("Aceptar",new DialogInterface.OnClickListener() {
+                    alerta.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             finish();
@@ -178,15 +182,18 @@ public class Login extends ActionBarActivity {
 
                 }
 
-               if(usuario_activo.equals("A"))
-               {
+                if (usuario_activo.equals("A")) {
                     Intent i = new Intent(Login.this, MainActivity.class);
-
                     Log.i("CUENTA", cuentas.get(0));
                     i.putExtra("cuenta", multicuenta.get(0));
+                    pais = getLocalizacion().toUpperCase();
+                    i.putExtra("pais",pais);
+                    consulta = Constantes.CONEXION_USUARIO.replace("[MAIL]",multicuenta.get(0)).replace("[CONECTADO]","S");
+                    AltaUser u = new AltaUser(consulta);
+                    u.execute(this,"foo");
                     startActivity(i);
                     finish();
-               }
+                }
 
             }
 
@@ -209,14 +216,13 @@ public class Login extends ActionBarActivity {
 
 
                         Date d = new Date();
-                        pais = Locale.getDefault().getCountry();
                         cuenta = spinner.getSelectedItem().toString();
                         nombre = etNombre.getText().toString().replace(" ", "%20");
                         fecha_alta = new SimpleDateFormat("dd-MM-yyyy").format(d);
                         Log.i("FECHA: ", fecha_alta);
                         cod_refer = generarReferido();
                         //TODO Hay que consultar la base de datos para evitar códigos duplicados.
-                        consulta = Constantes.ALTA_USUARIO + "NOMBRE=" + nombre + "&MAIL=" + cuenta + "&SALDO=0&FECHA_ALTA=" + fecha_alta + "&PAIS="+pais + "&ESTADO_CUENTA=A"+"&COD_REFER="+cod_refer;
+                        consulta = Constantes.ALTA_USUARIO + "NOMBRE=" + nombre + "&MAIL=" + cuenta + "&SALDO=0&FECHA_ALTA=" + fecha_alta + "&PAIS=" + pais + "&ESTADO_CUENTA=A" + "&COD_REFER=" + cod_refer;
                         AltaUser au = new AltaUser(consulta);
                         au.execute(this, "foo");
 
@@ -286,7 +292,6 @@ public class Login extends ActionBarActivity {
                 result = EntityUtils.toString(httpResponse.getEntity(), "UTF-8");
 
 
-
             } catch (Exception e) {
                 Log.e("Error  result ", e.getMessage());
             }
@@ -299,7 +304,8 @@ public class Login extends ActionBarActivity {
             if (v.contains("{\"success\":1}")) {
 
                 Intent i = new Intent(Login.this, MainActivity.class);
-                i.putExtra("cuenta", spinner.getSelectedItem().toString());
+               // i.putExtra("cuenta", spinner.getSelectedItem().toString());
+                i.putExtra("cuenta", multicuenta.get(0).toString());
                 startActivity(i);
                 System.exit(0);
 
@@ -315,7 +321,7 @@ public class Login extends ActionBarActivity {
     }
 
 
-    private String generarReferido(){
+    private String generarReferido() {
 
 
         char[] chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray();
@@ -328,5 +334,28 @@ public class Login extends ActionBarActivity {
         String output = sb.toString();
 
         return output;
+    }
+
+    private String getLocalizacion() {
+        // Localización del usuario.
+        LocationManager localizacion = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        boolean activado_localizacion = localizacion.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        String codigoPais="";
+
+        if (activado_localizacion) {
+            Location net_loc = localizacion.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            Log.i("COORDENADAS", "Longitud: " + net_loc.getLongitude() + " Latitud: " + net_loc.getLatitude());
+            Geocoder geocoder = new Geocoder(this.getApplicationContext(), Locale.getDefault());
+
+            try {
+                List<Address> direccion = geocoder.getFromLocation(net_loc.getLatitude(), net_loc.getLongitude(), 1);
+                Address address = direccion.get(0);
+                codigoPais = address.getCountryCode();
+                Log.i("PAIS", address.getCountryName());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return codigoPais;
     }
  }

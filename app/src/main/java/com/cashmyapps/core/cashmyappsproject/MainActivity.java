@@ -1,10 +1,8 @@
 package com.cashmyapps.core.cashmyappsproject;
 
 import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,7 +19,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.ShareActionProvider;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,15 +29,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
-import java.util.regex.Pattern;
 
 
 public class MainActivity extends ActionBarActivity
@@ -59,6 +59,7 @@ public class MainActivity extends ActionBarActivity
     private String[] cuentas_array;
     private View header;
     private String cuenta;
+    private Intent i;
 
 
     /**
@@ -96,7 +97,7 @@ public class MainActivity extends ActionBarActivity
         getSupportActionBar().setHomeButtonEnabled(true);
 
         TextView txNombre = (TextView)findViewById(R.id.txNombre);
-        Intent i = getIntent();
+        i = getIntent();
 
 
         ImageView im = (ImageView)findViewById(R.id.backgrd);
@@ -156,7 +157,7 @@ public class MainActivity extends ActionBarActivity
                         .commit();
 
                 getSupportActionBar().setTitle(getResources().getString(R.string.titulo_user_info));
-                getSupportActionBar().setSubtitle(getResources().getString(R.string.subtitulo_cobros));
+                getSupportActionBar().setSubtitle(getResources().getString(R.string.subtitulo_user_info));
 
                 break;
 
@@ -173,6 +174,10 @@ public class MainActivity extends ActionBarActivity
             case 2:
 
                 fragment = new ListaApps();
+                Bundle args = new Bundle();
+                args.putString("pais",i.getExtras().getString("pais").toString());
+                fragment.setArguments(args);
+
                  fragmentManager.beginTransaction()
                         .replace(R.id.container, ListaApps.newInstance(position + 1))
                         .commit();
@@ -265,7 +270,8 @@ public class MainActivity extends ActionBarActivity
         alerta.setPositiveButton("Sí",new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                android.os.Process.killProcess(android.os.Process.myPid());
+                DataManagment da = new DataManagment(Constantes.CONEXION_USUARIO.replace("[MAIL]",cuenta).replace("[CONECTADO]","N"));
+                da.execute(this,"foo");
             }
         });
 
@@ -336,6 +342,61 @@ public class MainActivity extends ActionBarActivity
             ((MainActivity) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
+    }
+
+    private class DataManagment extends AsyncTask<Object, Void, String> {
+
+       String result = "";
+
+        private String url_select;
+
+        public DataManagment(String url) {
+            this.url_select = url;
+
+        }
+
+        @Override
+        protected void onPreExecute() {
+
+
+        }
+
+        @Override
+        protected String doInBackground(Object... params) {
+
+
+            ArrayList<NameValuePair> param = new ArrayList<>();
+
+            try {
+
+                HttpClient httpClient = new DefaultHttpClient();
+                HttpPost httpPost = new HttpPost(url_select);
+                httpPost.setEntity(new UrlEncodedFormEntity(param));
+                HttpResponse httpResponse = httpClient.execute(httpPost);
+                result = EntityUtils.toString(httpResponse.getEntity(), "UTF-8");
+
+
+            } catch (Exception e) {
+                Log.e("Error  result ", e.getMessage());
+            }
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String v) {
+
+            if (!v.contains("{\"success\":1}")) {
+
+                Log.i("ERROR PARSER", "!!");
+
+            }
+
+            finish();
+
+
+        }
+
+
     }
 
 }

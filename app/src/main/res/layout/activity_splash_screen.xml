@@ -34,7 +34,7 @@
         android:layout_gravity="center"
         android:gravity="center_horizontal"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Cargando aplicación..."
+        android:text="@string/dialogo_carga_splash"
         android:textColor="#ffffffff"
         android:id="@+id/txSubtitulo"
         android:textSize="20dp"

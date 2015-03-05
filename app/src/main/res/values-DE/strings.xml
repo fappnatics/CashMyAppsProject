@@ -26,6 +26,15 @@
 
     <!--Diálogos -->
     <string name="dialogo_carga_apps">Loading Liste der Angebote...</string>
+    <string name="dialogo_carga_splash">Loading anwendung...</string>
+    <string name="dialogo_titulo_salir">Salir</string>
+    <string name="dialogo_titulo_atencion">Atención</string>
+    <string name="dialogo_cuerpo_salir">¿Seguro que quieres salir de la aplicación?</string>
+    <string name="dialogo_cuerpo_atencion">La cuenta está bloqueada, por favor, póngase en contacto con nuestro soporte en soportecashmyapps@gmail.com</string>
+    <string name="dialogo_si">Si</string>
+    <string name="dialogo_no">No</string>
+    <string name="dialogo_aceptar">Aceptar</string>
+    <string name="dialogo_cancelar">Cancelar</string>
 
     <!--Contenido de los fragments -->
     <string name="cabecera_user_info">Kontoinformationen</string>
