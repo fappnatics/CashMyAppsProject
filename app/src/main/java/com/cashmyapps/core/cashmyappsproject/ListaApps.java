@@ -7,6 +7,10 @@ import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -102,6 +106,7 @@ public class ListaApps extends Fragment {
     private List<String> priority_apps = new ArrayList<>();
     private String cuenta="";
     private String market;
+    private Context contexto;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -111,7 +116,14 @@ public class ListaApps extends Fragment {
         cuenta = correo.getText().toString();
         Bundle b = getActivity().getIntent().getExtras();
 
-        codigoPais = b.getString("pais");
+        //codigoPais = b.getString("pais");
+        codigoPais = getLocalizacion();
+
+        Log.i("PAIS ARGUMENTS: ",codigoPais);
+
+        if(codigoPais==null)
+        {codigoPais = Locale.getDefault().getCountry();}
+
         market = Constantes.URL_GEENAPP.replace("[PAIS]",codigoPais).replace("[LANG]", Locale.getDefault().getLanguage());
 
 
@@ -185,6 +197,12 @@ public class ListaApps extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        contexto = getActivity();
     }
 
 
@@ -309,6 +327,29 @@ public class ListaApps extends Fragment {
             }
             return myPath.getAbsolutePath();
         }
+    }
+
+    private String getLocalizacion() {
+        // Localización del usuario.
+        LocationManager localizacion = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        boolean activado_localizacion = localizacion.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        String codigoPais="";
+
+        if (activado_localizacion) {
+            Location net_loc = localizacion.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            Log.i("COORDENADAS", "Longitud: " + net_loc.getLongitude() + " Latitud: " + net_loc.getLatitude());
+            Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
+
+            try {
+                List<Address> direccion = geocoder.getFromLocation(net_loc.getLatitude(), net_loc.getLongitude(), 1);
+                Address address = direccion.get(0);
+                codigoPais = address.getCountryCode();
+                Log.i("PAIS", address.getCountryName());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return codigoPais;
     }
 
 
