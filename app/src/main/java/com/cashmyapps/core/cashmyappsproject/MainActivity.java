@@ -171,9 +171,6 @@ public class MainActivity extends ActionBarActivity
             case 2:
 
                 fragment = new ListaApps();
-                Bundle args = new Bundle();
-                args.putString("pais",i.getExtras().getString("pais"));
-                fragment.setArguments(args);
 
                  fragmentManager.beginTransaction()
                         .replace(R.id.container, ListaApps.newInstance(position + 1))

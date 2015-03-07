@@ -32,51 +32,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
 
 public class ListaApps extends Fragment {
-
-   /* @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lista_apps);
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
-                    .commit();
-        }
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_prueba_lista, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
@@ -106,41 +70,52 @@ public class ListaApps extends Fragment {
     private List<String> priority_apps = new ArrayList<>();
     private String cuenta="";
     private String market;
-    private Context contexto;
+    private JSONObject jObject;
+    private Date d = new Date();
+    private String fecha;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_lista_apps, container, false);
-        TextView correo = (TextView)getActivity().findViewById(R.id.txCorreo);
-        cuenta = correo.getText().toString();
-        Bundle b = getActivity().getIntent().getExtras();
 
-        //codigoPais = b.getString("pais");
-        codigoPais = getLocalizacion();
+        fecha = new SimpleDateFormat("dd-MM-yyyy").format(d);
 
-        Log.i("PAIS ARGUMENTS: ",codigoPais);
-
-        if(codigoPais==null)
-        {codigoPais = Locale.getDefault().getCountry();}
-
-        market = Constantes.URL_GEENAPP.replace("[PAIS]",codigoPais).replace("[LANG]", Locale.getDefault().getLanguage());
-
-
-        JSONObject jObject= new JSONObject();
 
         try {
+
+            TextView correo = (TextView)getActivity().findViewById(R.id.txCorreo);
+            cuenta = correo.getText().toString();
+            codigoPais = getLocalizacion();
+
+            market = Constantes.URL_GEENAPP.replace("[PAIS]",codigoPais).replace("[LANG]", Locale.getDefault().getLanguage());
+
+            jObject= new JSONObject();
             result = new JSONParser(market).execute(this,"foo").get();
+
         } catch (InterruptedException e) {
             Log.e("LISTAAPPS",e.getMessage().toString());
+            String error = Constantes.ERRORES_APP.replace("[CUENTA]",cuenta).replace("[ERROR]", e.getMessage()).replace("[FECHA",fecha).replace(" ","%20");
+            new JSONParser(error).execute(this,"foo");
         } catch (ExecutionException e) {
             Log.e("LISTAAPPS",e.getMessage().toString());
+            String error = Constantes.ERRORES_APP.replace("[CUENTA]",cuenta).replace("[ERROR]", e.getMessage()).replace("[FECHA",fecha).replace(" ","%20");
+            new JSONParser(error).execute(this,"foo");
         }
+        catch (Exception e)
+        {
+            Log.e("LISTAAPPS",e.getMessage().toString());
+            String error = Constantes.ERRORES_APP.replace("[CUENTA]",cuenta).replace("[ERROR]",e.getMessage()).replace("[FECHA",fecha).replace(" ","%20");
+            new JSONParser(error).execute(this,"foo");
+        }
+
 
         try {
             jObject = new JSONObject(result);
         } catch (JSONException e) {
             Log.e("LISTAAPPS",e.getMessage().toString());
+            String error = Constantes.ERRORES_APP.replace("[CUENTA]",cuenta).replace("[ERROR]", e.getMessage()).replace("[FECHA",fecha).replace(" ","%20");
+            new JSONParser(error).execute(this,"foo");
         }
 
         int i=0;
@@ -181,7 +156,11 @@ public class ListaApps extends Fragment {
             DescargaImagenes di = new DescargaImagenes(getActivity());
             di.execute(imagen_app);
 
-        }catch(Exception s){}
+        }catch(Exception s){
+            Log.e("LISTAAPPS",s.getMessage().toString());
+            String error = Constantes.ERRORES_APP.replace("[CUENTA]",cuenta).replace("[ERROR]", s.getMessage()).replace("[FECHA",fecha).replace(" ", "%20");
+            new JSONParser(error).execute(this,"foo");
+        }
 
         return rootView;
     }
@@ -197,12 +176,6 @@ public class ListaApps extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        contexto = getActivity();
     }
 
 
@@ -253,6 +226,9 @@ public class ListaApps extends Fragment {
 
                 } catch (Exception e) {
                     e.printStackTrace();
+                    Log.e("LISTAAPPS",e.getMessage().toString());
+                    String error = Constantes.ERRORES_APP.replace("[CUENTA]",cuenta).replace("[ERROR]",e.getMessage()).replace("[FECHA",fecha).replace(" ","%20");
+                    new JSONParser(error).execute(this,"foo");
                 }
 
             return imagenes;
@@ -329,6 +305,7 @@ public class ListaApps extends Fragment {
         }
     }
 
+
     private String getLocalizacion() {
         // Localización del usuario.
         LocationManager localizacion = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
@@ -338,7 +315,7 @@ public class ListaApps extends Fragment {
         if (activado_localizacion) {
             Location net_loc = localizacion.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             Log.i("COORDENADAS", "Longitud: " + net_loc.getLongitude() + " Latitud: " + net_loc.getLatitude());
-            Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
+            Geocoder geocoder = new Geocoder(getActivity().getApplicationContext(), Locale.getDefault());
 
             try {
                 List<Address> direccion = geocoder.getFromLocation(net_loc.getLatitude(), net_loc.getLongitude(), 1);
@@ -347,11 +324,10 @@ public class ListaApps extends Fragment {
                 Log.i("PAIS", address.getCountryName());
             } catch (IOException e) {
                 e.printStackTrace();
-            }
+              }
         }
         return codigoPais;
     }
-
 
 }
 
