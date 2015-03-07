@@ -85,8 +85,6 @@ public class MainActivity extends ActionBarActivity
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
 
-
-
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
@@ -137,7 +135,6 @@ public class MainActivity extends ActionBarActivity
         }
 
 
-
     }
 
     @Override
@@ -175,7 +172,7 @@ public class MainActivity extends ActionBarActivity
 
                 fragment = new ListaApps();
                 Bundle args = new Bundle();
-                args.putString("pais",i.getExtras().getString("pais").toString());
+                args.putString("pais",i.getExtras().getString("pais"));
                 fragment.setArguments(args);
 
                  fragmentManager.beginTransaction()
