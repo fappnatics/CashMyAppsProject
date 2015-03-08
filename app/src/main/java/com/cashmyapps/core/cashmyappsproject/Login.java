@@ -186,8 +186,6 @@ public class Login extends ActionBarActivity {
                     Intent i = new Intent(Login.this, MainActivity.class);
                     Log.i("CUENTA", cuentas.get(0));
                     i.putExtra("cuenta", multicuenta.get(0));
-                    pais = getLocalizacion().toUpperCase();
-                    i.putExtra("pais",pais);
                     consulta = Constantes.CONEXION_USUARIO.replace("[MAIL]",multicuenta.get(0)).replace("[CONECTADO]","S");
                     AltaUser u = new AltaUser(consulta);
                     u.execute(this,"foo");
@@ -222,7 +220,7 @@ public class Login extends ActionBarActivity {
                         Log.i("FECHA: ", fecha_alta);
                         cod_refer = generarReferido();
                         //TODO Hay que consultar la base de datos para evitar códigos duplicados.
-                        consulta = Constantes.ALTA_USUARIO + "NOMBRE=" + nombre + "&MAIL=" + cuenta + "&SALDO=0&FECHA_ALTA=" + fecha_alta + "&PAIS=" + pais + "&ESTADO_CUENTA=A" + "&COD_REFER=" + cod_refer;
+                        consulta = Constantes.ALTA_USUARIO + "NOMBRE=" + nombre + "&MAIL=" + cuenta + "&SALDO=0&FECHA_ALTA=" + fecha_alta + "&PAIS=" + getLocalizacion() + "&ESTADO_CUENTA=A" + "&COD_REFER=" + cod_refer;
                         AltaUser au = new AltaUser(consulta);
                         au.execute(this, "foo");
 

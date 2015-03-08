@@ -6,12 +6,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTabHost;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListAdapter;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +33,10 @@ public class Ranking extends Fragment {
     private String cuenta="";
     private Fechas fechas = new Fechas();
     private List<String> listaUsers;
+    private String result;
+    private JSONObject jObject;
+    private JSONArray jArray;
+    private List<String> lista_user;
 
     // TODO: Rename and change types of parameters
 ;
@@ -46,6 +56,23 @@ public class Ranking extends Fragment {
             TextView correo = (TextView)getActivity().findViewById(R.id.txCorreo);
             listaUsers = new ArrayList<>();
             cuenta = correo.getText().toString();
+            result = new JSONParser(Constantes.USUARIOS_CONECTADOS).execute(this,"").get();
+
+            jArray = new JSONObject(result).getJSONArray("usuarios");
+
+            for(int i=0;i<jArray.length();i++){
+
+                lista_user.add(jArray.getJSONObject(i).getString("NOMBRE"));
+                Log.i("ARRAY USER: ",jArray.getJSONObject(i).getString("NOMBRE"));
+
+            }
+
+            ListAdapter adp = new ArrayAdapter<String>(getActivity(),R.layout.elemento_lista_usuarios_conectados,lista_user);
+            listAPP.setAdapter(adp);
+
+
+
+
 
 
 
