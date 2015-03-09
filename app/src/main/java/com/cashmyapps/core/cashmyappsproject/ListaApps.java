@@ -104,7 +104,7 @@ public class ListaApps extends Fragment {
 
 
 
-            market = Constantes.URL_GEENAPP.replace("[PAIS]",codigoPais).replace("[LANG]", Locale.getDefault().getLanguage());
+            market = Constantes.URL_GEENAPP2.replace("[PAIS]",codigoPais).replace("[LANG]", Locale.getDefault().getLanguage());
 
             jObject= new JSONObject();
             result = new JSONParser(market).execute(this,"foo").get();
