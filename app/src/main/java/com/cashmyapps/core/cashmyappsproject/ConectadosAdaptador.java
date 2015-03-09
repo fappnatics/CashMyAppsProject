@@ -1,6 +1,7 @@
 package com.cashmyapps.core.cashmyappsproject;
 
 import android.app.Activity;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,13 +17,13 @@ import java.util.List;
 public class ConectadosAdaptador extends ArrayAdapter {
 
     private Activity actividad;
-    private List<String> usuarios;
+    private String[] usuarios;
 
 
-    public ConectadosAdaptador(Activity activity,List<String> users){
-        super(activity,R.layout.elemento_lista_usuarios_conectados,users);
+    public ConectadosAdaptador(Activity context,String[] users){
+        super(context,R.layout.elemento_lista_usuarios_conectados,users);
 
-        this.actividad = activity;
+        this.actividad = context;
         this.usuarios = users;
 
     }
@@ -34,11 +35,8 @@ public class ConectadosAdaptador extends ArrayAdapter {
         TextView txUsuConect = (TextView)rowView.findViewById(R.id.txUsuConect);
         ImageView imUsuConect = (ImageView)rowView.findViewById(R.id.imgUsuConect);
 
-        txUsuConect.setText(usuarios.get(position));
-
-
-
-
+        txUsuConect.setText(usuarios[position]);
+        imUsuConect.setImageBitmap(BitmapFactory.decodeResource(actividad.getResources(),R.drawable.user_info));
 
         return rowView;
     }

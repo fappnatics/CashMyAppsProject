@@ -21,22 +21,22 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 
 public class Ranking extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
-    private Context contexto;
+    private Activity contexto;
     private TabHost mTabHost;
     private TabHost.TabSpec spec;
     private ListView listAPP;
     private String cuenta="";
     private Fechas fechas = new Fechas();
-    private List<String> listaUsers;
     private String result;
     private JSONObject jObject;
     private JSONArray jArray;
-    private List<String> lista_user;
+    private String[] lista_user;
 
     // TODO: Rename and change types of parameters
 ;
@@ -52,34 +52,32 @@ public class Ranking extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_ranking,container,false);
 
         try {
-            listAPP = (ListView) getActivity().findViewById(R.id.listaAPP);
+            listAPP = (ListView) rootView.findViewById(R.id.listaAPP);
             TextView correo = (TextView)getActivity().findViewById(R.id.txCorreo);
-            listaUsers = new ArrayList<>();
             cuenta = correo.getText().toString();
-            result = new JSONParser(Constantes.USUARIOS_CONECTADOS).execute(this,"").get();
 
+            result = new JSONParser(Constantes.USUARIOS_CONECTADOS).execute(this,"").get();
             jArray = new JSONObject(result).getJSONArray("usuarios");
+            lista_user = new String[jArray.length()];
 
             for(int i=0;i<jArray.length();i++){
-
-                lista_user.add(jArray.getJSONObject(i).getString("NOMBRE"));
-                Log.i("ARRAY USER: ",jArray.getJSONObject(i).getString("NOMBRE"));
-
+                lista_user[i] = jArray.getJSONObject(i).getString("NOMBRE");
             }
+            //TODO Arreglar la visualizacion de la lista de usuarios. No se ve.
 
-            ListAdapter adp = new ArrayAdapter<String>(getActivity(),R.layout.elemento_lista_usuarios_conectados,lista_user);
+
+            ConectadosAdaptador adp = new ConectadosAdaptador(getActivity(),lista_user);
             listAPP.setAdapter(adp);
 
 
 
-
-
-
-
-
-
+        }
+        catch (ExecutionException e) {
+            String error = Constantes.ERRORES_APP.replace("[CUENTA]",cuenta).replace("[ERROR]", e.getMessage()).replace("[FECHA",fechas.getFechaActual()).replace(" ","%20");
+            new JSONParser(error).execute(this,"foo");
         }
         catch(Exception e){
+            Log.i("LISTAUSER", "ERRORRRRRRR!!!!: "+e.getMessage());
             String error = Constantes.ERRORES_APP.replace("[CUENTA]",cuenta).replace("[ERROR]", e.getMessage()).replace("[FECHA",fechas.getFechaActual()).replace(" ","%20");
             new JSONParser(error).execute(this,"foo");
         }
@@ -95,6 +93,7 @@ public class Ranking extends Fragment {
     public void onResume() {
         super.onResume();
         contexto = getActivity();
+        Log.i("ACTIVITY",contexto.toString());
     }
 
 

@@ -23,6 +23,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -69,10 +70,13 @@ public class ListaApps extends Fragment {
     private List<String> currency = new ArrayList<>();
     private List<String> priority_apps = new ArrayList<>();
     private String cuenta="";
+    private Context contexto;
+    private String cod_refer;
     private String market;
     private JSONObject jObject;
     private Date d = new Date();
     private String fecha;
+    private JSONArray jArray;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -86,7 +90,19 @@ public class ListaApps extends Fragment {
 
             TextView correo = (TextView)getActivity().findViewById(R.id.txCorreo);
             cuenta = correo.getText().toString();
+
             codigoPais = getLocalizacion();
+            contexto = ListaApps.this.getActivity();
+
+                String resultado = new JSONParser(Constantes.URL_GET_BBDD_JSON+"?mail="+cuenta).execute(this,"foo").get();
+                JSONObject jObject = new JSONObject(resultado);
+                JSONArray jArray = jObject.getJSONArray("usuarios");
+
+                cod_refer = jArray.getJSONObject(0).getString("COD_REFER");
+
+                Log.i("CODREFER",cod_refer);
+
+
 
             market = Constantes.URL_GEENAPP.replace("[PAIS]",codigoPais).replace("[LANG]", Locale.getDefault().getLanguage());
 
@@ -256,6 +272,7 @@ public class ListaApps extends Fragment {
                 ppi_array[s]=ppi_apps.get(s);
                 //ppi_array[s]="PPI: Unknown";
                 url_apps[s]= Uri.parse(url.get(s));
+                Log.i("URLS",url.get(s)+"?gee_postback="+cod_refer);
 
                 if(estrellas_app.get(s).equals("1"))
                     estrellas[s]=R.drawable.unaestrellas;
