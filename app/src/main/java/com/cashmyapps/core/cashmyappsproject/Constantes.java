@@ -21,6 +21,7 @@ public final class Constantes {
    public static final String ERRORES_APP="http://cashmyapps.net/insert_error_log.php?MAIL=[CUENTA]&ERROR=[ERROR]&FECHA=[FECHA]";
    public static final String USUARIOS_CONECTADOS="http://cashmyapps.net/get_usuarios_conectados.php";
    public static final String GET_COD_REFER="http://cashmyapps.net/get_usuarios_conectados.php";
+   public static final String GET_RANKING_USERS="http://www.cashmyapps.net/get_ranking_usuarios.php";
 
 
 

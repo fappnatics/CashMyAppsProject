@@ -17,14 +17,19 @@ import java.util.List;
 public class ConectadosAdaptador extends ArrayAdapter {
 
     private Activity actividad;
-    private String[] usuarios;
+    private String[] nombre_user;
+    /*private String[] mail_user;
+    private String[] saldo_user;*/
 
 
-    public ConectadosAdaptador(Activity context,String[] users){
-        super(context,R.layout.elemento_lista_usuarios_conectados,users);
+    public ConectadosAdaptador(Activity context,String[] nombres){
+        super(context,R.layout.elemento_lista_usuarios_conectados,nombres);
 
         this.actividad = context;
-        this.usuarios = users;
+        this.nombre_user = nombres;
+        /*this.mail_user = mails;
+        this.saldo_user = saldos;*/
+
 
     }
 
@@ -32,11 +37,14 @@ public class ConectadosAdaptador extends ArrayAdapter {
     public View getView(final int position, View view, final ViewGroup parent) {
         LayoutInflater inflater = actividad.getLayoutInflater();
         View rowView= inflater.inflate(R.layout.elemento_lista_usuarios_conectados, null, true);
-        TextView txUsuConect = (TextView)rowView.findViewById(R.id.txUsuConect);
-        ImageView imUsuConect = (ImageView)rowView.findViewById(R.id.imgUsuConect);
+        TextView nombre = (TextView)rowView.findViewById(R.id.txUsuConect);
 
-        txUsuConect.setText(usuarios[position]);
-        imUsuConect.setImageBitmap(BitmapFactory.decodeResource(actividad.getResources(),R.drawable.user_info));
+        nombre.setText(nombre_user[position]);
+
+
+
+
+
 
         return rowView;
     }

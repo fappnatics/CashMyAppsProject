@@ -1,22 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.cashmyapps.core.cashmyapps.ListaApps$PlaceholderFragment"
+    tools:context="com.cashmyapps.core.cashmyapps.Ranking$PlaceholderFragment"
     android:background="@layout/fondo_login">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Usuarios conectados"
-        android:layout_marginTop="25dp"
-        android:layout_marginLeft="40dp"
-        android:textColor="#ffffff"
-        android:id="@+id/txTitulo"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        android:layout_marginBottom="20dp"/>
 
     <ListView
         android:layout_width="match_parent"
@@ -24,7 +10,6 @@
         android:id="@+id/listaAPP"
         android:dividerHeight="15dp"
         android:divider="@drawable/dividerrelieve"
-        android:layout_gravity="center_horizontal"
-        android:layout_below="@+id/txTitulo" />
+        android:layout_gravity="center_horizontal" />
 
 </RelativeLayout>

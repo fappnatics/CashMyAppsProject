@@ -36,7 +36,9 @@ public class Ranking extends Fragment {
     private String result;
     private JSONObject jObject;
     private JSONArray jArray;
-    private String[] lista_user;
+    private String[] lista_nombre;
+    private String[] lista_mail;
+    private String[] lista_saldo;
 
     // TODO: Rename and change types of parameters
 ;
@@ -56,18 +58,25 @@ public class Ranking extends Fragment {
             TextView correo = (TextView)getActivity().findViewById(R.id.txCorreo);
             cuenta = correo.getText().toString();
 
-            result = new JSONParser(Constantes.USUARIOS_CONECTADOS).execute(this,"").get();
+            result = new JSONParser(Constantes.GET_RANKING_USERS).execute(this,"").get();
             jArray = new JSONObject(result).getJSONArray("usuarios");
-            lista_user = new String[jArray.length()];
+            lista_nombre = new String[jArray.length()];
+            lista_mail = new String[jArray.length()];
+            lista_saldo = new String[jArray.length()];
 
             for(int i=0;i<jArray.length();i++){
-                lista_user[i] = jArray.getJSONObject(i).getString("NOMBRE");
+                lista_nombre[i] = jArray.getJSONObject(i).getString("NOMBRE");
+                lista_mail[i] = jArray.getJSONObject(i).getString("MAIL");
+                lista_saldo[i] = jArray.getJSONObject(i).getString("SALDO");
+                Log.i("LISTA_NOMBRES",lista_nombre[i]);
             }
             //TODO Arreglar la visualizacion de la lista de usuarios. No se ve.
 
 
-            ConectadosAdaptador adp = new ConectadosAdaptador(getActivity(),lista_user);
-            listAPP.setAdapter(adp);
+
+            ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getActivity().getBaseContext(), android.R.layout.simple_list_item_1, lista_nombre);
+            //ConectadosAdaptador adp = new ConectadosAdaptador(getActivity(),lista_nombre,lista_mail,lista_saldo);
+            listAPP.setAdapter(adapter1);
 
 
 

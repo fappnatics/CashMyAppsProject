@@ -3,13 +3,6 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <ImageView
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:id="@+id/imgUsuConect"
-        android:src="@drawable/user_info"/>
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
