@@ -106,6 +106,14 @@ public class Ranking extends Fragment {
     }
 
 
+    public static class PlaceholderFragment extends Fragment {
+
+        public PlaceholderFragment() {
+        }
+
+    }
+
+
 
     @Override
     public void onAttach(Activity activity) {
