@@ -191,6 +191,7 @@ public class Login extends ActionBarActivity {
                     u.execute(this,"foo");
                     startActivity(i);
                     finish();
+
                 }
 
             }
