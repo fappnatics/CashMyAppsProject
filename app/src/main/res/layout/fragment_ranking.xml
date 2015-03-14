@@ -6,7 +6,7 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/listaAPP"
+        android:id="@+id/lsRanking"
         android:dividerHeight="15dp"
         android:divider="@drawable/dividerrelieve"
         android:layout_gravity="center_horizontal" />

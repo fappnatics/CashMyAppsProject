@@ -39,6 +39,8 @@ public class Ranking extends Fragment {
     private String[] lista_nombre;
     private String[] lista_mail;
     private String[] lista_saldo;
+    private String[] usuario_conectado;
+    private View rootView;
 
     // TODO: Rename and change types of parameters
 ;
@@ -51,10 +53,20 @@ public class Ranking extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_ranking,container,false);
+        rootView = inflater.inflate(R.layout.fragment_ranking,container,false);
+
+               // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_ranking, container, false);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        contexto = getActivity();
+        Log.i("ACTIVITY",contexto.toString());
 
         try {
-            listAPP = (ListView) rootView.findViewById(R.id.listaAPP);
+            listAPP = (ListView) getActivity().findViewById(R.id.lsRanking);
             TextView correo = (TextView)getActivity().findViewById(R.id.txCorreo);
             cuenta = correo.getText().toString();
 
@@ -63,22 +75,17 @@ public class Ranking extends Fragment {
             lista_nombre = new String[jArray.length()];
             lista_mail = new String[jArray.length()];
             lista_saldo = new String[jArray.length()];
+            usuario_conectado = new String[jArray.length()];
 
             for(int i=0;i<jArray.length();i++){
                 lista_nombre[i] = jArray.getJSONObject(i).getString("NOMBRE");
                 lista_mail[i] = jArray.getJSONObject(i).getString("MAIL");
                 lista_saldo[i] = jArray.getJSONObject(i).getString("SALDO");
+                usuario_conectado[i] = jArray.getJSONObject(i).getString("CONECTADO");
+
                 Log.i("LISTA_NOMBRES",lista_nombre[i]);
             }
             //TODO Arreglar la visualizacion de la lista de usuarios. No se ve.
-
-
-
-            ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getActivity().getBaseContext(), android.R.layout.simple_list_item_1, lista_nombre);
-            //ConectadosAdaptador adp = new ConectadosAdaptador(getActivity(),lista_nombre,lista_mail,lista_saldo);
-            listAPP.setAdapter(adapter1);
-
-
 
         }
         catch (ExecutionException e) {
@@ -91,18 +98,9 @@ public class Ranking extends Fragment {
             new JSONParser(error).execute(this,"foo");
         }
 
-
-
-
-               // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_ranking, container, false);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        contexto = getActivity();
-        Log.i("ACTIVITY",contexto.toString());
+        //ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getActivity().getBaseContext(), android.R.layout.simple_list_item_1, lista_nombre);
+        ConectadosAdaptador adp = new ConectadosAdaptador(getActivity(),lista_nombre,lista_mail,lista_saldo,usuario_conectado);
+        listAPP.setAdapter(adp);
     }
 
 
