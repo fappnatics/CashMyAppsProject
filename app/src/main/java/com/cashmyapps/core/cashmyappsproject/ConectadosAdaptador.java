@@ -39,11 +39,30 @@ public class ConectadosAdaptador extends ArrayAdapter {
     @Override
     public View getView(final int position, View view, final ViewGroup parent) {
         LayoutInflater inflater = actividad.getLayoutInflater();
-        View rowView= inflater.inflate(R.layout.elemento_lista_usuarios_conectados, null, true);
-        TextView nombre = (TextView)rowView.findViewById(R.id.txUsuConect);
+        View rowView = inflater.inflate(R.layout.elemento_lista_usuarios_conectados, null, true);
+        TextView nombre = (TextView) rowView.findViewById(R.id.txUsuConect);
         //TextView cuentaAsociada = (TextView)rowView.findViewById(R.id.txCorreoAsociado);
-        TextView ppi = (TextView)rowView.findViewById(R.id.txCoins);
-        ImageView imgOnline = (ImageView)rowView.findViewById(R.id.imgOnline);
+        TextView ppi = (TextView) rowView.findViewById(R.id.txCoins);
+        ImageView imgOnline = (ImageView) rowView.findViewById(R.id.imgOnline);
+        ImageView img1st = (ImageView) rowView.findViewById(R.id.img1st);
+
+
+        switch (position) {
+
+            case 0:
+                img1st.setImageResource(R.drawable.first);
+                break;
+            case 1:
+                img1st.setImageResource(R.drawable.second);
+                break;
+            case 2:
+                img1st.setImageResource(R.drawable.third);
+                break;
+
+            default:
+                img1st.setVisibility(View.INVISIBLE);
+                break;
+        }
 
 
         if(user_conect[position].equals("N"))

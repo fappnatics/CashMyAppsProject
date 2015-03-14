@@ -8,6 +8,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/lsRanking"
         android:dividerHeight="15dp"
+        android:layout_margin="10dp"
         android:divider="@drawable/dividerrelieve"
         android:layout_gravity="center_horizontal" />
 

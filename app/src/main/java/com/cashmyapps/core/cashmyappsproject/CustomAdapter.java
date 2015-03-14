@@ -78,7 +78,7 @@ public class CustomAdapter extends ArrayAdapter {
         if(String.format("%.2f",Double.parseDouble(ppi_app[position])*0.1).equals("0,00"))
             ppi.setText("PPI: 0,01$");
         else
-            ppi.setText("PPI: "+ String.format("%.2f",Double.parseDouble(ppi_app[position])*0.1)+"$");
+            ppi.setText("PPI: "+ String.format("%.2f",Double.parseDouble(ppi_app[position])*0.1*100)+"$");
 
         imgEstrellas.setImageResource(imageId[position]);
         botones.setMovementMethod(LinkMovementMethod.getInstance());
