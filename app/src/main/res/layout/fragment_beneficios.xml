@@ -24,7 +24,7 @@
 
 
     <ImageView
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="250dp"
         android:background="@drawable/marco"
         android:id="@+id/imgCobroLogo"
@@ -33,22 +33,34 @@
         android:layout_marginBottom="30dp"
         android:src="@drawable/cashmyapps_logo"/>
 
-    <TextView
-        android:layout_width="wrap_content"
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+
+        <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@layout/caja_texto"
         android:layout_marginBottom="10dp"
-        android:textAlignment="center"
+        android:gravity="center_horizontal"
         android:id="@+id/txCobroSaldo"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:textSize="50dp"
-        android:text="2000"
-        android:layout_gravity="center_horizontal|bottom" />
+        android:text="2000 coins"/>
+
+    </LinearLayout>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/boton_cobro"
-        android:background="@layout/fondo_botones"
+        android:background="@drawable/custom_btn_orange"
         android:id="@+id/btSolicitarBeneficios"
         android:gravity="center_vertical"
         android:layout_gravity="center_horizontal" />

@@ -22,7 +22,11 @@ public final class Constantes {
    public static final String USUARIOS_CONECTADOS="http://cashmyapps.net/get_usuarios_conectados.php";
    public static final String GET_COD_REFER="http://cashmyapps.net/get_usuarios_conectados.php";
    public static final String GET_RANKING_USERS="http://www.cashmyapps.net/get_ranking_usuarios.php";
+   public static final String GET_SALDO="http://www.cashmyapps.net/get_saldo.php?MAIL=[MAIL]";
    public static final String SOLICITAR_COBRO="http://www.cashmyapps.net/solicitudes_cobro.php?MAIL=[MAIL]&COINS=[COINS]";
+   public static final String INSERTAR_SOLICITAR_COBRO="http://www.cashmyapps.net/insert_solicitud_cobro.php?MAIL=[MAIL]&COINS=[COINS]&FECHA=[FECHA]&PAGADO=[PAGADO]";
+
+
 
 
 

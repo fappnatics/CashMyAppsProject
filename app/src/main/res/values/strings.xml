@@ -23,7 +23,7 @@
     <string name="boton_instalar">Instalar</string>
     <string name="boton_aceptar">Aceptar</string>
     <string name="boton_compartir">Compartir</string>
-    <string name="boton_cobro">Solicitar cobro</string>
+    <string name="boton_cobro"> Solicitar cobro </string>
 
     <!--Diálogos -->
     <string name="dialogo_carga_apps">Cargando lista de ofertas...</string>
@@ -41,7 +41,7 @@
     <!--Contenido de los fragments -->
     <string name="cabecera_user_info">Información de la cuenta</string>
     <string name="cabecera_compartir">Comparte CashMyApps</string>
-    <string name="cabecera_cobro">Solicitar cobro</string>
+    <string name="cabecera_cobro">Retirar beneficios</string>
 
 
     <!-- Lista de elementos e navegación -->

@@ -23,6 +23,7 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
@@ -37,6 +38,8 @@ public class Beneficios extends Fragment {
     private String resultado;
     private JSONArray jArray;
     private String saldo;
+    private TextView saldo_user;
+    private TextView correo;
 
 
     public Beneficios() {
@@ -60,24 +63,40 @@ public class Beneficios extends Fragment {
         super.onResume();
 
         btSolicitarIngresos = (Button)getActivity().findViewById(R.id.btSolicitarBeneficios);
-        TextView correo = (TextView)getActivity().findViewById(R.id.txCorreo);
+        correo = (TextView)getActivity().findViewById(R.id.txCorreo);
+        saldo_user = (TextView)getActivity().findViewById(R.id.txCobroSaldo);
         cuenta = correo.getText().toString();
+        try {
+            resultado = new JSONParser(Constantes.GET_SALDO.replace("[MAIL]",cuenta)).execute(this,"foo").get();
+            jArray = new JSONObject(resultado).getJSONArray("usuarios");
+            saldo = jArray.getJSONObject(0).getString("SALDO");
+            saldo_user.setText(saldo+" coins");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+
         btSolicitarIngresos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
                     resultado = new JSONParser(Constantes.SOLICITAR_COBRO.replace("[MAIL]",cuenta)).execute(this,"foo").get();
-                    jArray = new JSONObject(resultado).getJSONArray("usuarios");
-                    saldo = jArray.getJSONObject(0).getString("SALDO");
-                } catch (InterruptedException e) {
+
+
+                    } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         });
+
+
 
     }
 
