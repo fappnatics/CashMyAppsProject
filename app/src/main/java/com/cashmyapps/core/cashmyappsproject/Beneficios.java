@@ -1,24 +1,43 @@
 package com.cashmyapps.core.cashmyappsproject;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link Beneficios.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link Beneficios#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class Beneficios extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
+    private  Button btSolicitarIngresos;
+    private View rootView;
+    private String cuenta;
+    private String resultado;
+    private JSONArray jArray;
+    private String saldo;
+
 
     public Beneficios() {
         // Required empty public constructor
@@ -27,13 +46,47 @@ public class Beneficios extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+     rootView = inflater.inflate(R.layout.fragment_beneficios,container,false);
+
+
+
+
         return inflater.inflate(R.layout.fragment_beneficios, container, false);
     }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        btSolicitarIngresos = (Button)getActivity().findViewById(R.id.btSolicitarBeneficios);
+        TextView correo = (TextView)getActivity().findViewById(R.id.txCorreo);
+        cuenta = correo.getText().toString();
+        btSolicitarIngresos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    resultado = new JSONParser(Constantes.SOLICITAR_COBRO.replace("[MAIL]",cuenta)).execute(this,"foo").get();
+                    jArray = new JSONObject(resultado).getJSONArray("usuarios");
+                    saldo = jArray.getJSONObject(0).getString("SALDO");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+    }
+
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+
+
     }
 
 
