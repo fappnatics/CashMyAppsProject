@@ -1,6 +1,8 @@
 package com.cashmyapps.core.cashmyappsproject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -84,9 +86,59 @@ public class Beneficios extends Fragment {
         btSolicitarIngresos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    resultado = new JSONParser(Constantes.SOLICITAR_COBRO.replace("[MAIL]",cuenta)).execute(this,"foo").get();
+                LayoutInflater factory = LayoutInflater.from(getActivity());
+                final View view = factory.inflate(R.layout.alerta_icono,null);
+                AlertDialog.Builder alerta = new AlertDialog.Builder(getActivity());
+                alerta.setView(view);
 
+                try {
+                    resultado = new JSONParser(Constantes.SOLICITAR_COBRO.replace("[MAIL]",cuenta).replace("[COINS]",saldo)).execute(this,"foo").get();
+
+
+                    if(resultado.contains("{\"success\":1}")){
+
+                        resultado = new JSONParser(Constantes.INSERTAR_SOLICITAR_COBRO.replace("[MAIL]",cuenta).replace("[COINS]",saldo).replace("[FECHA]",new Fechas().getFechaActual()).replace("[PAGADO]","N")).execute(this,"foo").get();
+                        Log.i("SOLICITUD: ",resultado);
+                        if(resultado.contains("{\"success\":1}")){
+                        alerta.setTitle("Éxito");
+                        alerta.setMessage("Su solicitud de cobro ha sido tramitada y se realizará en 24/48h, si tiene alguna duda, por favor, contáctenos.");
+
+                        alerta.setPositiveButton("Aceptar",new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+
+                        alerta.show();
+                        }
+                        else{
+                            alerta.setTitle("Error");
+                            alerta.setMessage("Ha ocurrido un error durante su tramitación o el servicio no está disponible. Por favor, inténtelo de nuevo más tarde.");
+
+                            alerta.setPositiveButton("Aceptar",new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+
+                            alerta.show();
+                        }
+                    }
+                    else{
+                        alerta.setTitle("Error");
+                        alerta.setMessage("Ha ocurrido un error durante su tramitación o el servicio no está disponible. Por favor, inténtelo de nuevo más tarde.");
+
+                        alerta.setPositiveButton("Aceptar",new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+
+                        alerta.show();
+                    }
 
                     } catch (InterruptedException e) {
                     e.printStackTrace();
