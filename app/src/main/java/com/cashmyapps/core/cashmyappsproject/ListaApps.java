@@ -271,8 +271,8 @@ public class ListaApps extends Fragment {
                 desc_corta[s]=descripcion_app.get(s);
                 ppi_array[s]=ppi_apps.get(s);
                 //ppi_array[s]="PPI: Unknown";
-                url_apps[s]= Uri.parse(url.get(s));
-                Log.i("URLS",url.get(s)+"?gee_postback="+cod_refer);
+                url_apps[s]= Uri.parse(url.get(s)+"&gee_postback="+cod_refer);
+                Log.i("URLS",url.get(s)+"&gee_postback="+cod_refer);
 
                 if(estrellas_app.get(s).equals("1"))
                     estrellas[s]=R.drawable.unaestrellas;

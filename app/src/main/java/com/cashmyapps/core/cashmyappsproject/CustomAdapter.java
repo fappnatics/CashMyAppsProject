@@ -42,6 +42,7 @@ public class CustomAdapter extends ArrayAdapter {
     private final String correo;
     private String result="";
     private List<String> lista_apps;
+    private Double saldo;
 
     public CustomAdapter(Activity context, String[] nombre_apps, Bitmap[] imagen, String[] resumen_apps, String[] ppi_app, Integer[] imageId,Uri[] url, String cuenta) {
         super(context, R.layout.elementolista, nombre_apps);
@@ -75,11 +76,14 @@ public class CustomAdapter extends ArrayAdapter {
         icono.setImageBitmap(imagen[position]);
         resumen_app.setText(resumen_apps[position]);
 
+        Log.i("PPI: ",ppi_app[position]);
         if(String.format("%.2f",Double.parseDouble(ppi_app[position])*0.1).equals("0,00"))
-            ppi.setText("PPI: 0,01$");
+            ppi.setText("PPI: 1 COIN");
         else
-            ppi.setText("PPI: "+ String.format("%.2f",Double.parseDouble(ppi_app[position])*0.1*100)+"$");
-
+        {
+            saldo = Double.parseDouble(ppi_app[position])*100;
+            ppi.setText("PPI: "+saldo.intValue()+" COINS");
+        }
         imgEstrellas.setImageResource(imageId[position]);
         botones.setMovementMethod(LinkMovementMethod.getInstance());
         botones.setText("Instalar");
@@ -92,7 +96,7 @@ public class CustomAdapter extends ArrayAdapter {
                 String pais = Locale.getDefault().getCountry();
                 Date d = new Date();
                 String fecha_alta = new SimpleDateFormat("dd-MM-yyyy").format(d);
-                String consulta= (Constantes.PAGAR_RECOMPENSA+"MAIL="+correo+"&GIFT="+String.format("%.2f",Double.parseDouble(ppi_app[position])*0.1).replace(",",".")
+                String consulta= (Constantes.PAGAR_RECOMPENSA+"MAIL="+correo+"&GIFT="+saldo.intValue()
 
                         +"&CUENTA="+correo+"&APP_INSTALADA="+nombre_apps[position]+"&PAIS="+pais+"&LINK_PLAYSTORE=NO LINK"+"&LINK_REFERIDO="+uris[position].toString().replace("http://","") +"&FECHA_INSTALACION="+fecha_alta).replace(" ","%20");
                 try {
@@ -131,6 +135,7 @@ public class CustomAdapter extends ArrayAdapter {
                                 }
                                 else
                                 {
+                                    Log.i("INSTALACIONES_GEE: ",uris[position].toString());
                                     result = new JSONParser(consulta).execute(this,"foo").get();
                                 }
 
@@ -148,8 +153,9 @@ public class CustomAdapter extends ArrayAdapter {
                     //TODO implementar el postback para no pagar inmediatamente las recompensas.
 
 
-                    if(result.contains("{\"success\":1}"))
-                        getContext().startActivity(launcher);
+                    if(result.contains("{\"success\":1}")){
+                        Log.i("INTENT_LAUNCHER: ",launcher.toString());
+                        getContext().startActivity(launcher);}
                     else
                         Toast.makeText(context, "Oooops, ha sucedido un error, por favor, inténtalo de nuevo más tarde", Toast.LENGTH_LONG);
 
