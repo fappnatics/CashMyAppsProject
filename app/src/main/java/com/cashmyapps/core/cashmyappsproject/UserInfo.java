@@ -63,6 +63,7 @@ public class UserInfo extends Fragment {
     private Context contexto;
     private static final int HELLO_ID = 1;
     private static final int NOTIFY_ME_ID=1337;
+    private PostbacksThread pb;
 
 
 
@@ -131,6 +132,15 @@ public class UserInfo extends Fragment {
     }
 
     @Override
+    public void onPause(){
+        super.onPause();
+
+
+       //pb.interrupt();
+
+    }
+
+    @Override
     public void onResume(){
         super.onResume();
 
@@ -140,7 +150,7 @@ public class UserInfo extends Fragment {
         txCod_refer = (TextView)getActivity().findViewById(R.id.txUERefer);
         btAceptar = (Button)getActivity().findViewById(R.id.btUEAceptar);
 
-        final NotificationCompat.Builder builder = new NotificationCompat.Builder(contexto);
+       /* final NotificationCompat.Builder builder = new NotificationCompat.Builder(contexto);
         builder.setSmallIcon(R.drawable.cashmyapps_logo2);
         builder.setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.cashmyapps_logo2));
         builder.setContentTitle("Mi notificación");
@@ -155,14 +165,16 @@ public class UserInfo extends Fragment {
 
         builder.setContentIntent(resultPending);
 
-        final NotificationManager mNotif = (NotificationManager)contexto.getSystemService(Context.NOTIFICATION_SERVICE);
-
+        final NotificationManager mNotif = (NotificationManager)contexto.getSystemService(Context.NOTIFICATION_SERVICE);*/
+         pb = new PostbacksThread();
 
         btAceptar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     /*********** Create notification ***********/
-                        mNotif.notify(0,builder.build());
+                       // mNotif.notify(0,builder.build());
+
+                    pb.start();
 
                 }
             });

@@ -105,7 +105,7 @@ public class ListaApps extends Fragment {
 
 
             market = Constantes.URL_GEENAPP2.replace("[PAIS]",codigoPais).replace("[LANG]", Locale.getDefault().getLanguage());
-
+            Log.i("MERCADO: ",market);
             jObject= new JSONObject();
             result = new JSONParser(market).execute(this,"foo").get();
 
@@ -238,7 +238,7 @@ public class ListaApps extends Fragment {
                 try {
                     InputStream in = new java.net.URL(urldisplay.get(i)).openStream();
                     imagenes.add(BitmapFactory.decodeStream(in));
-                    guardarImagen(context,i+"",BitmapFactory.decodeStream(in));
+                   // guardarImagen(context,i+"",BitmapFactory.decodeStream(in));
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -300,6 +300,7 @@ public class ListaApps extends Fragment {
 
 
         }
+
 
         private String guardarImagen (Context context, String nombre, Bitmap imagen){
 
