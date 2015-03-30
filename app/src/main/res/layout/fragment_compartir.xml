@@ -18,7 +18,7 @@
     android:id="@+id/txTitulo"
     android:textSize="30dp"
     android:textStyle="bold"
-    android:layout_marginBottom="20dp"
+    android:layout_marginBottom="10dp"
     android:layout_row="0"
     android:layout_column="1" />
 
@@ -29,28 +29,63 @@
         android:id="@+id/imageView3"
         android:layout_gravity="center"
         android:layout_marginTop="15dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="10dp"
         android:src="@drawable/shareicon2"/>
+
+    <TextView
+        android:layout_width="250dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="10dp"
+        android:textAlignment="center"
+        android:text="Tu código"
+        android:id="@+id/lbReferido"
+        android:textSize="25dp"
+        android:textColor="#ffffff"
+        android:layout_gravity="center_horizontal|bottom" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@layout/caja_texto"
         android:layout_marginBottom="10dp"
-        android:textAlignment="center"
         android:id="@+id/txReferido"
-        android:textSize="50dp"
+        android:textSize="40dp"
         android:text="XBU4FN54"
         android:layout_gravity="center_horizontal|bottom" />
 
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="@string/boton_compartir"
-        android:id="@+id/btCompatir"
-        android:background="@drawable/custom_btn_orange"
-        android:layout_gravity="center_horizontal" />
+    <TextView
+        android:layout_width="250dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="10dp"
+        android:textAlignment="center"
+        android:text="Código de amigo"
+        android:id="@+id/lbReferir"
+        android:textSize="25dp"
+        android:textColor="#ffffff"
+        android:layout_gravity="center_horizontal|bottom" />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:background="@layout/caja_texto"
+        android:layout_marginBottom="5dp"
+        android:textAlignment="center"
+        android:id="@+id/txReferir"
+        android:textSize="40dp"
+        android:layout_gravity="center_horizontal|bottom" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="@string/boton_aceptar"
+            android:id="@+id/btReferido"
+            android:background="@drawable/custom_btn_orange"
+            android:layout_gravity="center_horizontal" />
+
+
+
+
 
 </LinearLayout>

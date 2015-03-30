@@ -251,7 +251,7 @@ public class Login extends ActionBarActivity {
 
         } catch (Exception s) {
             Log.e("ERROR_LOGIN", s.getMessage());
-            System.exit(0);
+
         }
 
 
@@ -306,7 +306,7 @@ public class Login extends ActionBarActivity {
                // i.putExtra("cuenta", spinner.getSelectedItem().toString());
                 i.putExtra("cuenta", multicuenta.get(0).toString());
                 startActivity(i);
-                System.exit(0);
+
 
             } else {
                 Log.i("ERROR PARSER", "!!");

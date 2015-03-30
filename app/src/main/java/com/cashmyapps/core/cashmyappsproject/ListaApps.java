@@ -77,6 +77,9 @@ public class ListaApps extends Fragment {
     private Date d = new Date();
     private String fecha;
     private JSONArray jArray;
+    private String resultado;
+    private JSONArray jsonArray;
+    private List<String> lista_apps_instaladas;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -94,13 +97,29 @@ public class ListaApps extends Fragment {
             codigoPais = getLocalizacion();
             contexto = ListaApps.this.getActivity();
 
-                String resultado = new JSONParser(Constantes.URL_GET_BBDD_JSON+"?mail="+cuenta).execute(this,"foo").get();
+            //Obtenemos el codigo de referido del usuario para montar los links con el postback.
+                resultado = new JSONParser(Constantes.URL_GET_BBDD_JSON+"?mail="+cuenta).execute(this,"foo").get();
                 JSONObject jObject = new JSONObject(resultado);
                 JSONArray jArray = jObject.getJSONArray("usuarios");
 
                 cod_refer = jArray.getJSONObject(0).getString("COD_REFER");
 
                 Log.i("CODREFER",cod_refer);
+
+
+
+            //Obtenemos las aplicaciones instaladas del usuario, para desactivar el botón Instalar de las que ya tenga registradas.
+
+                resultado = new JSONParser(Constantes.CONTROL_INSTALACIONES+"&MAIL="+cuenta).execute(this,"foo").get();
+                jsonArray = new JSONObject(resultado).getJSONArray("instalaciones");
+                lista_apps_instaladas = new ArrayList<>();
+
+
+            for(int i=0;i<jsonArray.length();i++)
+            {
+                lista_apps_instaladas.add(jsonArray.getJSONObject(i).getString("LINK_REFERIDO"));
+            }
+
 
 
 
@@ -222,9 +241,9 @@ public class ListaApps extends Fragment {
             progressDialog = new ProgressDialog(context);
             progressDialog.setMessage("Cargando lista de ofertas");
             //Código para poner un logo animado. El archivo /drawable/animacion.xml incluye las imágenes a animar.
-            /*progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.setIndeterminate(true);
-            progressDialog.setIndeterminateDrawable(context.getResources().getDrawable(R.drawable.animacion));*/
+            progressDialog.setIndeterminateDrawable(context.getResources().getDrawable(R.drawable.animacion));
             progressDialog.show();
             progressDialog.setCancelable(false);
 
@@ -270,8 +289,19 @@ public class ListaApps extends Fragment {
                 img_apps[s]=imagenes_apps.get(s);
                 desc_corta[s]=descripcion_app.get(s);
                 ppi_array[s]=ppi_apps.get(s);
-                //ppi_array[s]="PPI: Unknown";
-                url_apps[s]= Uri.parse(url.get(s)+"&gee_postback="+cod_refer);
+
+               if(lista_apps_instaladas.contains(url.get(s).replace("http://",""))) {
+                   url_apps[s] = Uri.parse("nolink");
+                   Log.i("INSTALADA: ",url.get(s));
+               }
+                else {
+                   url_apps[s] = Uri.parse(url.get(s) + "&gee_postback=" + cod_refer);
+                   Log.i("NO_INSTALADA: ",url.get(s));
+
+               }
+
+
+
                 Log.i("URLS",url.get(s)+"&gee_postback="+cod_refer);
 
                 if(estrellas_app.get(s).equals("1"))

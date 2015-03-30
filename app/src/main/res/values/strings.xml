@@ -40,7 +40,7 @@
 
     <!--Contenido de los fragments -->
     <string name="cabecera_user_info">Información de la cuenta</string>
-    <string name="cabecera_compartir">Comparte CashMyApps</string>
+    <string name="cabecera_compartir">¿Referido por un amigo?</string>
     <string name="cabecera_cobro">Retirar beneficios</string>
 
 

@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
@@ -86,7 +87,15 @@ public class CustomAdapter extends ArrayAdapter {
         }
         imgEstrellas.setImageResource(imageId[position]);
         botones.setMovementMethod(LinkMovementMethod.getInstance());
-        botones.setText("Instalar");
+        if(uris[position].toString().equals("nolink")){
+            botones.setText("Instalada");
+            botones.setEnabled(false);
+            botones.setBackgroundColor(Color.DKGRAY);
+            botones.setTextColor(Color.WHITE);
+        }
+        else {
+            botones.setText("Instalar");
+        }
 
 
         botones.setOnClickListener(new View.OnClickListener() {
@@ -101,59 +110,9 @@ public class CustomAdapter extends ArrayAdapter {
                         +"&CUENTA="+correo+"&APP_INSTALADA="+nombre_apps[position]+"&PAIS="+pais+"&LINK_PLAYSTORE=NO LINK"+"&LINK_REFERIDO="+uris[position].toString().replace("http://","") +"&FECHA_INSTALACION="+fecha_alta).replace(" ","%20");
                 try {
 
-
-
-                   String control = new JSONParser(Constantes.CONTROL_INSTALACIONES+"&MAIL="+correo).execute(this,"foo").get();
-
-                    //Si no existen instalaciones del usuario, directamente le permitimos instalar.
-                    if(!control.contains("No user apps")){
-                                JSONArray jsonArray = new JSONObject(control).getJSONArray("instalaciones");
-                                lista_apps = new ArrayList<String>();
-
-                                for(int i=0;i<jsonArray.length();i++)
-                                {
-                                    lista_apps.add(jsonArray.getJSONObject(i).getString("LINK_REFERIDO"));
-                                }
-
-                                if( lista_apps.contains(uris[position].toString().replace("http://","")))
-                                {
-
-                                    AlertDialog.Builder alerta = new AlertDialog.Builder(context);
-
-                                    alerta.setTitle("Atención");
-                                    alerta.setMessage("Esta aplicación ya ha sido instalada");
-
-                                    alerta.setNegativeButton("Aceptar",new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            return;
-                                        }
-                                    });
-
-                                    alerta.show();
-                                    return;
-                                }
-                                else
-                                {
-                                    Log.i("INSTALACIONES_GEE: ",uris[position].toString());
-                                    result = new JSONParser(consulta).execute(this,"foo").get();
-                                }
-
-                    }
-                    else
-                    {
                         result = new JSONParser(consulta).execute(this,"foo").get();
-                    }
 
-
-
-
-
-                    //TODO recuperar lista de instalaciones para impedir que instala una app 2 veces.
-                    //TODO implementar el postback para no pagar inmediatamente las recompensas.
-
-
-                    if(result.contains("{\"success\":1}")){
+                     if(result.contains("{\"success\":1}")){
                         Log.i("INTENT_LAUNCHER: ",launcher.toString());
                         getContext().startActivity(launcher);}
                     else
@@ -166,8 +125,6 @@ public class CustomAdapter extends ArrayAdapter {
                     e.printStackTrace();
                     Log.e("ERROR_CUSTOMADAPTER",e.getMessage());
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
 
             }

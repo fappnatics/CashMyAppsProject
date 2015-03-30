@@ -1,11 +1,13 @@
 package com.cashmyapps.core.cashmyappsproject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,7 +49,12 @@ public class Compartir extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
     private TextView txRefer;
+    private EditText txReferir;
     private Context contexto;
+    private TextView txCorreo;
+    private Button btReferido;
+    private String cuenta;
+    private String cod_refer;
 
 
     public Compartir() {
@@ -70,16 +78,43 @@ public class Compartir extends Fragment {
     public void onResume(){
         super.onResume();
 
-        TextView txCorreo = (TextView)getActivity().findViewById(R.id.txCorreo);
 
+
+        txCorreo = (TextView)getActivity().findViewById(R.id.txCorreo);
+        cuenta = txCorreo.getText().toString();
         txRefer = (TextView)getActivity().findViewById(R.id.txReferido);
+        txReferir = (EditText)getActivity().findViewById(R.id.txReferir);
+        btReferido = (Button)getActivity().findViewById(R.id.btReferido);
+
         contexto = Compartir.this.getActivity();
         try {
-            String resultado = new GetCodRefer(Constantes.URL_GET_BBDD_JSON+"?mail="+txCorreo.getText()).execute(this,"foo").get();
+            String resultado = new JSONParser(Constantes.URL_GET_BBDD_JSON+"?mail="+txCorreo.getText()).execute(this,"foo").get();
            JSONObject jObject = new JSONObject(resultado);
            JSONArray jArray = jObject.getJSONArray("usuarios");
 
            txRefer.setText(jArray.getJSONObject(0).getString("COD_REFER"));
+
+            btReferido.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    cod_refer = txRefer.getText().toString();
+
+                    if(!cod_refer.equals(txReferir.getText().toString()) && txReferir.getText().toString()!=null && !txReferir.getText().toString().equals("") ){
+
+                      new GetCodRefer(Constantes.GET_CODREFER_EXISTE.replace("[MAIL]",cuenta).replace("[COD_REFER]",txReferir.getText().toString())).execute();
+
+                    }
+                    else{
+                        Toast.makeText(contexto,"El texto no es correcto, revíselo e inténtelo de nuevo",Toast.LENGTH_LONG).show();
+
+                    }
+
+
+                }
+            });
+
+
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -131,25 +166,24 @@ public class Compartir extends Fragment {
         }
 
 
-  /*    @Override
+    @Override
     protected void onPreExecute() {
 
         progressDialog = new ProgressDialog(contexto);
-        progressDialog.setMessage("Downloading your data...");
+        progressDialog.setMessage("Procesando petición...");
         progressDialog.show();
         progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             public void onCancel(DialogInterface arg0) {
                 GetCodRefer.this.cancel(true);
             }
         });
-    }*/
+    }
 
 
         @Override
         protected String doInBackground(Object... params) {
 
-            //String url_select = "http://offer.geenapptool.com/155/?device=android&country=ES&lang=es";
-            //url_select = "http://offer.geenapptool.com/162/?device=android&country=ES&lang=es";
+
 
             ArrayList<NameValuePair> param = new ArrayList<>();
 
@@ -170,24 +204,52 @@ public class Compartir extends Fragment {
             return result;
         }
 
-      /*  @Override
+        @Override
         protected void onPostExecute(String v) {
             super.onPostExecute(v);
 
 
             JSONObject jObject = null;
             try {
-                jObject = new JSONObject(v);
-                JSONArray jArray = jObject.getJSONArray("usuarios");
-                txRefer.setText(jArray.getJSONObject(0).getString("COD_REFER"));
+                Thread.sleep(2000);
                 progressDialog.dismiss();
 
-            } catch (JSONException e) {
+                LayoutInflater factory = LayoutInflater.from(contexto);
+                final View view = factory.inflate(R.layout.alerta_icono,null);
+                AlertDialog.Builder alerta = new AlertDialog.Builder(contexto);
+                alerta.setView(view);
+
+
+                alerta.setTitle("Salir");
+                alerta.setMessage("La petición se ha procesado correctamente.");
+
+                alerta.setPositiveButton("Aceptar",new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                       return;
+                    }
+                });
+
+                if(v.equals("{\"success\":1}")){
+                    btReferido.setEnabled(false);
+                    btReferido.setText("Referido");
+                    btReferido.setBackgroundColor(Color.DKGRAY);
+                    txReferir.setEnabled(false);
+                    txReferir.setBackgroundColor(Color.DKGRAY);
+                    txReferir.setTextColor(Color.LTGRAY);
+                }
+
+
+
+                alerta.show();
+
+
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
 
-        }*/
+        }
     }
 
 }

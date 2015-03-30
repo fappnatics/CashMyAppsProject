@@ -12,8 +12,10 @@ public class DatosUsuario {
     private String pais;
     private String estado_cuenta;
     private String cod_refer;
+    private String referido_por;
     private String fecha_alta;
     private String conectado;
+
 
 
 
@@ -56,11 +58,14 @@ public class DatosUsuario {
         return cod_refer;
     }
 
+    public String getReferido_por() {return referido_por;}
+
     public String getFecha_alta() {
         return fecha_alta;
     }
 
     public String getConectado() {return conectado;}
+
 
 
     public void setId_usuario(String id_usuario) {
@@ -87,8 +92,10 @@ public class DatosUsuario {
         this.estado_cuenta = estado_cuenta;
     }
 
-    public void setCod_refer(String cod_refer) {
-        this.cod_refer = cod_refer;
+    public void setCod_refer(String cod_refer) {this.cod_refer = cod_refer;}
+
+    public void setReferido_por(String referido_por) {
+        this.referido_por = referido_por;
     }
 
     public void setFecha_alta(String fecha_alta) {
