@@ -55,6 +55,8 @@ public class Compartir extends Fragment {
     private Button btReferido;
     private String cuenta;
     private String cod_refer;
+    private String pais;
+    private String fecha;
 
 
     public Compartir() {
@@ -81,6 +83,7 @@ public class Compartir extends Fragment {
 
 
         txCorreo = (TextView)getActivity().findViewById(R.id.txCorreo);
+        fecha = new Fechas().getFechaActual();
         cuenta = txCorreo.getText().toString();
         txRefer = (TextView)getActivity().findViewById(R.id.txReferido);
         txReferir = (EditText)getActivity().findViewById(R.id.txReferir);
@@ -93,6 +96,20 @@ public class Compartir extends Fragment {
            JSONArray jArray = jObject.getJSONArray("usuarios");
 
            txRefer.setText(jArray.getJSONObject(0).getString("COD_REFER"));
+            pais = jArray.getJSONObject(0).getString("PAIS");
+
+           if(!jArray.getJSONObject(0).getString("REFERIDO_POR").equals("") && jArray.getJSONObject(0).getString("REFERIDO_POR")!=null){
+
+               txReferir.setText(jArray.getJSONObject(0).getString("REFERIDO_POR"));
+               btReferido.setEnabled(false);
+               btReferido.setText(" Referido ");
+               btReferido.setBackgroundColor(Color.rgb(138, 138, 138));
+               btReferido.setTextColor(Color.DKGRAY);
+               txReferir.setEnabled(false);
+               txReferir.setBackgroundColor(Color.DKGRAY);
+               txReferir.setTextColor(Color.LTGRAY);
+
+           }
 
             btReferido.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -211,6 +228,17 @@ public class Compartir extends Fragment {
 
             JSONObject jObject = null;
             try {
+
+                String ok = new JSONParser(Constantes.PAGAR_RECOMPENSA+
+                        "GIFT=200&MAIL="+cuenta+
+                "&CUENTA="+cuenta+
+                "&APP_INSTALADA=REFERIDO"+
+                "&PAIS="+pais+
+                "&LINK_PLAYSTORE=NO%20LINK"+
+                "&LINK_REFERIDO=NO%20LINK"+
+                "&FECHA_INSTALACION="+fecha).execute(this,"foo").get();
+
+
                 Thread.sleep(2000);
                 progressDialog.dismiss();
 
@@ -251,5 +279,7 @@ public class Compartir extends Fragment {
 
         }
     }
+
+
 
 }
