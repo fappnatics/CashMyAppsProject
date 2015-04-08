@@ -42,6 +42,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
 
@@ -53,7 +54,8 @@ public class Compartir extends Fragment {
     private Context contexto;
     private TextView txCorreo;
     private Button btReferido;
-    private String cuenta;
+    private String cuenta_referente;
+    private String cuenta_referido;
     private String cod_refer;
     private String pais;
     private String fecha;
@@ -84,13 +86,15 @@ public class Compartir extends Fragment {
 
         txCorreo = (TextView)getActivity().findViewById(R.id.txCorreo);
         fecha = new Fechas().getFechaActual();
-        cuenta = txCorreo.getText().toString();
+        cuenta_referido = txCorreo.getText().toString();
         txRefer = (TextView)getActivity().findViewById(R.id.txReferido);
         txReferir = (EditText)getActivity().findViewById(R.id.txReferir);
         btReferido = (Button)getActivity().findViewById(R.id.btReferido);
 
         contexto = Compartir.this.getActivity();
         try {
+
+
             String resultado = new JSONParser(Constantes.URL_GET_BBDD_JSON+"?mail="+txCorreo.getText()).execute(this,"foo").get();
            JSONObject jObject = new JSONObject(resultado);
            JSONArray jArray = jObject.getJSONArray("usuarios");
@@ -119,7 +123,7 @@ public class Compartir extends Fragment {
 
                     if(!cod_refer.equals(txReferir.getText().toString()) && txReferir.getText().toString()!=null && !txReferir.getText().toString().equals("") ){
 
-                      new GetCodRefer(Constantes.GET_CODREFER_EXISTE.replace("[MAIL]",cuenta).replace("[COD_REFER]",txReferir.getText().toString())).execute();
+                      new GetCodRefer(Constantes.GET_CODREFER_EXISTE.replace("[MAIL]",cuenta_referente).replace("[COD_REFER]",txReferir.getText().toString())).execute();
 
                     }
                     else{
@@ -229,15 +233,19 @@ public class Compartir extends Fragment {
             JSONObject jObject = null;
             try {
 
-                String ok = new JSONParser(Constantes.PAGAR_RECOMPENSA+
-                        "GIFT=200&MAIL="+cuenta+
-                "&CUENTA="+cuenta+
-                "&APP_INSTALADA=REFERIDO"+
-                "&PAIS="+pais+
-                "&LINK_PLAYSTORE=NO%20LINK"+
-                "&LINK_REFERIDO=NO%20LINK"+
-                "&FECHA_INSTALACION="+fecha).execute(this,"foo").get();
 
+
+                String res = new JSONParser(Constantes.GET_CUENTA_REFERENTE+"?COD_REFER="+txReferir.getText()).execute(this,"foo").get();
+                JSONObject jObject2 = new JSONObject(res);
+                JSONArray jArray2 = jObject2.getJSONArray("usuarios");
+                cuenta_referente = jArray2.getJSONObject(0).getString("COD_REFER");
+
+
+
+                String ok = new JSONParser(Constantes.PAGAR_REFERIDO.replace("[GIFT]","200")
+                                                                    .replace("[REFERENTE]",cuenta_referente)
+                                                                    .replace("[REFERIDO]",cuenta_referido)
+                                                                    .replace("[FECHA]",new Fechas().getFechaActual())).execute(this,"foo").get();
 
                 Thread.sleep(2000);
                 progressDialog.dismiss();
@@ -278,6 +286,33 @@ public class Compartir extends Fragment {
 
 
         }
+    }
+
+    private String generarCodigos() throws ExecutionException, InterruptedException {
+
+        Boolean code = true;
+        String output="";
+
+        while(code) {
+            char[] chars = "0123456789".toCharArray();
+            StringBuilder sb = new StringBuilder();
+            Random random = new Random();
+            for (int i = 0; i < 8; i++) {
+                char c = chars[random.nextInt(chars.length)];
+                sb.append(c);
+            }
+            output = "RF-" + sb.toString();
+            String result = new JSONParser(Constantes.COMPROBAR_COD_PAGO.replace("[COD_PAGO]",output)).execute(this,"foo").get();
+
+            if(result.contains("LIBRE")){
+                code=false;
+            }
+
+        }
+
+
+
+        return output;
     }
 
 

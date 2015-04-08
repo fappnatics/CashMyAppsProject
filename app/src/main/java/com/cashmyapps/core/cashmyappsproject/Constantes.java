@@ -22,10 +22,16 @@ public final class Constantes {
    public static final String USUARIOS_CONECTADOS="http://cashmyapps.net/get_usuarios_conectados.php";
    public static final String GET_COD_REFER="http://cashmyapps.net/get_usuarios_conectados.php";
    public static final String GET_RANKING_USERS="http://www.cashmyapps.net/get_ranking_usuarios.php";
+   public static final String GET_CUENTA_REFERENTE="http://www.cashmyapps.net/get_cuenta_referente.php?COD_REFER=[COD_REFER]";
    public static final String GET_SALDO="http://www.cashmyapps.net/get_saldo.php?MAIL=[MAIL]";
    public static final String SOLICITAR_COBRO="http://www.cashmyapps.net/solicitudes_cobro.php?MAIL=[MAIL]&COINS=[COINS]";
    public static final String INSERTAR_SOLICITAR_COBRO="http://www.cashmyapps.net/insert_solicitud_cobro.php?MAIL=[MAIL]&COINS=[COINS]&FECHA=[FECHA]&PAGADO=[PAGADO]";
    public static final String GET_CODREFER_EXISTE = "http://www.cashmyapps.net/get_existe_refer.php?COD_REFER=[COD_REFER]&MAIL=[MAIL]";
+   public static final String COMPROBAR_COD_PAGO = "http://www.cashmyapps.net/comprobar_codigo_pago.php?COD_PAGO=[COD_PAGO]";
+   public static final String PAGAR_REFERIDO = "http://www.cashmyapps.net/set_pagar_referido.php?GIFT=[GIFT]" +
+                                                                                                "&REFERENTE=[REFERENTE]" +
+                                                                                                "&REFERIDO=[REFERIDO]" +
+                                                                                                "&FECHA[FECHA]";
 
 
 
