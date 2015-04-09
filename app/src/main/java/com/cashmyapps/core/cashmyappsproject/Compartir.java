@@ -123,7 +123,7 @@ public class Compartir extends Fragment {
 
                     if(!cod_refer.equals(txReferir.getText().toString()) && txReferir.getText().toString()!=null && !txReferir.getText().toString().equals("") ){
 
-                      new GetCodRefer(Constantes.GET_CODREFER_EXISTE.replace("[MAIL]",cuenta_referente).replace("[COD_REFER]",txReferir.getText().toString())).execute();
+                      new GetCodRefer(Constantes.GET_CODREFER_EXISTE.replace("[MAIL]",cuenta_referido).replace("[COD_REFER]",txReferir.getText().toString())).execute();
 
                     }
                     else{
@@ -235,17 +235,17 @@ public class Compartir extends Fragment {
 
 
 
-                String res = new JSONParser(Constantes.GET_CUENTA_REFERENTE+"?COD_REFER="+txReferir.getText()).execute(this,"foo").get();
+                String res = new JSONParser(Constantes.GET_CUENTA_REFERENTE.replace("[COD_REFER]",txReferir.getText())).execute(this,"foo").get();
                 JSONObject jObject2 = new JSONObject(res);
                 JSONArray jArray2 = jObject2.getJSONArray("usuarios");
-                cuenta_referente = jArray2.getJSONObject(0).getString("COD_REFER");
+                cuenta_referente = jArray2.getJSONObject(0).getString("MAIL");
 
 
 
-                String ok = new JSONParser(Constantes.PAGAR_REFERIDO.replace("[GIFT]","200")
-                                                                    .replace("[REFERENTE]",cuenta_referente)
+                String ok = new JSONParser(Constantes.PAGAR_REFERIDO.replace("[REFERENTE]",cuenta_referente)
                                                                     .replace("[REFERIDO]",cuenta_referido)
-                                                                    .replace("[FECHA]",new Fechas().getFechaActual())).execute(this,"foo").get();
+                                                                    .replace("[FECHA]",new Fechas().getFechaActual())
+                                                                    .replace("[COD_PAGO]",generarCodigos())).execute(this,"foo").get();
 
                 Thread.sleep(2000);
                 progressDialog.dismiss();
@@ -282,6 +282,7 @@ public class Compartir extends Fragment {
 
             } catch (Exception e) {
                 e.printStackTrace();
+                progressDialog.dismiss();
             }
 
 
