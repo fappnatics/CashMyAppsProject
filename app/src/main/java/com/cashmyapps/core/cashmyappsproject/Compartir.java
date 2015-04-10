@@ -57,7 +57,6 @@ public class Compartir extends Fragment {
     private String cuenta_referente;
     private String cuenta_referido;
     private String cod_refer;
-    private String cod_referente;
     private String pais;
     private String fecha;
 
