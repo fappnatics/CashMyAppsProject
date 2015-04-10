@@ -31,7 +31,9 @@ public final class Constantes {
    public static final String PAGAR_REFERIDO = "http://www.cashmyapps.net/set_pagar_referido.php?&REFERENTE=[REFERENTE]" +
                                                                                                 "&REFERIDO=[REFERIDO]" +
                                                                                                 "&FECHA=[FECHA]"+
-                                                                                                "&COD_PAGO=[COD_PAGO]";
+                                                                                                "&COD_PAGO=[COD_PAGO]"+
+                                                                                                "&COD_REFERIDO=[COD_REFERIDO]"+
+                                                                                                "&COD_REFERENTE=[COD_REFERENTE]";
 
 
 

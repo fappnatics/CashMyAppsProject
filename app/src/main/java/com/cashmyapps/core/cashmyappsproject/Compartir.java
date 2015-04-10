@@ -57,6 +57,7 @@ public class Compartir extends Fragment {
     private String cuenta_referente;
     private String cuenta_referido;
     private String cod_refer;
+    private String cod_referente;
     private String pais;
     private String fecha;
 
@@ -242,12 +243,18 @@ public class Compartir extends Fragment {
 
 
 
-                String ok = new JSONParser(Constantes.PAGAR_REFERIDO.replace("[REFERENTE]",cuenta_referente)
+
+                //Se da de alta en la tabla TAB_CAJA
+                String caja = new JSONParser(Constantes.PAGAR_REFERIDO.replace("[REFERENTE]",cuenta_referente)
                                                                     .replace("[REFERIDO]",cuenta_referido)
                                                                     .replace("[FECHA]",new Fechas().getFechaActual())
-                                                                    .replace("[COD_PAGO]",generarCodigos())).execute(this,"foo").get();
+                                                                    .replace("[COD_PAGO]",generarCodigos())
+                                                                    .replace("[COD_REFERIDO]",cod_refer)
+                                                                    .replace("[COD_REFERENTE]",txReferir.getText())).execute(this,"foo").get();
 
-                Thread.sleep(2000);
+
+
+
                 progressDialog.dismiss();
 
                 LayoutInflater factory = LayoutInflater.from(contexto);
