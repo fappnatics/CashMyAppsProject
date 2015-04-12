@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -44,6 +45,7 @@ public class CustomAdapter extends ArrayAdapter {
     private String result="";
     private List<String> lista_apps;
     private Double saldo;
+    private  String cod_pago;
 
     public CustomAdapter(Activity context, String[] nombre_apps, Bitmap[] imagen, String[] resumen_apps, String[] ppi_app, Integer[] imageId,Uri[] url, String cuenta) {
         super(context, R.layout.elementolista, nombre_apps);
@@ -78,7 +80,7 @@ public class CustomAdapter extends ArrayAdapter {
         resumen_app.setText(resumen_apps[position]);
 
         Log.i("PPI: ",ppi_app[position]);
-        if(String.format("%.2f",Double.parseDouble(ppi_app[position])*0.1).equals("0,00"))
+        if(String.format("%.2f",Double.parseDouble(ppi_app[position])*0.2*100).equals("0,00"))
             ppi.setText("PPI: 1 COIN");
         else
         {
@@ -105,18 +107,38 @@ public class CustomAdapter extends ArrayAdapter {
                 String pais = Locale.getDefault().getCountry();
                 Date d = new Date();
                 String fecha_alta = new SimpleDateFormat("dd-MM-yyyy").format(d);
-                String consulta= (Constantes.PAGAR_RECOMPENSA+"MAIL="+correo+"&GIFT="+saldo.intValue()
-
-                        +"&CUENTA="+correo+"&APP_INSTALADA="+nombre_apps[position]+"&PAIS="+pais+"&LINK_PLAYSTORE=NO LINK"+"&LINK_REFERIDO="+uris[position].toString().replace("http://","") +"&FECHA_INSTALACION="+fecha_alta).replace(" ","%20");
+                try {
+                    cod_pago = new GeneradorCodigos().generarCodigos("IN");
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                String consulta= (Constantes.PAGAR_RECOMPENSA+
+                        "COD_PAGO="+cod_pago+
+                        "&MAIL="+correo+
+                        "&GIFT="+saldo.intValue()+
+                        "&CUENTA="+correo+
+                        "&APP_INSTALADA="+nombre_apps[position]+
+                        "&PAIS="+pais+
+                        "&LINK_PLAYSTORE=NO LINK"+
+                        "&LINK_REFERIDO="+uris[position].toString().replace("http://","") +
+                        "&FECHA_INSTALACION="+fecha_alta).replace(" ", "%20");
                 try {
 
                         result = new JSONParser(consulta).execute(this,"foo").get();
+
+                    //De mmomento, hasta que no esté hecho el módulo de pagos, estará aquí ubicada la inserción en la TAB_CAJA
+
+
+
+
 
                      if(result.contains("{\"success\":1}")){
                         Log.i("INTENT_LAUNCHER: ",launcher.toString());
                         getContext().startActivity(launcher);}
                     else
-                        Toast.makeText(context, "Oooops, ha sucedido un error, por favor, inténtalo de nuevo más tarde", Toast.LENGTH_LONG);
+                        Toast.makeText(context, "Oooops, ha sucedido un error, por favor, inténtalo de nuevo más tarde", Toast.LENGTH_LONG).show();
 
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -134,4 +156,5 @@ public class CustomAdapter extends ArrayAdapter {
 
         return rowView;
     }
-}
+
+   }

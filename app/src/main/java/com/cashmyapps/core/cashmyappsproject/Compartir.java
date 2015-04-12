@@ -317,8 +317,6 @@ public class Compartir extends Fragment {
 
         }
 
-
-
         return output;
     }
 
