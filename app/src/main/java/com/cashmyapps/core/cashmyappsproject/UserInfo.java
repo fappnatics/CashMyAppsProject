@@ -167,12 +167,13 @@ public class UserInfo extends Fragment {
         final NotificationManager mNotif = (NotificationManager)contexto.getSystemService(Context.NOTIFICATION_SERVICE);*/
          pb = new PostbacksThread();
 
+
+
         btAceptar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     /*********** Create notification ***********/
                     pb.start();
-
                 }
             });
 

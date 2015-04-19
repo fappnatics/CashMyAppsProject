@@ -89,6 +89,7 @@ public class MainActivity extends ActionBarActivity
         };
 
 
+
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
@@ -213,6 +214,8 @@ public class MainActivity extends ActionBarActivity
                         .commit();
                 break;
         }
+
+
 
     }
 
@@ -345,6 +348,7 @@ public class MainActivity extends ActionBarActivity
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
     }
+
 
     private class DataManagment extends AsyncTask<Object, Void, String> {
 

@@ -22,8 +22,9 @@ public class PostbacksThread extends Thread {
            try{
                Log.i("HILO DE EJECUCION: ", i++ +"" );
                Thread.sleep(DELAY);
-               String prueba = new JSONParser(Constantes.GET_RANKING_USERS).execute(this,"foo").get();
-               Log.i("HILO DE EJECUCION: ",prueba);
+               /*String prueba = new JSONParser(Constantes.GET_RANKING_USERS).execute(this,"foo").get();
+               Log.i("HILO DE EJECUCION: ",prueba);*/
+
 
 
            }
