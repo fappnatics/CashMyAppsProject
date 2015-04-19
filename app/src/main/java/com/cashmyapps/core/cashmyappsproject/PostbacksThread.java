@@ -7,18 +7,25 @@ import android.util.Log;
  */
 public class PostbacksThread extends Thread {
 
-    private final int DELAY = 5000;
+
+
+    private String comp;
+    private final int DELAY = 3000;
     private int i=0;
 
     @Override
     public void run(){
 
 
-        while(true)
+        while(!this.isInterrupted())
         {
            try{
                Log.i("HILO DE EJECUCION: ", i++ +"" );
                Thread.sleep(DELAY);
+               String prueba = new JSONParser(Constantes.GET_RANKING_USERS).execute(this,"foo").get();
+               Log.i("HILO DE EJECUCION: ",prueba);
+
+
            }
            catch(InterruptedException s){
                Log.i("SLEEP: ",s.getMessage() );
@@ -28,5 +35,7 @@ public class PostbacksThread extends Thread {
         }
         }
     }
+
+
 
 }

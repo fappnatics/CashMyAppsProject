@@ -132,11 +132,10 @@ public class UserInfo extends Fragment {
     }
 
     @Override
-    public void onPause(){
+    public void onPause() {
         super.onPause();
-
-
-       //pb.interrupt();
+       /* if(pb.isAlive())
+            pb.interrupt();*/
 
     }
 
@@ -172,8 +171,6 @@ public class UserInfo extends Fragment {
                 @Override
                 public void onClick(View v) {
                     /*********** Create notification ***********/
-                       // mNotif.notify(0,builder.build());
-
                     pb.start();
 
                 }

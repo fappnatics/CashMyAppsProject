@@ -60,6 +60,7 @@ public class MainActivity extends ActionBarActivity
     private View header;
     private String cuenta;
     private Intent i;
+    private Handler mHandler;
 
 
     /**
@@ -79,6 +80,13 @@ public class MainActivity extends ActionBarActivity
         setContentView(R.layout.activity_main);
         savedinstance = savedInstanceState;
         context = this.getApplicationContext();
+
+        mHandler = new Handler(Looper.getMainLooper()){
+          @Override
+            public void handleMessage(Message inputMessage){
+              PostbacksThread pb = (PostbacksThread) inputMessage.obj;
+          }
+        };
 
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
