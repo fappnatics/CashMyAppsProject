@@ -60,7 +60,7 @@ public class MainActivity extends ActionBarActivity
     private View header;
     private String cuenta;
     private Intent i;
-    private Handler mHandler;
+
 
 
     /**
@@ -81,12 +81,8 @@ public class MainActivity extends ActionBarActivity
         savedinstance = savedInstanceState;
         context = this.getApplicationContext();
 
-        mHandler = new Handler(Looper.getMainLooper()){
-          @Override
-            public void handleMessage(Message inputMessage){
-              PostbacksThread pb = (PostbacksThread) inputMessage.obj;
-          }
-        };
+
+
 
          mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -115,6 +111,10 @@ public class MainActivity extends ActionBarActivity
             TextView txSaldo = (TextView)findViewById(R.id.txSaldo);
             cuenta = i.getExtras().getString("cuenta");
 
+            //Invocamos al servicio
+            Intent in = new Intent(MainActivity.this,ServicioPostback.class);
+            if(!ServicioPostback.isRunning())
+                MainActivity.this.startService(in);
 
 
             String resultado = new JSONParser(Constantes.URL_GET_BBDD_JSON+"?mail="+cuenta).execute(this,"foo").get();
