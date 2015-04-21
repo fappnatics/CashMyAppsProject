@@ -1,5 +1,6 @@
 package com.cashmyapps.core.cashmyappsproject;
 
+import android.app.Activity;
 import android.util.Log;
 
 /**
@@ -8,10 +9,15 @@ import android.util.Log;
 public class PostbacksThread extends Thread {
 
 
+   /* public PostbacksThread (Activity act){
+        this.actividad = act;
+
+    }*/
 
     private String comp;
     private final int DELAY = 3000;
     private int i=0;
+    private Activity actividad;
 
     @Override
     public void run(){
@@ -36,6 +42,9 @@ public class PostbacksThread extends Thread {
         }
         }
     }
+
+
+
 
 
 
