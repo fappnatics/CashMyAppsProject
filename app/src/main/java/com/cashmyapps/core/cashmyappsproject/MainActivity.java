@@ -59,6 +59,7 @@ public class MainActivity extends ActionBarActivity
     private String[] cuentas_array;
     private View header;
     private String cuenta;
+    private String cod_refer;
     private Intent i;
 
 
@@ -111,10 +112,7 @@ public class MainActivity extends ActionBarActivity
             TextView txSaldo = (TextView)findViewById(R.id.txSaldo);
             cuenta = i.getExtras().getString("cuenta");
 
-            //Invocamos al servicio
-            Intent in = new Intent(MainActivity.this,ServicioPostback.class);
-            if(!ServicioPostback.isRunning())
-                MainActivity.this.startService(in);
+
 
 
             String resultado = new JSONParser(Constantes.URL_GET_BBDD_JSON+"?mail="+cuenta).execute(this,"foo").get();
@@ -129,9 +127,15 @@ public class MainActivity extends ActionBarActivity
 
             txNombre.setText(jArray.getJSONObject(0).getString("NOMBRE"));
             txCorreo.setText(jArray.getJSONObject(0).getString("MAIL"));
+            cod_refer=jArray.getJSONObject(0).getString("COD_REFER");
             txSaldo.setText(jArray.getJSONObject(0).getString("SALDO")+" Coins");
 
-
+            //Invocamos al servicio
+            Intent in = new Intent(MainActivity.this,ServicioPostback.class);
+            in.putExtra("cuenta",cuenta);
+            in.putExtra("cod_refer",cod_refer);
+            if(!ServicioPostback.isRunning())
+                MainActivity.this.startService(in);
 
         } catch (InterruptedException e) {
             e.printStackTrace();

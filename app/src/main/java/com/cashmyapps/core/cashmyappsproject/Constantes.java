@@ -28,6 +28,7 @@ public final class Constantes {
    public static final String INSERTAR_SOLICITAR_COBRO="http://www.cashmyapps.net/insert_solicitud_cobro.php?MAIL=[MAIL]&COINS=[COINS]&FECHA=[FECHA]&PAGADO=[PAGADO]";
    public static final String GET_CODREFER_EXISTE = "http://www.cashmyapps.net/get_existe_refer.php?COD_REFER=[COD_REFER]&MAIL=[MAIL]";
    public static final String COMPROBAR_COD_PAGO = "http://www.cashmyapps.net/comprobar_codigo_pago.php?COD_PAGO=[COD_PAGO]";
+   public static final String GET_POSTBACK_USER = "http://www.cashmyapps.net/get_postback_user.php?CODREFER=[CODREFER]";
    public static final String PAGAR_REFERIDO = "http://www.cashmyapps.net/set_pagar_referido.php?&REFERENTE=[REFERENTE]" +
                                                                                                 "&REFERIDO=[REFERIDO]" +
                                                                                                 "&FECHA=[FECHA]"+
