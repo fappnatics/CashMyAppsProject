@@ -16,6 +16,7 @@ public final class Constantes {
    public static final String URL_GET_BBDD_JSON="http://www.cashmyapps.net/get_datos_usuario.php";
    public static final String ALTA_USUARIO="http://www.cashmyapps.net/set_nuevo_usuario.php/?";
    public static final String PAGAR_RECOMPENSA="http://www.cashmyapps.net/set_usuario_pagar_recompensa.php?";
+   public static final String REGISTRAR_INSTALACION="http://www.cashmyapps.net/registrar_instalacion.php?";
    public static final String CONTROL_INSTALACIONES="http://www.cashmyapps.net/get_instalaciones.php?";
    public static final String CONEXION_USUARIO="http://www.cashmyapps.net/set_conexion_usuario.php?MAIL=[MAIL]&CONECTADO=[CONECTADO]";
    public static final String ERRORES_APP="http://cashmyapps.net/insert_error_log.php?MAIL=[CUENTA]&ERROR=[ERROR]&FECHA=[FECHA]";

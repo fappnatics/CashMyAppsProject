@@ -114,7 +114,7 @@ public class CustomAdapter extends ArrayAdapter {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                String consulta= (Constantes.PAGAR_RECOMPENSA+
+                String consulta= (Constantes.REGISTRAR_INSTALACION+
                         "COD_PAGO="+cod_pago+
                         "&MAIL="+correo+
                         "&GIFT="+saldo.intValue()+
