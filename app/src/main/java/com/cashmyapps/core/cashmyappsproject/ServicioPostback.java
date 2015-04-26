@@ -34,9 +34,11 @@ public class ServicioPostback extends Service {
     private String cuenta;
     private String cod_refer;
     private String stPagar="";
+    private String coins="";
     private JSONObject jObject;
     private JSONArray jArray;
     private List<String> lsPagos;
+
     private int s;
 
     public static boolean isRunning() {
@@ -154,6 +156,7 @@ public class ServicioPostback extends Service {
                        //Efectuamos los pagos pendiente de las aplicaciones pedientes.
 
                         stPagar += jArray.getJSONObject(s).getString("GEE_APP")+", ";
+                        coins +=  String.format("%.2f",Double.parseDouble(jArray.getJSONObject(s).getString("GEE_PPI"))*0.2*100);
 
 
 
@@ -169,9 +172,6 @@ public class ServicioPostback extends Service {
                 }
                 if(s==1)
                     stPagar = "Ha recibido un nuevo pago por la aplicación instalada " + stPagar;
-
-                if(i==10)
-                    lanzarNotificacion("Mensaje de prueba de notificación.");
 
 
             }
