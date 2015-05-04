@@ -132,7 +132,7 @@ public class Login extends ActionBarActivity {
 
 
             titulo = (TextView) findViewById(R.id.txTituloSelec);
-            titulo.setText("Selecciona una cuenta de acceso.");
+            titulo.setText(getResources().getString(R.string.cont_login_selec_cuenta_acceso));
 
             txTituloAmigo = (TextView) findViewById(R.id.txTituloAmigo);
 
@@ -144,7 +144,7 @@ public class Login extends ActionBarActivity {
 
             if (num_cuentas == 0) {
                 TextView titulo = (TextView) findViewById(R.id.txTituloSelec);
-                titulo.setText("¿Nuevo en CashMyApps? \n Selecciona una cuenta de registro");
+                titulo.setText(getResources().getString(R.string.cont_login_cabecera_nuevo_cashmaker));
 
 
                 String[] arraySpinner = cuentas.toArray(new String[cuentas.size()]);
@@ -168,10 +168,10 @@ public class Login extends ActionBarActivity {
                     alerta.setView(view);
 
 
-                    alerta.setTitle("Atención");
-                    alerta.setMessage("La cuenta está bloqueada, por favor, póngase en contacto con nuestro soporte en soportecashmyapps@gmail.com");
+                    alerta.setTitle(getResources().getString(R.string.dialogo_titulo_atencion));
+                    alerta.setMessage(getResources().getString(R.string.dialogo_cuerpo_atencion));
 
-                    alerta.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    alerta.setPositiveButton(getResources().getString(R.string.boton_aceptar), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             finish();

@@ -239,7 +239,7 @@ public class ListaApps extends Fragment {
         protected void onPreExecute() {
 
             progressDialog = new ProgressDialog(context);
-            progressDialog.setMessage("Cargando lista de ofertas");
+            progressDialog.setMessage(getResources().getString(R.string.dialogo_carga_apps));
             //Código para poner un logo animado. El archivo /drawable/animacion.xml incluye las imágenes a animar.
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.setIndeterminate(true);

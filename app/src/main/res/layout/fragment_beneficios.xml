@@ -31,7 +31,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="30dp"
-        android:src="@drawable/cashmyapps_logo"/>
+        android:src="@drawable/cashmaker_logo"/>
 
 
 

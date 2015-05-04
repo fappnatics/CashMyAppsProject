@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:id="@+id/imageView5"
-        android:src="@drawable/cashmyapps_logo"
+        android:src="@drawable/cashmaker_logo"
         android:layout_marginBottom="50dp"
         android:background="@drawable/marco"
         android:layout_row="1"

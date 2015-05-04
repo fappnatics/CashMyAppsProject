@@ -20,7 +20,7 @@
     <string name="subtitulo_cobros">Obtén tu celebración</string>
 
     <!--Contenido de los fragments -->
-    <string name="cont_login_cabecera_nuevo_cashmaker">¿Nuevo en CashMyApps? \n Selecciona una cuenta de registro</string>
+    <string name="cont_login_cabecera_nuevo_cashmaker">¿Nuevo en CashMaker? \n Selecciona una cuenta de registro</string>
     <string name="cont_login_selec_cuenta_acceso">Selecciona una cuenta de acceso.</string>
 
     <!--Contenido de los datos a compartir -->
@@ -42,7 +42,7 @@
     <string name="dialogo_titulo_salir">Salir</string>
     <string name="dialogo_titulo_atencion">Atención</string>
     <string name="dialogo_cuerpo_salir">¿Seguro que quieres salir de la aplicación?</string>
-    <string name="dialogo_cuerpo_atencion">La cuenta está bloqueada, por favor, póngase en contacto con nuestro soporte en soportecashmyapps@gmail.com</string>
+    <string name="dialogo_cuerpo_atencion">La cuenta está bloqueada, por favor, póngase en contacto con nuestro soporte en soportecashmaker@gmail.com</string>
     <string name="dialogo_si">Si</string>
     <string name="dialogo_no">No</string>
     <string name="dialogo_aceptar">Aceptar</string>
@@ -67,7 +67,7 @@
     <string name="layout_login_cabecera">Selecciona una cuenta</string>
     <string name="layout_login_nombre">Nombre (opcional)</string>
     <string name="layout_login_codamigo">¿Tienes un código de amigo?</string>
-    <string name="layout_login_registro">¿Nuevo en CashMyApps?</string>
+    <string name="layout_login_registro">¿Nuevo en CashMaker?</string>
     <string name="layout_login_cuentas">Selecciona una cuenta para registrarte</string>
     <string name="layout_cobro_tucodigo">Tu código</string>
     <string name="layout_cobro_codigoamigo">Código de amigo</string>

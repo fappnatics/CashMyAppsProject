@@ -127,7 +127,7 @@ public class Compartir extends Fragment {
 
                     }
                     else{
-                        Toast.makeText(contexto,"El texto no es correcto, revíselo e inténtelo de nuevo",Toast.LENGTH_LONG).show();
+                        Toast.makeText(contexto,getResources().getString(R.string.dialogo_referido_texto_incorrecto),Toast.LENGTH_LONG).show();
 
                     }
 

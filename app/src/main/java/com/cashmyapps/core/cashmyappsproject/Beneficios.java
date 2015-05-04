@@ -100,10 +100,10 @@ public class Beneficios extends Fragment {
                         resultado = new JSONParser(Constantes.INSERTAR_SOLICITAR_COBRO.replace("[MAIL]",cuenta).replace("[COINS]",saldo).replace("[FECHA]",new Fechas().getFechaActual()).replace("[PAGADO]","N")).execute(this,"foo").get();
                         Log.i("SOLICITUD: ",resultado);
                         if(resultado.contains("{\"success\":1}")){
-                        alerta.setTitle("Éxito");
-                        alerta.setMessage("Su solicitud de cobro ha sido tramitada y se realizará en 24/48h, si tiene alguna duda, por favor, contáctenos.");
+                        alerta.setTitle(getResources().getString(R.string.dialogo_solicitud_cobro_aceptada_titulo));
+                        alerta.setMessage(getResources().getString(R.string.dialogo_solicitud_cobro_aceptada));
 
-                        alerta.setPositiveButton("Aceptar",new DialogInterface.OnClickListener() {
+                        alerta.setPositiveButton(getResources().getString(R.string.boton_aceptar),new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
@@ -113,10 +113,10 @@ public class Beneficios extends Fragment {
                         alerta.show();
                         }
                         else{
-                            alerta.setTitle("Error");
-                            alerta.setMessage("Ha ocurrido un error durante su tramitación o el servicio no está disponible. Por favor, inténtelo de nuevo más tarde.");
+                            alerta.setTitle(getResources().getString(R.string.dialogo_solicitud_cobro_rechazada_titulo));
+                            alerta.setMessage(getResources().getString(R.string.dialogo_solicitud_cobro_rechazada));
 
-                            alerta.setPositiveButton("Aceptar",new DialogInterface.OnClickListener() {
+                            alerta.setPositiveButton(getResources().getString(R.string.boton_aceptar),new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
 
@@ -127,10 +127,10 @@ public class Beneficios extends Fragment {
                         }
                     }
                     else{
-                        alerta.setTitle("Error");
-                        alerta.setMessage("Ha ocurrido un error durante su tramitación o el servicio no está disponible. Por favor, inténtelo de nuevo más tarde.");
+                        alerta.setTitle(getResources().getString(R.string.dialogo_solicitud_cobro_rechazada_titulo));
+                        alerta.setMessage(getResources().getString(R.string.dialogo_solicitud_cobro_rechazada));
 
-                        alerta.setPositiveButton("Aceptar",new DialogInterface.OnClickListener() {
+                        alerta.setPositiveButton(getResources().getString(R.string.boton_aceptar),new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 

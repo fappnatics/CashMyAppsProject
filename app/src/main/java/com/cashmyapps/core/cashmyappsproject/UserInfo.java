@@ -149,23 +149,7 @@ public class UserInfo extends Fragment {
         txCod_refer = (TextView)getActivity().findViewById(R.id.txUERefer);
         btAceptar = (Button)getActivity().findViewById(R.id.btUEAceptar);
 
-       /* final NotificationCompat.Builder builder = new NotificationCompat.Builder(contexto);
-        builder.setSmallIcon(R.drawable.cashmyapps_logo2);
-        builder.setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.cashmyapps_logo2));
-        builder.setContentTitle("Mi notificación");
-        builder.setContentText("Esto es una prueba para probar las notificaciones");
-        Intent result = new Intent();
-
-        TaskStackBuilder taskStack = TaskStackBuilder.create(contexto);
-        taskStack.addParentStack(getActivity());
-        taskStack.addNextIntent(result);
-
-        PendingIntent resultPending = taskStack.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
-
-        builder.setContentIntent(resultPending);
-
-        final NotificationManager mNotif = (NotificationManager)contexto.getSystemService(Context.NOTIFICATION_SERVICE);*/
-         pb = new PostbacksThread();
+        pb = new PostbacksThread();
 
 
 

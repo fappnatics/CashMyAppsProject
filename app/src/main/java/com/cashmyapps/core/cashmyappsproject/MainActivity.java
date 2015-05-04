@@ -118,7 +118,7 @@ public class MainActivity extends ActionBarActivity
             String resultado = new JSONParser(Constantes.URL_GET_BBDD_JSON+"?mail="+cuenta).execute(this,"foo").get();
 
             if(resultado.contains("{\"success\":0}")){
-                Toast.makeText(context,"Oooops, ha sucedido un error en el alta de usuario, por favor, inténtalo de nuevo más tarde",Toast.LENGTH_LONG);
+                Toast.makeText(context,getResources().getString(R.string.dialogo_error_alta_usuario),Toast.LENGTH_LONG);
 
             }
 
@@ -134,6 +134,7 @@ public class MainActivity extends ActionBarActivity
             Intent in = new Intent(MainActivity.this,ServicioPostback.class);
             in.putExtra("cuenta",cuenta);
             in.putExtra("cod_refer",cod_refer);
+
             if(!ServicioPostback.isRunning())
                 MainActivity.this.startService(in);
 
@@ -254,7 +255,7 @@ public class MainActivity extends ActionBarActivity
         ShareActionProvider myShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(shareOpt);
         Intent i = new Intent(Intent.ACTION_SEND);
         i.setType("text/plain");
-        i.putExtra(Intent.EXTRA_TEXT, "Únete a CashMyApps " + "http://oi58.tinypic.com/24wgivr.jpg");
+        i.putExtra(Intent.EXTRA_TEXT, getResources().getString(R.string.compartir_cashmaker));
         myShareActionProvider.setShareIntent(i);
 
         return true;
@@ -271,10 +272,10 @@ public class MainActivity extends ActionBarActivity
         alerta.setView(view);
 
 
-        alerta.setTitle("Salir");
-        alerta.setMessage("¿Seguro que quieres salir de la aplicación?");
+        alerta.setTitle(getResources().getString(R.string.dialogo_titulo_salir));
+        alerta.setMessage(getResources().getString(R.string.dialogo_cuerpo_salir));
 
-        alerta.setPositiveButton("Sí",new DialogInterface.OnClickListener() {
+        alerta.setPositiveButton(getResources().getString(R.string.dialogo_si),new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 DataManagment da = new DataManagment(Constantes.CONEXION_USUARIO.replace("[MAIL]",cuenta).replace("[CONECTADO]","N"));
@@ -282,7 +283,7 @@ public class MainActivity extends ActionBarActivity
             }
         });
 
-        alerta.setNegativeButton("No",new DialogInterface.OnClickListener() {
+        alerta.setNegativeButton(getResources().getString(R.string.dialogo_no),new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 return;

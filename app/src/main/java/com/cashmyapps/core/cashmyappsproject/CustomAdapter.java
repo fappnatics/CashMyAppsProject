@@ -90,13 +90,13 @@ public class CustomAdapter extends ArrayAdapter {
         imgEstrellas.setImageResource(imageId[position]);
         botones.setMovementMethod(LinkMovementMethod.getInstance());
         if(uris[position].toString().equals("nolink")){
-            botones.setText("Instalada");
+            botones.setText(context.getResources().getString(R.string.boton_instalada));
             botones.setEnabled(false);
             botones.setBackgroundColor(Color.DKGRAY);
             botones.setTextColor(Color.WHITE);
         }
         else {
-            botones.setText("Instalar");
+            botones.setText(context.getResources().getString(R.string.boton_instalar));
         }
 
 
@@ -138,7 +138,7 @@ public class CustomAdapter extends ArrayAdapter {
                         Log.i("INTENT_LAUNCHER: ",launcher.toString());
                         getContext().startActivity(launcher);}
                     else
-                        Toast.makeText(context, "Oooops, ha sucedido un error, por favor, inténtalo de nuevo más tarde", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, context.getResources().getString(R.string.dialogo_error_instalacion), Toast.LENGTH_LONG).show();
 
                 } catch (InterruptedException e) {
                     e.printStackTrace();

@@ -28,12 +28,12 @@ public class SplashScreen extends ActionBarActivity {
            ConnectivityManager conMgr = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
            NetworkInfo i = conMgr.getActiveNetworkInfo();
            if(i==null){
-               Toast.makeText(this, "Conexión de datos no disponible, por favor, conéctate a una red y vuelve a intentarlo.", Toast.LENGTH_LONG).show();
+               Toast.makeText(this, getResources().getString(R.string.dialogo_error_conexion), Toast.LENGTH_LONG).show();
                this.finish();
                return;
            }
            if(!i.isConnected()||!i.isAvailable()){
-               Toast.makeText(this, "Conexión de datos no disponible, por favor, conéctate a una red y vuelve a intentarlo.", Toast.LENGTH_LONG).show();
+               Toast.makeText(this, getResources().getString(R.string.dialogo_error_conexion), Toast.LENGTH_LONG).show();
                this.finish();
                return;
            }

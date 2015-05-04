@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.IBinder;
@@ -34,7 +35,11 @@ public class ServicioPostback extends Service {
     private String cuenta;
     private String cod_refer;
     private String stPagar="";
-    private String coins="";
+    private String stMensaje="";
+    private Double coins = 0.00;
+    private String calcular ="";
+    private String gee_unique ="";
+    private int pago_final;
     private JSONObject jObject;
     private JSONArray jArray;
     private List<String> lsPagos;
@@ -54,21 +59,19 @@ public class ServicioPostback extends Service {
 
     @Override
     public void onCreate() {
-        Toast.makeText(getApplicationContext(), "Servicio ServicioPostback creado", Toast.LENGTH_LONG).show();
+
         instance=this;
         }
 
     @Override
     public void onDestroy() {
-        Toast.makeText(getApplicationContext(), "Servicio ServicioPostback destruido", Toast.LENGTH_LONG).show();
-        System.out.println( "Servicio MyService destruido");
+        System.out.println( "Servicio PostbackService destruido");
         instance = null;
     }
 
     @Override
     public void onStart(Intent intent, int startid) {
-        Toast.makeText(getApplicationContext(), "Servicio ServicioPostback iniciado!!", Toast.LENGTH_LONG).show();
-        System.out.println( "Servicio MyService iniciado");
+        System.out.println( "Servicio PostbackService iniciado");
         //lanzarNotificacion();
 
     }
@@ -78,10 +81,8 @@ public class ServicioPostback extends Service {
     {
         cuenta = intent.getStringExtra("cuenta");
         cod_refer = intent.getStringExtra("cod_refer");
-        Toast.makeText(this, "Service Started", Toast.LENGTH_LONG).show();
-               new Thread()
-        {
-            public void run() {
+        new Thread(){
+            public void run(){
                 buscaPagos();
             }
         }.start();
@@ -91,28 +92,28 @@ public class ServicioPostback extends Service {
 
 
     private void lanzarNotificacion2(String mensaje) {
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.cashmyapps_logo2)
-                        .setContentTitle("My notification")
-                        .setContentText("Hello World!");
-// Creates an explicit intent for an Activity in your app
-        Intent resultIntent = new Intent(this, ServicioPostback.class);
 
-// The stack builder object will contain an artificial back stack for the
-// started Activity.
-// This ensures that navigating backward from the Activity leads out of
-// your application to the Home screen.
+        Intent resultIntent =new Intent(ServicioPostback.this, SplashScreen.class);
+
+        PendingIntent contIntent = PendingIntent.getActivity(ServicioPostback.this, 0, resultIntent, 0);
+
+        Notification notif = new Notification.Builder(ServicioPostback.this)
+                .setContentTitle(getResources().getString(R.string.nf_nuevo_pago))
+                .setSmallIcon(R.drawable.coin)
+                .setLights(Color.RED,500,100)
+                .setSound(Uri.parse("android.resource://"+getPackageName()+"/"+ R.raw.monedas))
+                .setVibrate(new long[]{100, 1000, 1000, 1000})
+                .setStyle(new Notification.BigTextStyle().bigText(mensaje))
+                .setContentIntent(contIntent)
+                .build();
 
 
-        NotificationManager mNotificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-// mId allows you to update the notification later on.
-        mNotificationManager.notify(1, mBuilder.build());
-
+        NotificationManager nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        nManager.notify(1,notif);
         }
 
 
+    //Notificación antigua en desuso, conservar por si acaso.
     void lanzarNotificacion(String mensaje){
         String ns = Context.NOTIFICATION_SERVICE;
         NotificationManager notManager = (NotificationManager) getSystemService(ns);
@@ -126,7 +127,7 @@ public class ServicioPostback extends Service {
         CharSequence descripcion = mensaje;
 
         //Intent que se abrira al clickear la notificacion
-        Intent resultIntent =new Intent(ServicioPostback.this, SplashScreen.class);;
+        Intent resultIntent =new Intent(ServicioPostback.this, SplashScreen.class);
 
         PendingIntent contIntent = PendingIntent.getActivity(contexto, 0, resultIntent, 0);
         notif.setLatestEventInfo(contexto, titulo, descripcion, contIntent);
@@ -156,22 +157,50 @@ public class ServicioPostback extends Service {
                        //Efectuamos los pagos pendiente de las aplicaciones pedientes.
 
                         stPagar += jArray.getJSONObject(s).getString("GEE_APP")+", ";
-                        coins +=  String.format("%.2f",Double.parseDouble(jArray.getJSONObject(s).getString("GEE_PPI"))*0.2*100);
-
+                        gee_unique = jArray.getJSONObject(s).getString("GEE_UNIQUE");
+                        calcular= String.format("%.2f",Double.parseDouble(jArray.getJSONObject(s).getString("GEE_PPI"))*0.2);
+                        coins += Double.parseDouble(calcular.replace(",","."))*100;
+                        //Pagamos la recompensa al usuario y registramos la transacción.
+                        new JSONParser(Constantes.PAGAR_RECOMPENSA+
+                                                  "GIFT="+coins+
+                                                  "&MAIL="+cuenta+
+                                                  "&COD_PAGO="+new GeneradorCodigos().generarCodigos("IN")+
+                                                  "&COINS="+coins.intValue()+
+                                                  "&PPI="+calcular.replace(",",".")+
+                                                  "&FECHA="+ new Fechas().getFechaActual()+
+                                                  "&COD_REFER="+cod_refer+
+                                                  "&GEE_UNIQUE="+gee_unique).execute();
 
 
                     }
-                    stPagar = stPagar.substring(0,stPagar.length()-1);
+
+                    //Datos para la notificación.
+                    stPagar = stPagar.substring(0,stPagar.lastIndexOf(","));
+                    pago_final = coins.intValue();
+
+
+
+
                 }
 
                 if(s>1)
                 {
-                    stPagar = "Ha recibido nuevos pagos por las aplicaciones instaladas " + stPagar;
-                    lanzarNotificacion2(stPagar);
+                    stMensaje = getResources().getString(R.string.nf_app_inst_plural).replace("[APPS]",stPagar).replace("[PPI]",pago_final+"");
+                    lanzarNotificacion2(stMensaje);
 
                 }
-                if(s==1)
-                    stPagar = "Ha recibido un nuevo pago por la aplicación instalada " + stPagar;
+                if(s==1) {
+                    stMensaje = getResources().getString(R.string.nf_app_inst_singular).replace("[APPS]",stPagar).replace("[PPI]",pago_final+"");
+
+                    lanzarNotificacion2(stMensaje);
+                }
+
+
+               //reiniciamos las variables
+                coins = 0.00;
+                stPagar="";
+                calcular="";
+                pago_final=0;
 
 
             }

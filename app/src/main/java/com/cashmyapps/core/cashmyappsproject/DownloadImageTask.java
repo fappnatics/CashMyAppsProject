@@ -34,7 +34,7 @@ public class DownloadImageTask extends AsyncTask<List<String>, Void, List<Bitmap
 
     @Override
     protected void onPreExecute() {
-        progressDialog.setMessage("Cargando lista de ofertas");
+        progressDialog.setMessage(context.getResources().getString(R.string.dialogo_carga_apps));
         progressDialog.show();
         progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             public void onCancel(DialogInterface arg0) {
