@@ -57,7 +57,7 @@ public class Login extends ActionBarActivity {
     private EditText etAmigo;
     private EditText etNombre;
     private TextView titulo;
-    private String id_user;
+    private String id_user="";
     private ProgressDialog pd;
     private String cuenta;
     private String nombre;
@@ -96,13 +96,13 @@ public class Login extends ActionBarActivity {
             for (Account account : accounts) {
                 if (emailPattern.matcher(account.name).matches()) {
                     String possibleEmail = account.name;
-                    if (!cuentas.contains(possibleEmail))
+                    if (!cuentas.contains(possibleEmail)){
                         cuentas.add(possibleEmail);
-
+                        id_user+="\""+possibleEmail+"\""+",";}
                 }
             }
 
-            multicuenta = new ArrayList<>();
+           multicuenta = new ArrayList<>();
             list_usuarios = new ArrayList<>();
 
 

@@ -4,20 +4,12 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.IBinder;
-import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -79,13 +71,15 @@ public class ServicioPostback extends Service {
     @Override
     public int onStartCommand(Intent intent,int flags,int startId)
     {
-        cuenta = intent.getStringExtra("cuenta");
-        cod_refer = intent.getStringExtra("cod_refer");
-        new Thread(){
-            public void run(){
-                buscaPagos();
-            }
-        }.start();
+       if(intent!=null) {
+           cuenta = intent.getStringExtra("cuenta");
+           cod_refer = intent.getStringExtra("cod_refer");
+           new Thread() {
+               public void run() {
+                   buscaPagos();
+               }
+           }.start();
+       }
 
         return START_STICKY;
     }
