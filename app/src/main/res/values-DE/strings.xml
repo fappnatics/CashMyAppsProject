@@ -1,52 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">CashMyApps</string>
+    <string name="app_name">CashMaker</string>
+    <!--TRADUCIR: DESDE AQUÍ -->
 
     <!--ActionBar -->
-    <string name="titulo_user_info">Mein Profil</string>
+    <string name="titulo_user_info">Mein Konto</string>
     <string name="subtitulo_user_info">Information</string>
 
     <string name="titulo_lista_apps">Angebote</string>
-    <string name="subtitulo_lista_apps">Anwendungsliste</string>
+    <string name="subtitulo_lista_apps">App liste</string>
 
     <string name="titulo_compartir">Aktie</string>
     <string name="subtitulo_compartir">Freund einladen</string>
 
-    <string name="titulo_ranking">Klassifikation</string>
-    <string name="subtitulo_ranking">Los más instalados</string>
+    <string name="titulo_ranking">Rang</string>
+    <string name="subtitulo_ranking">Die meisten installierten</string>
 
-    <string name="titulo_cobros">Cobro</string>
-    <string name="subtitulo_cobros">Die meisten installiert</string>
+    <string name="titulo_cobros">Zurückziehen</string>
+    <string name="subtitulo_cobros">Erhalten Sie Ihre Belohnung</string>
+
+    <!--Contenido de los fragments -->
+    <string name="cont_login_cabecera_nuevo_cashmaker">Neu in CashMaker? \n Wählen Sie ein Konto zu registrieren lassen</string>
+    <string name="cont_login_selec_cuenta_acceso">Wählen Sie ein Konto, um den Zugang</string>
+
+    <!--Contenido de los datos a compartir -->
+    <string name="compartir_cashmaker">Registriert CashMaker</string>
+
+
 
     <!--Botones -->
     <string name="boton_instalar">Installieren</string>
-    <string name="boton_aceptar">Nimm An</string>
+    <string name="boton_instalada">Installiert</string>
+    <string name="boton_aceptar">Akzeptieren</string>
     <string name="boton_compartir">Aktie</string>
+    <string name="boton_cobro">Klage zurückzunehmen</string>
+    <string name="boton_login_registrarse">Registrieren</string>
 
     <!--Diálogos -->
-    <string name="dialogo_carga_apps">Loading Liste der Angebote...</string>
-    <string name="dialogo_carga_splash">Loading anwendung...</string>
-    <string name="dialogo_titulo_salir">Salir</string>
-    <string name="dialogo_titulo_atencion">Atención</string>
-    <string name="dialogo_cuerpo_salir">¿Seguro que quieres salir de la aplicación?</string>
-    <string name="dialogo_cuerpo_atencion">La cuenta está bloqueada, por favor, póngase en contacto con nuestro soporte en soportecashmyapps@gmail.com</string>
-    <string name="dialogo_si">Si</string>
-    <string name="dialogo_no">No</string>
-    <string name="dialogo_aceptar">Aceptar</string>
-    <string name="dialogo_cancelar">Cancelar</string>
+    <string name="dialogo_carga_apps">Laden App-Liste...</string>
+    <string name="dialogo_carga_splash">Laden app...</string>
+    <string name="dialogo_titulo_salir">Abfahrt</string>
+    <string name="dialogo_titulo_atencion">Achtung</string>
+    <string name="dialogo_cuerpo_salir">Sicher, dass Sie beenden?</string>
+    <string name="dialogo_cuerpo_atencion">Dieses Konto wird gesperrt , kontaktieren Sie bitte unser Support-Team bei soportecashmyapps@gmail.com</string>
+    <string name="dialogo_si">Ja</string>
+    <string name="dialogo_no">Keine</string>
+    <string name="dialogo_aceptar">Akzeptieren</string>
+    <string name="dialogo_cancelar">Stornieren</string>
+    <string name="dialogo_solicitud_cobro_aceptada">Ihre zurückziehen empfangen wurde, und es wird in den nächsten 24 /48 verarbeitet werden, wenn Sie irgendwelche Zweifel haben, kontaktieren Sie uns bitte.</string>
+    <string name="dialogo_solicitud_cobro_rechazada">Fehler bei Ihrer Anfrage aufgetreten ist oder der Dienst nicht verfügbar ist. Bitte versuchen Sie es später noch einmal.</string>
+    <string name="dialogo_solicitud_cobro_aceptada_titulo">Akzeptiert Anfrage</string>
+    <string name="dialogo_solicitud_cobro_rechazada_titulo">Antrag abgelehnt</string>
+    <string name="dialogo_referido_texto_incorrecto">Der Text ist nicht korrekt, überprüfen Sie es bitte und versuchen es noch einmal.</string>
+    <string name="dialogo_error_instalacion">Oooops, stimmt etwas nicht, versuchen Sie es später erneut</string>
+    <string name="dialogo_error_alta_usuario">Oooops, etwas passiert beim Versuch, den neuen Benutzer hinzuzufügen, bitte versuchen Sie es später erneut</string>
+    <string name="dialogo_error_conexion">Mobile Verbindung nicht verfügbar, bitte mit einem Netzwerk verbinden und versuchen Sie es erneut</string>
+
+    <!--Notificaciones -->
+    <string name="nf_nuevo_pago">New Zahlungen CashMaker</string>
+    <string name="nf_app_inst_plural">Sie haben neue Zahlungen für die installierten Anwendungen erhalten [APPS] \n Wert: [PPI].</string>
+    <string name="nf_app_inst_singular">Sie haben eine neue Zahlung für die installierte App erhalten [APPS] \n Wert: [PPI].</string>
+
+
 
     <!--Contenido de los fragments -->
-    <string name="cabecera_user_info">Kontoinformationen</string>
-    <string name="cabecera_compartir">Aktie CashMyApps</string>
+    <string name="layout_login_cabecera">Wählen Sie ein Konto</string>
+    <string name="layout_login_nombre">Name (optional)</string>
+    <string name="layout_login_codamigo">Haben Sie einen Code von einem Freund zu haben ?</string>
+    <string name="layout_login_registro">Neu in CashMaker?</string>
+    <string name="layout_login_cuentas">Registriert Wählen Sie ein Konto bekommen</string>
+    <string name="layout_cobro_tucodigo">Ihr Code</string>
+    <string name="layout_cobro_codigoamigo">Freundes-Code</string>
 
+
+
+    <!--Contenido de los fragments -->
+    <string name="cabecera_user_info">Informationen Konto</string>
+    <string name="cabecera_compartir">Referred by a friend?</string>
+    <string name="cabecera_cobro">Withdraw benefits</string>
+
+
+    <!--TRADUCIR: HASTA AQUÍ -->
 
     <!-- Lista de elementos e navegación -->
     <string-array name="nav_options">
-        <item>Teilt es</item>
-        <item>Blättern</item>
-        <item>Klassifikation</item>
-        <item>Holen Meine Vorteile</item>
+        <item>Compártelo</item>
+        <item>Ver ofertas</item>
+        <item>Ranking</item>
+        <item>Obtener mis beneficios</item>
     </string-array>
     <!-- Iconos de navegación -->
     <array name="navigation_iconos">
@@ -60,4 +102,7 @@
     <string name="action_settings">Settings</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
