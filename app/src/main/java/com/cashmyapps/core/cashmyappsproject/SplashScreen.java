@@ -6,14 +6,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Toast;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +32,11 @@ import java.util.regex.Pattern;
 public class SplashScreen extends ActionBarActivity {
 
     private static int SPLASH_TIME_OUT = 5000;
+    private String id_user="";
+    private String result = "";
+    private String usuario = "";
+    private JSONArray jArray;
+    private JSONObject jObject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +45,34 @@ public class SplashScreen extends ActionBarActivity {
         getSupportActionBar().hide();
 
        try {
+
+           //Cuentas de usuario
+           Pattern emailPattern = Patterns.EMAIL_ADDRESS; // API level 8+
+           Account[] accounts = AccountManager.get(this.getApplicationContext()).getAccounts();
+           List<String> cuentas = new ArrayList<String>();
+           for (Account account : accounts) {
+               if (emailPattern.matcher(account.name).matches()) {
+                   String possibleEmail = account.name;
+                   if (!cuentas.contains(possibleEmail)){
+                       cuentas.add(possibleEmail);
+                       //id_user+="\""+possibleEmail+"\""+",";
+                       id_user+="["+possibleEmail+"]"+",";
+                      }
+
+               }
+           }
+           id_user=id_user.substring(0,id_user.length()-1);
+           result = new JSONParser(Constantes.GET_USER_EXISTE.replace("[CUENTAS]",id_user)).execute(this,"foo").get();
+
+           if(!result.contains("{\"success\":0,\"message\":\"No users found\"}")){
+
+               jArray = new JSONObject(result).getJSONArray("usuarios");
+               jObject = (JSONObject) jArray.get(0);
+               usuario = jObject.getString("MAIL");
+
+           }
+
+
            setContentView(R.layout.activity_splash_screen);
            ConnectivityManager conMgr = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
            NetworkInfo i = conMgr.getActiveNetworkInfo();
@@ -78,11 +120,6 @@ public class SplashScreen extends ActionBarActivity {
         }, SPLASH_TIME_OUT);
 
 
-
-
-
     }
-
-
 
 }

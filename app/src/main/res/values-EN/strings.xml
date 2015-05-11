@@ -71,12 +71,12 @@
     <string name="layout_login_registro">New in CashMaker?</string>
     <string name="layout_login_cuentas">Select an account to get registered</string>
     <string name="layout_cobro_tucodigo">Your code</string>
-    <string name="layout_cobro_codigoamigo">Friend's code</string>
+    <string name="layout_cobro_codigoamigo">Friend code</string>
 
 
 
     <!--Contenido de los fragments -->
-    <string name="cabecera_user_info">Account's information</string>
+    <string name="cabecera_user_info">Account information</string>
     <string name="cabecera_compartir">Referred by a friend?</string>
     <string name="cabecera_cobro">Withdraw benefits</string>
 

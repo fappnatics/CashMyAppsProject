@@ -101,6 +101,7 @@ public class Login extends ActionBarActivity {
                         id_user+="\""+possibleEmail+"\""+",";}
                 }
             }
+            id_user=id_user.substring(0,id_user.length()-1);
 
            multicuenta = new ArrayList<>();
             list_usuarios = new ArrayList<>();
