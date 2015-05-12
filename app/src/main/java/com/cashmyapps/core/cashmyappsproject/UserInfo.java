@@ -33,6 +33,7 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -53,7 +54,8 @@ public class UserInfo extends Fragment {
     private String nombre;
     private String mail;
     private String refer;
-    private Account[] accounts;
+    private String saldo_coins;
+        private Account[] accounts;
     private Bundle extras;
     private Boolean success = false;
     private TextView txNombre;
@@ -83,39 +85,44 @@ public class UserInfo extends Fragment {
         LayoutInflater lf = getActivity().getLayoutInflater();
         final View rootView = lf.inflate(R.layout.fragment_user_info, container, false);
 
-        Pattern emailPattern = Patterns.EMAIL_ADDRESS; // API level 8+
-        accounts = AccountManager.get(this.getActivity().getApplicationContext()).getAccounts();
-        List<String> cuentas = new ArrayList<String>();
-        for (Account account : accounts) {
-            if (emailPattern.matcher(account.name).matches()) {
-                String possibleEmail = account.name;
-                if(!cuentas.contains(possibleEmail))
-                    cuentas.add(possibleEmail);
-            }
+        TextView cuenta_main = (TextView)getActivity().findViewById(R.id.txCorreo);
+        String prueba = cuenta_main.getText().toString();
 
-        }
 
         try {
 
-            for(int s=0;s<cuentas.size();s++)
-            {
-                resultado = new JSONParser(Constantes.URL_GET_BBDD_JSON+"?mail="+cuentas.get(s)).execute(this,"foo").get();
+            resultado = new JSONParser(Constantes.URL_GET_BBDD_JSON+"?mail="+cuenta_main.getText()).execute(this,"foo").get();
 
-                if(resultado.contains("1"))
+
+                if(resultado.contains("\"success\":1"))
                 {
-                    success = true;
-                    resultado_final = resultado;
+
+                    jObject = new JSONObject(resultado);
+                    jArray = jObject.getJSONArray("usuarios");
+                    nombre = jArray.getJSONObject(0).getString("NOMBRE");
+                    mail = jArray.getJSONObject(0).getString("MAIL");
+                    saldo_coins = jArray.getJSONObject(0).getString("SALDO")+" Coins";
+                    refer = jArray.getJSONObject(0).getString("COD_REFER");
+
+
+                    TextView txNombre = (TextView)getActivity().findViewById(R.id.txNombre);
+                    TextView txSaldo = (TextView)getActivity().findViewById(R.id.txSaldo);
+
+                    txNombre.setText(nombre);
+                    txSaldo.setText(saldo_coins);
+
+
+
+                    //Invocamos al servicio
+                    Intent in = new Intent(getActivity(),ServicioPostback.class);
+                    in.putExtra("cuenta",mail);
+                    in.putExtra("cod_refer",refer);
+
+                    if(!ServicioPostback.isRunning())
+                        getActivity().startService(in);
+
 
                 }
-            }
-
-            jObject = new JSONObject(resultado_final);
-            jArray = jObject.getJSONArray("usuarios");
-            nombre = jArray.getJSONObject(0).getString("NOMBRE");
-            mail = jArray.getJSONObject(0).getString("MAIL");
-            refer = jArray.getJSONObject(0).getString("COD_REFER");
-
-
 
 
         } catch (InterruptedException e) {
@@ -147,19 +154,11 @@ public class UserInfo extends Fragment {
         txNombre = (TextView)getActivity().findViewById(R.id.txUENombre);
         txMail = (TextView)getActivity().findViewById(R.id.txUEcorreo);
         txCod_refer = (TextView)getActivity().findViewById(R.id.txUERefer);
-        btAceptar = (Button)getActivity().findViewById(R.id.btUEAceptar);
 
         pb = new PostbacksThread();
 
 
 
-        btAceptar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    /*********** Create notification ***********/
-                    pb.start();
-                }
-            });
 
 
 

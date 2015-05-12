@@ -138,7 +138,7 @@ public class ServicioPostback extends Service {
         while(true)
         {
             try{
-               //Log.i("HILO DE EJECUCION: ", i++ +"" );
+               Log.i("HILO DE EJECUCION: ", i++ +"" );
                 i++;
                 Thread.sleep(DELAY);
                String usuario = new JSONParser(Constantes.GET_POSTBACK_USER.replace("[CODREFER]",cod_refer)).execute(this,"foo").get();

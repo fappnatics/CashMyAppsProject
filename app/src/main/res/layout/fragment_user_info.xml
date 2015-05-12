@@ -63,14 +63,5 @@
         android:layout_marginBottom="10dp"
         android:layout_gravity="center_horizontal|bottom" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="@string/boton_aceptar"
-        android:id="@+id/btUEAceptar"
-        android:background="@drawable/custom_btn_orange"
-        android:layout_gravity="center_horizontal" />
-
 
 </LinearLayout>

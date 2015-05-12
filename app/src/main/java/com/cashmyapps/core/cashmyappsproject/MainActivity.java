@@ -61,6 +61,7 @@ public class MainActivity extends ActionBarActivity
     private String cuenta;
     private String cod_refer;
     private Intent i;
+    private Bundle bundle;
 
 
 
@@ -98,7 +99,7 @@ public class MainActivity extends ActionBarActivity
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        TextView txNombre = (TextView)findViewById(R.id.txNombre);
+
         i = getIntent();
 
 
@@ -106,32 +107,21 @@ public class MainActivity extends ActionBarActivity
         Bitmap bm = RoundedImageView.getCroppedBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.user_info),180);
         im.setImageBitmap(bm);
 
-        try {
+        TextView txCorreo = (TextView)findViewById(R.id.txCorreo);
+        txCorreo.setText(i.getExtras().getString("cuenta"));
 
-            TextView txCorreo = (TextView)findViewById(R.id.txCorreo);
-            TextView txSaldo = (TextView)findViewById(R.id.txSaldo);
+    /*    try {
+
+
             cuenta = i.getExtras().getString("cuenta");
 
+           cod_refer=jArray.getJSONObject(0).getString("COD_REFER");
 
 
-
-            String resultado = new JSONParser(Constantes.URL_GET_BBDD_JSON+"?mail="+cuenta).execute(this,"foo").get();
-
-            if(resultado.contains("{\"success\":0}")){
-                Toast.makeText(context,getResources().getString(R.string.dialogo_error_alta_usuario),Toast.LENGTH_LONG);
-
-            }
-
-            JSONObject jObject = new JSONObject(resultado);
-            JSONArray jArray = jObject.getJSONArray("usuarios");
-
-            txNombre.setText(jArray.getJSONObject(0).getString("NOMBRE"));
-            txCorreo.setText(jArray.getJSONObject(0).getString("MAIL"));
-            cod_refer=jArray.getJSONObject(0).getString("COD_REFER");
-            txSaldo.setText(jArray.getJSONObject(0).getString("SALDO")+" Coins");
+            //Información para los fragments.
 
             //Invocamos al servicio
-            Intent in = new Intent(MainActivity.this,ServicioPostback.class);
+          Intent in = new Intent(MainActivity.this,ServicioPostback.class);
             in.putExtra("cuenta",cuenta);
             in.putExtra("cod_refer",cod_refer);
 
@@ -145,7 +135,7 @@ public class MainActivity extends ActionBarActivity
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
+*/
 
     }
 
@@ -161,6 +151,8 @@ public class MainActivity extends ActionBarActivity
             case 0:
 
                 fragment = new UserInfo();
+
+                fragment.setArguments(bundle);
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, UserInfo.newInstance(position + 1))
                         .commit();
@@ -278,7 +270,7 @@ public class MainActivity extends ActionBarActivity
         alerta.setPositiveButton(getResources().getString(R.string.dialogo_si),new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                DataManagment da = new DataManagment(Constantes.CONEXION_USUARIO.replace("[MAIL]",cuenta).replace("[CONECTADO]","N"));
+                DataManagment da = new DataManagment(Constantes.CONEXION_USUARIO.replace("[MAIL]",i.getExtras().getString("cuenta")).replace("[CONECTADO]","N"));
                 da.execute(this,"foo");
             }
         });
