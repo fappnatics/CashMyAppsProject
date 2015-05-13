@@ -15,8 +15,6 @@ import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.Patterns;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -31,8 +29,6 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -42,46 +38,36 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
-import java.util.regex.Pattern;
+
 
 
 
 public class Login extends ActionBarActivity {
 
-    private String resultado;
+
     private Spinner spinner;
-    private int num_cuentas = 0;
-    private List<String> multicuenta;
-    private Button btInstalar;
-    private TextView txTituloAmigo;
-    private EditText etAmigo;
+    private Button btAceptar;
     private EditText etNombre;
     private TextView titulo;
-    private String id_user="";
     private ProgressDialog pd;
     private String cuenta;
     private String nombre;
     private String saldo;
     private String fecha_alta;
-    private String conectado;
-    private String cod_usuario;
+    private String cuenta_seleccionada="";
     private Context context;
     private String consulta;
-    ProgressDialog progressDialog;
-    private String pais;
     private String cod_refer;
-    private String estado_cuenta;
-    private List<DatosUsuario> list_usuarios;
-    private DatosUsuario usuario;
-    private JSONArray jArray;
-    private JSONObject jObject;
+    private Intent intent;
+    private List<String> cuentas;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        context = getApplicationContext();
+        intent = getIntent();
+        cuentas = intent.getExtras().getStringArrayList("cuentas");
 
 
         try {
@@ -89,163 +75,41 @@ public class Login extends ActionBarActivity {
             setContentView(R.layout.activity_login);
             spinner = (Spinner) findViewById(R.id.spinner_cuentas);
 
-            //Cuentas de usuario
-            Pattern emailPattern = Patterns.EMAIL_ADDRESS; // API level 8+
-            Account[] accounts = AccountManager.get(this.getApplicationContext()).getAccounts();
-            List<String> cuentas = new ArrayList<String>();
-            for (Account account : accounts) {
-                if (emailPattern.matcher(account.name).matches()) {
-                    String possibleEmail = account.name;
-                    if (!cuentas.contains(possibleEmail)){
-                        cuentas.add(possibleEmail);
-                        id_user+="\""+possibleEmail+"\""+",";}
-                }
-            }
-            id_user=id_user.substring(0,id_user.length()-1);
-
-           multicuenta = new ArrayList<>();
-            list_usuarios = new ArrayList<>();
-
-
-            for (int i = 0; i < cuentas.size(); i++) {
-                resultado = new JSONParser(Constantes.URL_GET_BBDD_JSON + "?mail=" + cuentas.get(i)).execute(this, "foo").get();
-                if (resultado.contains("1")) {
-
-                    usuario = new DatosUsuario();
-                    num_cuentas++;
-                    multicuenta.add(cuentas.get(i));
-                    jArray = new JSONObject(resultado).getJSONArray("usuarios");
-                    jObject = (JSONObject) jArray.get(0);
-                    usuario.setId_usuario(jObject.getString("ID_USUARIO"));
-                    usuario.setNombre(jObject.getString("NOMBRE"));
-                    usuario.setMail(jObject.getString("MAIL"));
-                    usuario.setSaldo(jObject.getString("SALDO"));
-                    usuario.setPais(jObject.getString("PAIS"));
-                    usuario.setEstado_cuenta(jObject.getString("ESTADO_CUENTA"));
-                    usuario.setCod_refer(jObject.getString("COD_REFER"));
-                    fecha_alta = jObject.getString("FECH_ALTA");
-                    conectado = jObject.getString("CONECTADO");
-
-
-                    list_usuarios.add(usuario);
-                }
-            }
-
-
             titulo = (TextView) findViewById(R.id.txTituloSelec);
-            titulo.setText(getResources().getString(R.string.cont_login_selec_cuenta_acceso));
-
-            txTituloAmigo = (TextView) findViewById(R.id.txTituloAmigo);
+            titulo.setText(getResources().getString(R.string.cont_login_cabecera_nuevo_cashmaker));
 
 
-            etAmigo = (EditText) findViewById(R.id.etAmigo);
+            String[] arraySpinner = cuentas.toArray(new String[cuentas.size()]);
 
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getApplicationContext(),
+                    R.layout.elemento_spinner, arraySpinner);
+            spinner.setAdapter(adapter);
 
-            etNombre = (EditText) findViewById(R.id.etNombre);
-
-            if (num_cuentas == 0) {
-                TextView titulo = (TextView) findViewById(R.id.txTituloSelec);
-                titulo.setText(getResources().getString(R.string.cont_login_cabecera_nuevo_cashmaker));
-
-
-                String[] arraySpinner = cuentas.toArray(new String[cuentas.size()]);
-
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getApplicationContext(),
-                        R.layout.elemento_spinner, arraySpinner);
-                spinner.setAdapter(adapter);
-
-
-            }
-
-            if (num_cuentas == 1) {
-
-                String usuario_activo = list_usuarios.get(0).getEstado_cuenta();
-
-                if (usuario_activo.equals("B")) {
-
-                    LayoutInflater factory = LayoutInflater.from(this);
-                    final View view = factory.inflate(R.layout.alerta_icono, null);
-                    AlertDialog.Builder alerta = new AlertDialog.Builder(this);
-                    alerta.setView(view);
-
-
-                    alerta.setTitle(getResources().getString(R.string.dialogo_titulo_atencion));
-                    alerta.setMessage(getResources().getString(R.string.dialogo_cuerpo_atencion));
-
-                    alerta.setPositiveButton(getResources().getString(R.string.boton_aceptar), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            finish();
-                        }
-                    });
-
-                    alerta.show();
-
-                }
-
-                if (usuario_activo.equals("A")) {
-                    Intent i = new Intent(Login.this, MainActivity.class);
-                    Log.i("CUENTA", cuentas.get(0));
-                    i.putExtra("cuenta", multicuenta.get(0));
-                    consulta = Constantes.CONEXION_USUARIO.replace("[MAIL]",multicuenta.get(0)).replace("[CONECTADO]","S");
-                    AltaUser u = new AltaUser(consulta);
-                    u.execute(this,"foo");
-                    startActivity(i);
-                    finish();
-
-                }
-
-            }
-
-            if (num_cuentas > 1) {
-
-                String[] arraySpinner = multicuenta.toArray(new String[multicuenta.size()]);
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getApplicationContext(),
-                        R.layout.elemento_spinner, arraySpinner);
-                spinner.setAdapter(adapter);
-
-
-            }
-
-            btInstalar = (Button) findViewById(R.id.btAceptar);
-            btInstalar.setOnClickListener(new View.OnClickListener() {
+            btAceptar = (Button) findViewById(R.id.btAceptar);
+            btAceptar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    if (num_cuentas == 0) {
-
 
                         Date d = new Date();
+                        etNombre = (EditText)findViewById(R.id.etNombre);
                         cuenta = spinner.getSelectedItem().toString();
-                        nombre = etNombre.getText().toString().replace(" ", "%20");
+                        //Si el nombre es nulo, le ponemos su correo sin dominio.
+                        if(etNombre.getText().toString().equals("") || etNombre.getText().toString() == null)
+                            nombre = cuenta.substring(0,cuenta.indexOf("@"));
+                        else
+                            nombre = etNombre.getText().toString().replace(" ", "%20");
+
+
+
                         fecha_alta = new SimpleDateFormat("dd-MM-yyyy").format(d);
                         Log.i("FECHA: ", fecha_alta);
                         cod_refer = generarReferido();
                         //TODO Hay que consultar la base de datos para evitar códigos duplicados.
                         consulta = Constantes.ALTA_USUARIO + "NOMBRE=" + nombre + "&MAIL=" + cuenta + "&SALDO=0&FECHA_ALTA=" + fecha_alta + "&PAIS=" + getLocalizacion() + "&ESTADO_CUENTA=A" + "&COD_REFER=" + cod_refer;
+                        cuenta_seleccionada = spinner.getSelectedItem().toString();
                         AltaUser au = new AltaUser(consulta);
                         au.execute(this, "foo");
-
-
-                    }
-                    if (num_cuentas == 1) {
-
-                        Intent i = new Intent(Login.this, MainActivity.class);
-                        i.putExtra("cuenta", spinner.getSelectedItem().toString());
-                        startActivity(i);
-                        finish();
-
-                    }
-                    if (num_cuentas > 1) {
-
-                        Intent i = new Intent(Login.this, MainActivity.class);
-                        i.putExtra("cuenta", spinner.getSelectedItem().toString());
-                        startActivity(i);
-                        etAmigo.setVisibility(View.INVISIBLE);
-                        txTituloAmigo.setVisibility(View.INVISIBLE);
-                        finish();
-
-                    }
 
                 }
             });
@@ -254,6 +118,15 @@ public class Login extends ActionBarActivity {
             Log.e("ERROR_LOGIN", s.getMessage());
 
         }
+
+
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        context = getApplicationContext();
 
 
     }
@@ -274,8 +147,7 @@ public class Login extends ActionBarActivity {
         @Override
         protected void onPreExecute() {
 
-
-        }
+                    }
 
         @Override
         protected String doInBackground(Object... params) {
@@ -305,7 +177,7 @@ public class Login extends ActionBarActivity {
 
                 Intent i = new Intent(Login.this, MainActivity.class);
                // i.putExtra("cuenta", spinner.getSelectedItem().toString());
-                i.putExtra("cuenta", multicuenta.get(0).toString());
+                i.putExtra("cuenta", cuenta_seleccionada);
                 startActivity(i);
 
 

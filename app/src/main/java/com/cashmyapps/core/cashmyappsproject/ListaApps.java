@@ -35,6 +35,9 @@ import java.io.InputStream;
 import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -76,7 +79,6 @@ public class ListaApps extends Fragment {
     private JSONObject jObject;
     private Date d = new Date();
     private String fecha;
-    private JSONArray jArray;
     private String resultado;
     private JSONArray jsonArray;
     private List<String> lista_apps_instaladas;
@@ -111,15 +113,16 @@ public class ListaApps extends Fragment {
             //Obtenemos las aplicaciones instaladas del usuario, para desactivar el botón Instalar de las que ya tenga registradas.
 
                 resultado = new JSONParser(Constantes.CONTROL_INSTALACIONES+"&MAIL="+cuenta).execute(this,"foo").get();
+
+            if(!resultado.equals("{\"success\":0,\"message\":\"No user apps\"}")) {
                 jsonArray = new JSONObject(resultado).getJSONArray("instalaciones");
                 lista_apps_instaladas = new ArrayList<>();
 
 
-            for(int i=0;i<jsonArray.length();i++)
-            {
-                lista_apps_instaladas.add(jsonArray.getJSONObject(i).getString("LINK_REFERIDO"));
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    lista_apps_instaladas.add(jsonArray.getJSONObject(i).getString("LINK_REFERIDO"));
+                }
             }
-
 
 
 
@@ -290,7 +293,8 @@ public class ListaApps extends Fragment {
                 desc_corta[s]=descripcion_app.get(s);
                 ppi_array[s]=ppi_apps.get(s);
 
-               if(lista_apps_instaladas.contains(url.get(s).replace("http://",""))) {
+
+               if(lista_apps_instaladas!=null && lista_apps_instaladas.contains(url.get(s).replace("http://",""))) {
                    url_apps[s] = Uri.parse("nolink");
                    Log.i("INSTALADA: ",url.get(s));
                }
@@ -320,6 +324,13 @@ public class ListaApps extends Fragment {
                     estrellas[s]=R.drawable.cincoestrellas;
 
             }
+
+
+
+            Oferta of = new Oferta();
+            Oferta of_ordenada = new Oferta();
+
+            //TODO hacer aquí la ordenación.
 
 
             cu = new CustomAdapter(getActivity(),nom_apps,img_apps,desc_corta,ppi_array,estrellas,url_apps,cuenta);

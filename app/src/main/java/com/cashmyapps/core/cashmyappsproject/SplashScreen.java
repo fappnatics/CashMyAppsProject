@@ -29,6 +29,7 @@ public class SplashScreen extends ActionBarActivity {
     private JSONArray jArray;
     private JSONObject jObject;
     private String extra = "";
+    private List<String> cuentas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +81,7 @@ public class SplashScreen extends ActionBarActivity {
                 startActivity(i);}
                 else{
                     Intent i = new Intent(SplashScreen.this, Login.class);
+                    i.putStringArrayListExtra("cuentas", (ArrayList<String>) cuentas);
                                 startActivity(i);}
 
                 overridePendingTransition(R.anim.abc_slide_in_top, R.anim.abc_slide_out_bottom);
@@ -100,7 +102,7 @@ public class SplashScreen extends ActionBarActivity {
             //Cuentas de usuario
             Pattern emailPattern = Patterns.EMAIL_ADDRESS; // API level 8+
             Account[] accounts = AccountManager.get(this.getApplicationContext()).getAccounts();
-            List<String> cuentas = new ArrayList<String>();
+            cuentas = new ArrayList<String>();
             for (Account account : accounts) {
                 if (emailPattern.matcher(account.name).matches()) {
                     String possibleEmail = account.name;
@@ -135,5 +137,7 @@ public class SplashScreen extends ActionBarActivity {
             Log.i("ERROR_SPLASH",s.getMessage());
         }
     }
+
+
 
 }

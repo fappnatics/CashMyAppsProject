@@ -3,6 +3,7 @@ package com.cashmyapps.core.cashmyappsproject;
 import android.accounts.Account;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -26,9 +27,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -36,11 +39,10 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+
+import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
+
 
 
 public class MainActivity extends ActionBarActivity
@@ -52,16 +54,14 @@ public class MainActivity extends ActionBarActivity
     private OnFragmentInteractionListener mListener;
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private Fragment fragment;
-    private Intent intent;
     private Bundle savedinstance;
     private Context context;
     private Account[] accounts;
     private String[] cuentas_array;
-    private View header;
-    private String cuenta;
-    private String cod_refer;
     private Intent i;
     private Bundle bundle;
+
+
 
 
 
@@ -82,9 +82,6 @@ public class MainActivity extends ActionBarActivity
         setContentView(R.layout.activity_main);
         savedinstance = savedInstanceState;
         context = this.getApplicationContext();
-
-
-
 
          mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -118,7 +115,7 @@ public class MainActivity extends ActionBarActivity
            cod_refer=jArray.getJSONObject(0).getString("COD_REFER");
 
 
-            //Información para los fragments.
+            //Informacion para los fragments.
 
             //Invocamos al servicio
           Intent in = new Intent(MainActivity.this,ServicioPostback.class);
@@ -342,12 +339,20 @@ public class MainActivity extends ActionBarActivity
             ((MainActivity) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
-    }
 
+
+        @Override
+        public void onResume() {
+            super.onResume();
+
+        }
+
+
+    }
 
     private class DataManagment extends AsyncTask<Object, Void, String> {
 
-       String result = "";
+        String result = "";
 
         private String url_select;
 
@@ -356,11 +361,15 @@ public class MainActivity extends ActionBarActivity
 
         }
 
-        @Override
+        /*@Override
         protected void onPreExecute() {
+            progressDialog = new ProgressDialog(context);
+            progressDialog.setMessage("Downloading your data...");
+            progressDialog.show();
+        }*/
 
 
-        }
+
 
         @Override
         protected String doInBackground(Object... params) {
@@ -399,6 +408,7 @@ public class MainActivity extends ActionBarActivity
 
 
     }
+
 
 
 }
