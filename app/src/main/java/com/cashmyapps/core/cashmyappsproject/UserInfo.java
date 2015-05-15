@@ -1,37 +1,22 @@
 package com.cashmyapps.core.cashmyappsproject;
 
 import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
-import android.app.TaskStackBuilder;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.TextView;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -40,16 +25,9 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.ExecutionException;
-import java.util.regex.Pattern;
 
 
 public class UserInfo extends Fragment {
@@ -74,7 +52,6 @@ public class UserInfo extends Fragment {
     private Context contexto;
     private static final int HELLO_ID = 1;
     private static final int NOTIFY_ME_ID=1337;
-    private PostbacksThread pb;
     private ProgressDialog progressDialog;
 
 
@@ -204,6 +181,7 @@ public class UserInfo extends Fragment {
                         txNombre.setText(nombre);
                         txSaldo.setText(saldo_coins);
 
+                        new JSONParser(Constantes.CONEXION_USUARIO.replace("[MAIL]",mail).replace("[CONECTADO]","S"));
 
 
                         //Invocamos al servicio
@@ -228,7 +206,7 @@ public class UserInfo extends Fragment {
                 txMail = (TextView)getActivity().findViewById(R.id.txUEcorreo);
                 txCod_refer = (TextView)getActivity().findViewById(R.id.txUERefer);
 
-                pb = new PostbacksThread();
+
                 txNombre.setGravity(Gravity.CENTER);
                 txMail.setGravity(Gravity.CENTER);
                 txCod_refer.setGravity(Gravity.CENTER);

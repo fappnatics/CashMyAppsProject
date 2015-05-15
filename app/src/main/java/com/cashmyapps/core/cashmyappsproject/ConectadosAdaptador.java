@@ -1,16 +1,12 @@
 package com.cashmyapps.core.cashmyappsproject;
 
 import android.app.Activity;
-import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.util.List;
 
 /**
  * Created by David on 08/03/2015.

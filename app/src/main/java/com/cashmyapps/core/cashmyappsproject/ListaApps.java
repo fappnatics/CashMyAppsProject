@@ -3,8 +3,6 @@ package com.cashmyapps.core.cashmyappsproject;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.ContextWrapper;
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Address;
@@ -32,12 +30,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -126,7 +120,7 @@ public class ListaApps extends Fragment {
 
 
 
-            market = Constantes.URL_GEENAPP2.replace("[PAIS]",codigoPais).replace("[LANG]", Locale.getDefault().getLanguage());
+            market = Constantes.URL_GEENAPP.replace("[PAIS]",codigoPais).replace("[LANG]", Locale.getDefault().getLanguage());
             Log.i("MERCADO: ",market);
             jObject= new JSONObject();
             result = new JSONParser(market).execute(this,"foo").get();
@@ -326,11 +320,61 @@ public class ListaApps extends Fragment {
             }
 
 
-
+            //Vamos a ordenar el array por PPI.
+            List<Oferta> lista_desordenada = new ArrayList<>();
+            List<Oferta> lista_ordenada = new ArrayList<>();
             Oferta of = new Oferta();
             Oferta of_ordenada = new Oferta();
 
-            //TODO hacer aquí la ordenación.
+            for(int i=0;i<nom_apps.length;i++)
+            {
+                of.setNOM_APP(nom_apps[i]);
+                of.setDESC(desc_corta[i]);
+                of.setESTRELLAS(estrellas[i]);
+                of.setIMG(img_apps[i]);
+                of.setPPI(ppi_array[i]);
+                of.setURL(url_apps[i]);
+
+                lista_desordenada.add(of);
+                of = new Oferta();
+            }
+
+            Double aux = 0.0;
+            int elemento = 0;
+
+            while(lista_desordenada.size()!=0){
+
+                for(int x=0;x<lista_desordenada.size();x++){
+
+                    if(Double.parseDouble(lista_desordenada.get(x).getPPI())>aux) {
+                        aux = Double.parseDouble(lista_desordenada.get(x).getPPI());
+                        elemento = x;
+                    }
+
+                }
+                lista_ordenada.add(lista_desordenada.get(elemento));
+                lista_desordenada.remove(elemento);
+                aux = 0.0;
+
+            }
+
+             nom_apps = new String[lista_ordenada.size()];
+             img_apps = new Bitmap[lista_ordenada.size()];
+             desc_corta = new String[lista_ordenada.size()];
+             ppi_array = new String[lista_ordenada.size()];
+             estrellas = new Integer[lista_ordenada.size()];
+             url_apps = new Uri[lista_ordenada.size()];
+
+            for(int s=0;s<lista_ordenada.size();s++){
+                nom_apps[s] = lista_ordenada.get(s).getNOM_APP();
+                img_apps[s] = lista_ordenada.get(s).getIMG();
+                desc_corta[s] = lista_ordenada.get(s).getDESC();
+                ppi_array[s] = lista_ordenada.get(s).getPPI();
+                estrellas[s] = lista_ordenada.get(s).getESTRELLAS();
+                url_apps[s] = lista_ordenada.get(s).getURL();
+            }
+            //FIN de la ordenación.
+
 
 
             cu = new CustomAdapter(getActivity(),nom_apps,img_apps,desc_corta,ppi_array,estrellas,url_apps,cuenta);

@@ -1,10 +1,5 @@
 package com.cashmyapps.core.cashmyappsproject;
 
-import android.annotation.SuppressLint;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 /**
  * Created by David on 13/02/2015.
  */

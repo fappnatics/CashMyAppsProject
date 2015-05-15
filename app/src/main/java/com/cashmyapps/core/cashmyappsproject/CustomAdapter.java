@@ -127,7 +127,7 @@ public class CustomAdapter extends ArrayAdapter {
                 try {
 
                         result = new JSONParser(consulta).execute(this,"foo").get();
-                        new PostbacksThread().run();
+
                     //De mmomento, hasta que no esté hecho el módulo de pagos, estará aquí ubicada la inserción en la TAB_CAJA
 
 
