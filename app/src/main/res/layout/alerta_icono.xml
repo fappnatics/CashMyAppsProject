@@ -4,9 +4,9 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:layout_width="170dp"
-        android:layout_height="170dp"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
         android:id="@+id/imageView6"
-        android:src="@drawable/cashmyapps_logo2"
+        android:src="@drawable/cashmaker_logo2"
         android:layout_gravity="center_horizontal" />
 </LinearLayout>
