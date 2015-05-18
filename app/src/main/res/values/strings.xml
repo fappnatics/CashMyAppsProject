@@ -15,10 +15,10 @@
     <string name="subtitulo_compartir">Invita a un amigo</string>
 
     <string name="titulo_ranking">Clasificación</string>
-    <string name="subtitulo_ranking">Los más instalados</string>
+    <string name="subtitulo_ranking">Los más activos</string>
 
     <string name="titulo_cobros">Cobro</string>
-    <string name="subtitulo_cobros">Obtén tu celebración</string>
+    <string name="subtitulo_cobros">Obtén tu beneficio</string>
 
     <!--Contenido de los fragments -->
     <string name="cont_login_cabecera_nuevo_cashmaker">¿Nuevo en CashMyApps? \n Selecciona una cuenta de registro</string>
