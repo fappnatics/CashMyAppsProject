@@ -177,7 +177,7 @@ public class MainActivity extends ActionBarActivity
                         .replace(R.id.container, ListaApps.newInstance(position + 1))
                         .commit();
                 getSupportActionBar().setTitle(getResources().getString(R.string.titulo_lista_apps));
-                getSupportActionBar().setSubtitle(getResources().getString(R.string.subtitulo_compartir));
+                getSupportActionBar().setSubtitle(getResources().getString(R.string.subtitulo_lista_apps));
 
                 break;
 
