@@ -77,6 +77,9 @@ public class CustomAdapter extends ArrayAdapter {
 
         nombre.setText(nombre_apps[position]);
         icono.setImageBitmap(imagen[position]);
+        if(resumen_apps[position].contains("."))
+        resumen_app.setText(resumen_apps[position].substring(0,resumen_apps[position].indexOf(".")) + ".");
+        else
         resumen_app.setText(resumen_apps[position]);
 
         Log.i("PPI: ",ppi_app[position]);
