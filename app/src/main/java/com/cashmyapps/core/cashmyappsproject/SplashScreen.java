@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
 
 public class SplashScreen extends ActionBarActivity {
 
-    private static int SPLASH_TIME_OUT = 5000;
+    private static int SPLASH_TIME_OUT = 9000;
     private String id_user="";
     private String result = "";
     private String usuario = "";

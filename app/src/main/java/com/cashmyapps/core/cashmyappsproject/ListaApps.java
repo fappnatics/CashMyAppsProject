@@ -3,8 +3,10 @@ package com.cashmyapps.core.cashmyappsproject;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -18,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -54,6 +57,7 @@ public class ListaApps extends Fragment {
     private Uri[]url_apps;
     private View rootView;
     private String result="";
+    private String result_user="";
     private String codigoPais;
     private List<String> id_app = new ArrayList<>();
     private List<String> nombre_app = new ArrayList<>();
@@ -76,6 +80,11 @@ public class ListaApps extends Fragment {
     private String resultado;
     private JSONArray jsonArray;
     private List<String> lista_apps_instaladas;
+    private JSONArray jArray;
+    private String nombre;
+    private String mail;
+    private String refer;
+    private String saldo_coins;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -279,6 +288,52 @@ public class ListaApps extends Fragment {
             url_apps = new Uri[url.size()];
 
 
+            TextView cuenta_main = (TextView)getActivity().findViewById(R.id.txCorreo);
+            try {
+                result_user = new JSONParser(Constantes.URL_GET_BBDD_JSON+"?mail="+cuenta_main.getText()).execute(this,"foo").get();
+
+                if(result_user.contains("\"success\":1"))
+                {
+
+                    jObject = new JSONObject(result_user);
+                    jArray = jObject.getJSONArray("usuarios");
+                    nombre = jArray.getJSONObject(0).getString("NOMBRE");
+                    mail = jArray.getJSONObject(0).getString("MAIL");
+                    saldo_coins = jArray.getJSONObject(0).getString("SALDO")+" Coins";
+                    refer = jArray.getJSONObject(0).getString("COD_REFER");
+
+
+                    TextView txNombre = (TextView)getActivity().findViewById(R.id.txNombre);
+                    TextView txSaldo = (TextView)getActivity().findViewById(R.id.txSaldo);
+
+                    txNombre.setText(nombre);
+                    txSaldo.setText(saldo_coins);
+
+                    new JSONParser(Constantes.CONEXION_USUARIO.replace("[MAIL]",mail).replace("[CONECTADO]","S"));
+
+
+                    //Invocamos al servicio
+                    Intent in = new Intent(getActivity(),ServicioPostback.class);
+                    in.putExtra("cuenta",mail);
+                    in.putExtra("cod_refer",refer);
+
+                    if(!ServicioPostback.isRunning())
+                        getActivity().startService(in);
+
+
+                }
+
+
+
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
 
             for(int s=0;s<nombre_app.size();s++)
             {
@@ -376,12 +431,17 @@ public class ListaApps extends Fragment {
             //FIN de la ordenación.
 
 
+            ImageView imHeader = new ImageView(getActivity());
+            imHeader.setBackgroundColor(Color.parseColor("#FFEB3B"));
+            imHeader.setImageResource(R.drawable.cabecera_lista);
+
 
             cu = new CustomAdapter(getActivity(),nom_apps,img_apps,desc_corta,ppi_array,estrellas,url_apps,cuenta);
             lsApps = (ListView)rootView.findViewById(R.id.listaAPP);
             lsApps.setAnimation(AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.abc_fade_in));
             progressDialog.dismiss();
             lsApps.setAdapter(cu);
+            lsApps.addHeaderView(imHeader);
 
 
         }

@@ -55,7 +55,7 @@ public class NavigationDrawerFragment extends Fragment {
     private ListView mDrawerListView;
     private View mFragmentContainerView;
     private List<Item_object> itm_obj;
-    private int mCurrentSelectedPosition = 0;
+    private int mCurrentSelectedPosition = 2;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
     String[] titulos;
@@ -120,10 +120,15 @@ public class NavigationDrawerFragment extends Fragment {
         NavigationAdapter navAdapter = new NavigationAdapter(getActivity(),NavItem);
         mDrawerListView.setAdapter(navAdapter);
         View header = getLayoutInflater(savedInstanceState).inflate(R.layout.header,null);
+        header.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-
+            }
+        });
 
         mDrawerListView.addHeaderView(header);
+
         
 
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
