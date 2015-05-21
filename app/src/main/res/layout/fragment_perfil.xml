@@ -72,8 +72,6 @@
             android:textAlignment="center"
             android:layout_gravity="center_horizontal|bottom" />
 
-
-
         <TextView
             android:layout_width="200dp"
             android:layout_height="wrap_content"
@@ -89,13 +87,12 @@
             android:layout_height="wrap_content"
             android:textSize="15dp"
             android:textAlignment="center"
+            android:gravity="center"
             android:background="@layout/caja_texto"
             android:id="@+id/txReferido"
             android:layout_marginBottom="10dp"
             android:textStyle="bold"
             android:layout_gravity="center_horizontal|bottom" />
-
-
 
         <TextView
             android:layout_width="200dp"
@@ -115,7 +112,8 @@
             android:id="@+id/txReferir"
             android:layout_marginBottom="10dp"
             android:textStyle="bold"
-            android:textAlignment="inherit"
+            android:textAlignment="center"
+            android:gravity="center"
             android:layout_gravity="center_horizontal|bottom" />
 
 

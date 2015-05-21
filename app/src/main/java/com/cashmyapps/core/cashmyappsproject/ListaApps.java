@@ -436,6 +436,12 @@ public class ListaApps extends Fragment {
             imHeader.setBackgroundColor(Color.parseColor("#fec301"));
             imHeader.setImageResource(R.drawable.offers_header);
 
+            ImageView imFooter = new ImageView(getActivity());
+            imFooter.setBackgroundColor(Color.parseColor("#fec301"));
+            imFooter.setImageResource(R.drawable.offers_header);
+
+
+
 
             cu = new CustomAdapter(getActivity(),nom_apps,img_apps,desc_corta,ppi_array,estrellas,url_apps,cuenta);
             lsApps = (ListView)rootView.findViewById(R.id.listaAPP);
@@ -443,6 +449,7 @@ public class ListaApps extends Fragment {
             progressDialog.dismiss();
             lsApps.setAdapter(cu);
             lsApps.addHeaderView(imHeader);
+            lsApps.addFooterView(imFooter);
 
             //Invocamos al servicio
             Intent in = new Intent(getActivity(),ServicioPostback.class);
