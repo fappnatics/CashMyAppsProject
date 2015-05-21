@@ -443,6 +443,14 @@ public class ListaApps extends Fragment {
             lsApps.setAdapter(cu);
             lsApps.addHeaderView(imHeader);
 
+            //Invocamos al servicio
+            Intent in = new Intent(getActivity(),ServicioPostback.class);
+            in.putExtra("cuenta", mail);
+            in.putExtra("cod_refer", refer);
+
+            if(!ServicioPostback.isRunning())
+                getActivity().startService(in);
+
 
         }
 

@@ -163,13 +163,25 @@ public class MainActivity extends ActionBarActivity
                 break;
 
             case 1:
+
+                fragment = new Perfil();
+
+                fragment.setArguments(bundle);
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, Perfil.newInstance(position + 1))
+                        .commit();
+
+                getSupportActionBar().setTitle(getResources().getString(R.string.titulo_user_info));
+                getSupportActionBar().setSubtitle(getResources().getString(R.string.subtitulo_user_info));
+
+                /*
                 fragment = new Compartir();
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, Compartir.newInstance(position + 1))
                         .commit();
 
                 getSupportActionBar().setTitle(getResources().getString(R.string.titulo_compartir));
-                getSupportActionBar().setSubtitle(getResources().getString(R.string.subtitulo_compartir));
+                getSupportActionBar().setSubtitle(getResources().getString(R.string.subtitulo_compartir));*/
 
                 break;
             case 2:

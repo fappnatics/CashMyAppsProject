@@ -72,7 +72,8 @@
     <string name="layout_login_cuentas">Selecciona una cuenta para registrarte</string>
     <string name="layout_cobro_tucodigo">Tu código</string>
     <string name="layout_cobro_codigoamigo">Código de amigo</string>
-
+    <string name="layout_perfil_nombre">Nombre</string>
+    <string name="layout_perfil_correo">Correo</string>
 
 
     <!--Contenido de los fragments -->
@@ -85,14 +86,14 @@
 
     <!-- Lista de elementos e navegación -->
     <string-array name="nav_options">
-        <item>Compártelo</item>
+        <item>Perfil</item>
         <item>Ver ofertas</item>
         <item>Ranking</item>
         <item>Obtener mis beneficios</item>
     </string-array>
     <!-- Iconos de navegación -->
     <array name="navigation_iconos">
-        <item>@drawable/share48</item>
+        <item>@drawable/user32</item>
         <item>@drawable/lista32</item>
         <item>@drawable/podium64</item>
         <item>@drawable/billetes64</item>
