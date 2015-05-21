@@ -1,5 +1,6 @@
 package com.cashmyapps.core.cashmyappsproject;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -432,8 +433,8 @@ public class ListaApps extends Fragment {
 
 
             ImageView imHeader = new ImageView(getActivity());
-            imHeader.setBackgroundColor(Color.parseColor("#FFEB3B"));
-            imHeader.setImageResource(R.drawable.cabecera_lista);
+            imHeader.setBackgroundColor(Color.parseColor("#fec301"));
+            imHeader.setImageResource(R.drawable.offers_header);
 
 
             cu = new CustomAdapter(getActivity(),nom_apps,img_apps,desc_corta,ppi_array,estrellas,url_apps,cuenta);

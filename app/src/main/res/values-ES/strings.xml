@@ -91,7 +91,7 @@
     </string-array>
     <!-- Iconos de navegación -->
     <array name="navigation_iconos">
-        <item>@drawable/user64</item>
+        <item>@drawable/user32</item>
         <item>@drawable/lista32</item>
         <item>@drawable/podium64</item>
         <item>@drawable/billetes64</item>
