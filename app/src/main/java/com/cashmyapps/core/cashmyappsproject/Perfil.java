@@ -258,7 +258,7 @@ public class Perfil extends Fragment {
         protected void onPreExecute() {
 
             progressDialog = new ProgressDialog(contexto);
-            progressDialog.setMessage("Procesando petición...");
+            progressDialog.setMessage(getResources().getString(R.string.dialogo_carga_refer));
             progressDialog.show();
             progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                 public void onCancel(DialogInterface arg0) {
@@ -329,10 +329,10 @@ public class Perfil extends Fragment {
                 alerta.setView(view);
 
 
-                alerta.setTitle("Salir");
-                alerta.setMessage("La petición se ha procesado correctamente.");
+                alerta.setTitle(getResources().getString(R.string.dialogo_titulo_salir));
+                alerta.setMessage(getResources().getString(R.string.dialogo_peticion_refer_ok));
 
-                alerta.setPositiveButton("Aceptar",new DialogInterface.OnClickListener() {
+                alerta.setPositiveButton(getResources().getString(R.string.dialogo_titulo_salir), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         return;

@@ -84,7 +84,7 @@ public class CustomAdapter extends ArrayAdapter {
 
         Log.i("PPI: ",ppi_app[position]);
         if(String.format("%.2f",Double.parseDouble(ppi_app[position])*0.2*100).equals("0,00"))
-            ppi.setText("PPI: 1 COIN");
+            ppi.setText("PPI: 10 COIN");
         else
         {
             saldo = Double.parseDouble(ppi_app[position])*100;

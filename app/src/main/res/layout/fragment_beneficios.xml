@@ -7,21 +7,6 @@
     android:rowCount="3"
     android:columnCount="3">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/cabecera_cobro"
-        android:layout_marginTop="25dp"
-        android:textColor="#ffffff"
-        android:id="@+id/txCobroTitulo"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        android:layout_marginBottom="20dp"
-        android:layout_row="0"
-        android:layout_column="1" />
-
 
     <ImageView
         android:layout_width="300dp"

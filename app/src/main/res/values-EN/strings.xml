@@ -28,7 +28,6 @@
     <string name="compartir_cashmaker">Join CashMaker</string>
 
 
-
     <!--Botones -->
     <string name="boton_instalar">Install</string>
     <string name="boton_instalada">Installed</string>
@@ -40,6 +39,8 @@
     <!--Diálogos -->
     <string name="dialogo_carga_apps">Loading app list...</string>
     <string name="dialogo_carga_splash">Loading app...</string>
+    <string name="dialogo_carga_refer">Procesando petición...</string>
+    <string name="dialogo_peticion_refer_ok">La petición se ha procesado correctamente.</string>
     <string name="dialogo_titulo_salir">Exit</string>
     <string name="dialogo_titulo_atencion">Attention</string>
     <string name="dialogo_cuerpo_salir">Sure that you want to exit?</string>
@@ -80,8 +81,10 @@
     <string name="cabecera_compartir">Referred by a friend?</string>
     <string name="cabecera_cobro">Withdraw benefits</string>
 
+    <!--Imágenes -->
+    <drawable name="oferta_footer">@drawable/sharefooter_en</drawable>
 
-    <!--TRADUCIR: HASTA AQUÍ -->
+
 
     <!-- Lista de elementos e navegación -->
     <string-array name="nav_options">
@@ -90,6 +93,10 @@
         <item>Ranking</item>
         <item>Obtener mis beneficios</item>
     </string-array>
+
+
+    <!--TRADUCIR: HASTA AQUÍ -->
+
     <!-- Iconos de navegación -->
     <array name="navigation_iconos">
         <item>@drawable/share48</item>

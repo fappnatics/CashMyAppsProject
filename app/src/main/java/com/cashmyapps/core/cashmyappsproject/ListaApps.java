@@ -437,8 +437,8 @@ public class ListaApps extends Fragment {
             imHeader.setImageResource(R.drawable.offers_header);
 
             ImageView imFooter = new ImageView(getActivity());
-            imFooter.setBackgroundColor(Color.parseColor("#fec301"));
-            imFooter.setImageResource(R.drawable.offers_header);
+            //imFooter.setBackgroundColor(Color.parseColor("#fec301"));
+            imFooter.setImageResource(R.drawable.oferta_footer);
 
 
 

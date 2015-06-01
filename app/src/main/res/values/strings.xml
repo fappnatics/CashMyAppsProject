@@ -40,6 +40,8 @@
     <!--Diálogos -->
     <string name="dialogo_carga_apps">Cargando lista de ofertas...</string>
     <string name="dialogo_carga_splash">Cargando aplicación...</string>
+    <string name="dialogo_carga_refer">Procesando petición...</string>
+    <string name="dialogo_peticion_refer_ok">La petición se ha procesado correctamente.</string>
     <string name="dialogo_titulo_salir">Salir</string>
     <string name="dialogo_titulo_atencion">Atención</string>
     <string name="dialogo_cuerpo_salir">¿Seguro que quieres salir de la aplicación?</string>
@@ -82,7 +84,11 @@
     <string name="cabecera_cobro">Retirar beneficios</string>
 
 
-    <!--TRADUCIR: HASTA AQUÍ -->
+    <!--Imágenes -->
+    <drawable name="oferta_footer">@drawable/sharefooter_es</drawable>
+
+
+
 
     <!-- Lista de elementos e navegación -->
     <string-array name="nav_options">
@@ -91,6 +97,10 @@
         <item>Ranking</item>
         <item>Obtener mis beneficios</item>
     </string-array>
+
+
+    <!--TRADUCIR: HASTA AQUÍ -->
+
     <!-- Iconos de navegación -->
     <array name="navigation_iconos">
         <item>@drawable/user32</item>

@@ -89,7 +89,7 @@ public class Beneficios extends Fragment {
                         alerta.setTitle(getResources().getString(R.string.dialogo_solicitud_cobro_aceptada_titulo));
                         alerta.setMessage(getResources().getString(R.string.dialogo_solicitud_cobro_aceptada));
 
-                        alerta.setPositiveButton(getResources().getString(R.string.boton_aceptar),new DialogInterface.OnClickListener() {
+                            alerta.setPositiveButton(getResources().getString(R.string.boton_aceptar),new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
