@@ -8,15 +8,102 @@
     android:columnCount="3">
 
 
-    <ImageView
-        android:layout_width="300dp"
-        android:layout_height="250dp"
-        android:background="@drawable/marco"
-        android:id="@+id/imgCobroLogo"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="220dp"
+            android:layout_height="160dp"
+            android:id="@+id/imAmazon5"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/amazon5card"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/boton_cobro_amazon5"
+            android:background="@drawable/custom_btn_orange"
+            android:id="@+id/btAmazon5"
+            android:textSize="20dp"
+            android:layout_marginLeft="20dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="220dp"
+            android:layout_height="160dp"
+            android:id="@+id/imAmazon2"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/amazon2card"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/boton_cobro_amazon2"
+            android:background="@drawable/custom_btn_orange"
+            android:id="@+id/btAmazon2"
+            android:textSize="20dp"
+            android:layout_marginLeft="20dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="220dp"
+            android:layout_height="160dp"
+            android:id="@+id/imPayPal5"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/paypal5"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/boton_cobro_PayPal5"
+            android:background="@drawable/custom_btn_orange"
+            android:id="@+id/btPayPal5"
+            android:textSize="20dp"
+            android:layout_marginLeft="20dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical" />
+
+
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="30dp"
-        android:src="@drawable/cashmaker_logo"/>
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Tu saldo:"
+        android:textColor="#ffffff"
+        android:id="@+id/txTitulo"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_marginBottom="4dp"
+        android:layout_row="0"
+        android:layout_column="1" />
 
 
 
@@ -25,6 +112,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center">
+
 
 
         <TextView
@@ -36,7 +124,7 @@
         android:id="@+id/txCobroSaldo"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:textSize="50dp"
+        android:textSize="35dp"
         android:text="2000 coins"/>
 
     </LinearLayout>
@@ -48,7 +136,10 @@
         android:background="@drawable/custom_btn_orange"
         android:id="@+id/btSolicitarBeneficios"
         android:gravity="center_vertical"
+        android:visibility="invisible"
         android:layout_gravity="center_horizontal" />
+
+
 
 
 </LinearLayout>

@@ -34,6 +34,9 @@
     <string name="boton_aceptar">Accept</string>
     <string name="boton_compartir">Share</string>
     <string name="boton_cobro"> Claim withdraw</string>
+    <string name="boton_cobro_amazon5"> 5000 coins </string>
+    <string name="boton_cobro_amazon2"> 2000 coins </string>
+    <string name="boton_cobro_PayPal5"> 5000 coins </string>
     <string name="boton_login_registrarse">Register</string>
 
     <!--Diálogos -->

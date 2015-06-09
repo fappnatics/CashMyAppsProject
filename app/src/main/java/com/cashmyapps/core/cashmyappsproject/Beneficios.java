@@ -21,6 +21,9 @@ public class Beneficios extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
     private  Button btSolicitarIngresos;
+    private  Button btAmazon5;
+    private  Button btAmazon2;
+    private  Button btPaypal5;
     private View rootView;
     private String cuenta;
     private String resultado;
@@ -28,6 +31,7 @@ public class Beneficios extends Fragment {
     private String saldo;
     private TextView saldo_user;
     private TextView correo;
+
 
 
     public Beneficios() {
@@ -51,14 +55,33 @@ public class Beneficios extends Fragment {
         super.onResume();
 
         btSolicitarIngresos = (Button)getActivity().findViewById(R.id.btSolicitarBeneficios);
+        btAmazon5 = (Button)getActivity().findViewById(R.id.btAmazon5);
+        btAmazon2 = (Button)getActivity().findViewById(R.id.btAmazon2);
+        btPaypal5 = (Button)getActivity().findViewById(R.id.btPayPal5);
         correo = (TextView)getActivity().findViewById(R.id.txCorreo);
         saldo_user = (TextView)getActivity().findViewById(R.id.txCobroSaldo);
         cuenta = correo.getText().toString();
+
+
         try {
             resultado = new JSONParser(Constantes.GET_SALDO.replace("[MAIL]",cuenta)).execute(this,"foo").get();
             jArray = new JSONObject(resultado).getJSONArray("usuarios");
             saldo = jArray.getJSONObject(0).getString("SALDO");
             saldo_user.setText(saldo+" coins");
+
+            if(Integer.parseInt(saldo)<5000){
+
+                btAmazon5.setEnabled(false);
+                btPaypal5.setEnabled(false);
+
+            }
+
+            if(Integer.parseInt(saldo)<2000){
+
+                btAmazon2.setEnabled(false);
+
+            }
+
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -67,6 +90,24 @@ public class Beneficios extends Fragment {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+
+        btAmazon5.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+
+            }
+        });
+
+        btAmazon2.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+
+            }
+        });
+
+        btPaypal5.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+
+            }
+        });
 
 
         btSolicitarIngresos.setOnClickListener(new View.OnClickListener() {
