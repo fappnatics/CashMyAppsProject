@@ -2,7 +2,9 @@ package com.cashmyapps.core.cashmyappsproject;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -11,9 +13,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 
@@ -21,16 +33,22 @@ public class Beneficios extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
     private  Button btSolicitarIngresos;
+    private ProgressDialog progressDialog;
     private  Button btAmazon5;
     private  Button btAmazon2;
     private  Button btPaypal5;
     private View rootView;
     private String cuenta;
     private String resultado;
-    private JSONArray jArray;
     private String saldo;
+    private String correo_paypal;
     private TextView saldo_user;
     private TextView correo;
+    private TextView cuenta_paypal;
+    private JSONObject jObject;
+    private JSONArray jArray;
+
+
 
 
 
@@ -93,6 +111,50 @@ public class Beneficios extends Fragment {
 
         btAmazon5.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
+
+                try {
+                    resultado = new JSONParser(Constantes.GET_CUENTA_PAYPAL.replace("[MAIL]",cuenta)).execute(this,"foo").get();
+                    LayoutInflater paypal = LayoutInflater.from(getActivity());
+                    final View view = paypal.inflate(R.layout.alerta_paypal,null);
+                    AlertDialog.Builder alerta_paypal = new AlertDialog.Builder(getActivity());
+                    cuenta_paypal = (TextView)view.findViewById(R.id.txPayPal);
+                    jObject = new JSONObject(resultado);
+                    jArray = jObject.getJSONArray("usuarios");
+                    cuenta_paypal.setText(jArray.getJSONObject(0).getString("MAIL_PAYPAL"));
+                    alerta_paypal.setView(view);
+
+                    alerta_paypal.setPositiveButton(getResources().getString(R.string.boton_confirmar), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+
+
+                        }
+                    });
+
+                    alerta_paypal.setNegativeButton(getResources().getString(R.string.dialogo_cancelar), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+
+
+
+                    alerta_paypal.show();
+
+
+
+
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
 
             }
         });
@@ -179,8 +241,57 @@ public class Beneficios extends Fragment {
 
     }
 
+    private class MainParser extends AsyncTask<Object, Void, String> {
 
-    @Override
+        String result = "";
+        private String url_select;
+
+        public MainParser(String url) {
+            this.url_select = url;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog = new ProgressDialog(getActivity());
+            progressDialog.setMessage(getActivity().getResources().getString(R.string.dialogo_solicitud_cobro_procesando));
+            progressDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(Object... params) {
+            ArrayList<NameValuePair> param = new ArrayList<>();
+
+            try {
+
+                HttpClient httpClient = new DefaultHttpClient();
+                HttpPost httpPost = new HttpPost(url_select);
+                httpPost.setEntity(new UrlEncodedFormEntity(param));
+                HttpResponse httpResponse = httpClient.execute(httpPost);
+                result = EntityUtils.toString(httpResponse.getEntity(), "UTF-8");
+
+
+            } catch (Exception e) {
+                Log.e("Error  result ", e.getMessage());
+            }
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String v) {
+
+            //TODO aquí hay que hacer el descuento del saldo y el mensaje que confirma la transacción.
+
+
+        }
+    }
+
+
+
+
+
+
+
+            @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 

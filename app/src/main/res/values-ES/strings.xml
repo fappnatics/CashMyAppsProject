@@ -32,6 +32,7 @@
     <string name="boton_instalar">Instalar</string>
     <string name="boton_instalada">Instalada</string>
     <string name="boton_aceptar">Aceptar</string>
+    <string name="boton_confirmar">Confirmar</string>
     <string name="boton_modificar">Modificar</string>
     <string name="boton_compartir">Compartir</string>
     <string name="boton_cobro"> Solicitar cobro </string>
@@ -57,6 +58,7 @@
     <string name="dialogo_solicitud_cobro_rechazada">Ha ocurrido un error durante su tramitación o el servicio no está disponible. Por favor, inténtelo de nuevo más tarde.</string>
     <string name="dialogo_solicitud_cobro_aceptada_titulo">Solicitud aceptada</string>
     <string name="dialogo_solicitud_cobro_rechazada_titulo">Solicitud rechazada</string>
+    <string name="dialogo_solicitud_cobro_procesando">Pocesando solicitud</string>
     <string name="dialogo_referido_texto_incorrecto">El texto no es correcto, revíselo e inténtelo de nuevo</string>
     <string name="dialogo_error_instalacion">Oooops, ha sucedido un error, por favor, inténtalo de nuevo más tarde</string>
     <string name="dialogo_error_alta_usuario">Oooops, ha sucedido un error en el alta de usuario, por favor, inténtalo de nuevo más tarde</string>
@@ -77,6 +79,7 @@
     <string name="layout_login_cuentas">Selecciona una cuenta para registrarte</string>
     <string name="layout_cobro_tucodigo">Tu código</string>
     <string name="layout_cobro_codigoamigo">Código de amigo</string>
+    <string name="layout_cobro_correopaypal">Confirma tu correo PayPal</string>
     <string name="layout_perfil_nombre">Nombre</string>
     <string name="layout_perfil_correo">Correo</string>
 
