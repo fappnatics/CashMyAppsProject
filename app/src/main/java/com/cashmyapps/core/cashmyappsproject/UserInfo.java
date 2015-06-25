@@ -40,6 +40,7 @@ public class UserInfo extends Fragment {
     private JSONArray jArray;
     private String nombre;
     private String mail;
+    private String paypal_mail;
     private String refer;
     private String saldo_coins;
         private Account[] accounts;
@@ -173,13 +174,17 @@ public class UserInfo extends Fragment {
                         mail = jArray.getJSONObject(0).getString("MAIL");
                         saldo_coins = jArray.getJSONObject(0).getString("SALDO")+" Coins";
                         refer = jArray.getJSONObject(0).getString("COD_REFER");
+                        paypal_mail = jArray.getJSONObject(0).getString("MAIL_PAYPAL");
 
 
                         TextView txNombre = (TextView)getActivity().findViewById(R.id.txNombre);
                         TextView txSaldo = (TextView)getActivity().findViewById(R.id.txSaldo);
+                        TextView txPayPal = (TextView)getActivity().findViewById(R.id.txPayPal);
+
 
                         txNombre.setText(nombre);
                         txSaldo.setText(saldo_coins);
+                        txPayPal.setText(paypal_mail);
 
                         new JSONParser(Constantes.CONEXION_USUARIO.replace("[MAIL]",mail).replace("[CONECTADO]","S"));
 

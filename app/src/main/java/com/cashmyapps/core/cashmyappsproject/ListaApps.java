@@ -16,6 +16,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -100,7 +101,10 @@ public class ListaApps extends Fragment {
             TextView correo = (TextView)getActivity().findViewById(R.id.txCorreo);
             cuenta = correo.getText().toString();
 
-            codigoPais = getLocalizacion();
+
+            TelephonyManager tm = (TelephonyManager)getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+            codigoPais = tm.getNetworkCountryIso().toUpperCase();
+            //codigoPais = getLocalizacion();
             contexto = ListaApps.this.getActivity();
 
             //Obtenemos el codigo de referido del usuario para montar los links con el postback.
@@ -455,6 +459,7 @@ public class ListaApps extends Fragment {
             Intent in = new Intent(getActivity(),ServicioPostback.class);
             in.putExtra("cuenta", mail);
             in.putExtra("cod_refer", refer);
+
 
             if(!ServicioPostback.isRunning())
                 getActivity().startService(in);

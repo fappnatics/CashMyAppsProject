@@ -32,6 +32,7 @@
     <string name="boton_instalar">Install</string>
     <string name="boton_instalada">Installed</string>
     <string name="boton_aceptar">Accept</string>
+    <string name="boton_modificar">Modificar</string>
     <string name="boton_compartir">Share</string>
     <string name="boton_cobro"> Claim withdraw</string>
     <string name="boton_cobro_amazon5"> 5000 coins </string>

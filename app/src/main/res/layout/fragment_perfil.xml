@@ -6,33 +6,17 @@
     android:background="@layout/fondo_login">
 
 
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/cabecera_user_info"
-            android:layout_marginTop="25dp"
-            android:textColor="#ffffff"
-            android:id="@+id/txTitulo"
-            android:textSize="30dp"
-            android:textStyle="bold"
-            android:layout_marginBottom="20dp"
-            android:layout_row="0"
-            android:layout_column="1" />
-
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:id="@+id/imageView5"
             android:src="@drawable/user_info"
+            android:layout_marginTop="25dp"
             android:layout_row="1"
             android:layout_column="1"/>
 
         <TextView
-            android:layout_width="200dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:text="@string/layout_perfil_nombre"
@@ -42,7 +26,7 @@
             android:layout_gravity="center_horizontal|bottom" />
 
         <TextView
-            android:layout_width="200dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:textSize="15dp"
             android:background="@layout/caja_texto"
@@ -53,7 +37,7 @@
             android:layout_gravity="center_horizontal|bottom" />
 
         <TextView
-            android:layout_width="200dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:text="@string/layout_perfil_correo"
@@ -62,7 +46,7 @@
             android:textColor="#ffffff"
             android:layout_gravity="center_horizontal|bottom" />
         <TextView
-            android:layout_width="200dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:textSize="15dp"
             android:background="@layout/caja_texto"
@@ -73,7 +57,7 @@
             android:layout_gravity="center_horizontal|bottom" />
 
         <TextView
-            android:layout_width="200dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:text="@string/layout_cobro_tucodigo"
@@ -83,19 +67,49 @@
             android:layout_gravity="center_horizontal|bottom" />
 
         <TextView
-            android:layout_width="200dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:textSize="15dp"
             android:textAlignment="center"
             android:gravity="center"
             android:background="@layout/caja_texto"
             android:id="@+id/txReferido"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="5dp"
             android:textStyle="bold"
             android:layout_gravity="center_horizontal|bottom" />
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:id="@+id/imPayPal"
+        android:src="@drawable/paypaluserinfo"
+        android:layout_row="1"
+        android:layout_column="1"/>
+
+    <EditText
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:background="@layout/caja_texto"
+        android:id="@+id/txPayPal"
+        android:layout_marginBottom="10dp"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal|bottom" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="15dp"
+        android:text="@string/boton_modificar"
+        android:id="@+id/btPayPal"
+        android:background="@drawable/custom_btn_orange"
+        android:layout_gravity="center_horizontal" />
+
         <TextView
-            android:layout_width="200dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:text="@string/layout_cobro_codigoamigo"
@@ -105,7 +119,7 @@
             android:layout_gravity="center_horizontal|bottom" />
 
         <EditText
-            android:layout_width="200dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:textSize="15dp"
             android:background="@layout/caja_texto"
@@ -120,7 +134,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="5dp"
             android:text="@string/boton_aceptar"
             android:id="@+id/btReferido"
             android:background="@drawable/custom_btn_orange"
