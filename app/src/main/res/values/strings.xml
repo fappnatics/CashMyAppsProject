@@ -21,7 +21,7 @@
     <string name="subtitulo_cobros">Obtén tu beneficio</string>
 
     <!--Contenido de los fragments -->
-    <string name="cont_login_cabecera_nuevo_cashmaker">¿Nuevo en CashMyApps? \n Selecciona una cuenta de registro</string>
+    <string name="cont_login_cabecera_nuevo_cashmaker">¿Nuevo en CashMaker? \n Selecciona una cuenta de registro</string>
     <string name="cont_login_selec_cuenta_acceso">Selecciona una cuenta de acceso.</string>
 
     <!--Contenido de los datos a compartir -->
