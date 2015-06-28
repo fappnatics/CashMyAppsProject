@@ -282,6 +282,11 @@ public class Beneficios extends Fragment {
             //TODO aquí hay que hacer el descuento del saldo y el mensaje que confirma la transacción.
 
 
+
+
+
+
+
         }
     }
 
