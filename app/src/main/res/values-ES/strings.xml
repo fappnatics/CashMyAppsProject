@@ -20,11 +20,11 @@
     <string name="subtitulo_cobros">Obtén tu beneficio</string>
 
     <!--Contenido de los fragments -->
-    <string name="cont_login_cabecera_nuevo_cashmaker">¿Nuevo en CashMyApps? \n Selecciona una cuenta de registro</string>
+    <string name="cont_login_cabecera_nuevo_cashmaker">¿Nuevo en CashMaker? \n Selecciona una cuenta de registro</string>
     <string name="cont_login_selec_cuenta_acceso">Selecciona una cuenta de acceso.</string>
 
     <!--Contenido de los datos a compartir -->
-    <string name="compartir_cashmaker">Únete a CashMaker</string>
+    <string name="compartir_cashmaker">Descarga Cashmaker y Gana Dinero \n https://goo.gl/dmpmGB</string>
 
 
 
@@ -75,7 +75,6 @@
     <string name="layout_login_cabecera">Selecciona una cuenta</string>
     <string name="layout_login_nombre">Nombre (opcional)</string>
     <string name="layout_login_codamigo">¿Tienes un código de amigo?</string>
-    <string name="cont_login_cabecera_nuevo_cashmaker">¿Nuevo en CashMaker? \n Selecciona una cuenta de registro</string>
     <string name="layout_login_cuentas">Selecciona una cuenta para registrarte</string>
     <string name="layout_cobro_tucodigo">Tu código</string>
     <string name="layout_cobro_codigoamigo">Código de amigo</string>
