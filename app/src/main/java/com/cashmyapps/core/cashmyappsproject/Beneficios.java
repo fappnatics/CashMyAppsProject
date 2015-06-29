@@ -48,6 +48,7 @@ public class Beneficios extends Fragment {
     private TextView cuenta_paypal;
     private JSONObject jObject;
     private JSONArray jArray;
+    private RatingBar ratingBar;
 
 
 
@@ -115,12 +116,12 @@ public class Beneficios extends Fragment {
                 try {
                     resultado = new JSONParser(Constantes.GET_CUENTA_PAYPAL.replace("[MAIL]",cuenta)).execute(this,"foo").get();
                     LayoutInflater paypal = LayoutInflater.from(getActivity());
-                    final View view = paypal.inflate(R.layout.calificar,null);
+                    final View view = paypal.inflate(R.layout.alerta_paypal,null);
                     AlertDialog.Builder alerta_paypal = new AlertDialog.Builder(getActivity());
                     cuenta_paypal = (TextView)view.findViewById(R.id.txPayPal);
                     jObject = new JSONObject(resultado);
                     jArray = jObject.getJSONArray("usuarios");
-                    //cuenta_paypal.setText(jArray.getJSONObject(0).getString("MAIL_PAYPAL"));
+                    cuenta_paypal.setText(jArray.getJSONObject(0).getString("MAIL_PAYPAL"));
                     alerta_paypal.setView(view);
 
                     alerta_paypal.setPositiveButton(getResources().getString(R.string.boton_confirmar), new DialogInterface.OnClickListener() {
