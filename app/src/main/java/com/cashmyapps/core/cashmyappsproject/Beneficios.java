@@ -127,7 +127,7 @@ public class Beneficios extends Fragment {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
 
-                            new SolicitudCobro(Constantes.SET_DESCONTAR_SALDO.replace("[MAIL]",cuenta).replace("[COINS]","5000"));
+                            new SolicitudCobro(Constantes.SET_DESCONTAR_SALDO.replace("[MAIL]",cuenta).replace("[COINS]","5000")).execute();
 
                         }
                     });
@@ -279,7 +279,10 @@ public class Beneficios extends Fragment {
         @Override
         protected void onPostExecute(String v) {
 
-            //TODO aqui hay que hacer el descuento del saldo y el mensaje que confirma la transacción.
+            onResume();
+            progressDialog.dismiss();
+
+
 
 
 
