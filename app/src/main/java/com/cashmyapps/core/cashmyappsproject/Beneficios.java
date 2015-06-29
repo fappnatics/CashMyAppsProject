@@ -123,12 +123,11 @@ public class Beneficios extends Fragment {
                     jArray = jObject.getJSONArray("usuarios");
                     cuenta_paypal.setText(jArray.getJSONObject(0).getString("MAIL_PAYPAL"));
                     alerta_paypal.setView(view);
-
                     alerta_paypal.setPositiveButton(getResources().getString(R.string.boton_confirmar), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
 
-
+                            new SolicitudCobro(Constantes.SET_DESCONTAR_SALDO.replace("[MAIL]",cuenta).replace("[COINS]","5000"));
 
                         }
                     });
@@ -242,12 +241,12 @@ public class Beneficios extends Fragment {
 
     }
 
-    private class MainParser extends AsyncTask<Object, Void, String> {
+    private class SolicitudCobro extends AsyncTask<Object, Void, String> {
 
         String result = "";
         private String url_select;
 
-        public MainParser(String url) {
+        public SolicitudCobro(String url) {
             this.url_select = url;
         }
 
@@ -280,7 +279,9 @@ public class Beneficios extends Fragment {
         @Override
         protected void onPostExecute(String v) {
 
-            //TODO aquí hay que hacer el descuento del saldo y el mensaje que confirma la transacción.
+            //TODO aqui hay que hacer el descuento del saldo y el mensaje que confirma la transacción.
+
+
 
 
 

@@ -27,11 +27,9 @@ public class Ranking extends Fragment {
     private String[] lista_nombre;
     private String[] lista_mail;
     private String[] lista_saldo;
-    private String[] usuario_conectado;
     private View rootView;
 
-    // TODO: Rename and change types of parameters
-;
+
 
 
     public Ranking() {
@@ -63,17 +61,17 @@ public class Ranking extends Fragment {
             lista_nombre = new String[jArray.length()];
             lista_mail = new String[jArray.length()];
             lista_saldo = new String[jArray.length()];
-            usuario_conectado = new String[jArray.length()];
+
 
             for(int i=0;i<jArray.length();i++){
                 lista_nombre[i] = jArray.getJSONObject(i).getString("NOMBRE");
                 lista_mail[i] = jArray.getJSONObject(i).getString("MAIL");
                 lista_saldo[i] = jArray.getJSONObject(i).getString("SALDO");
-                usuario_conectado[i] = jArray.getJSONObject(i).getString("CONECTADO");
+
 
                 Log.i("LISTA_NOMBRES",lista_nombre[i]);
             }
-            //TODO Arreglar la visualizacion de la lista de usuarios. No se ve.
+
 
         }
         catch (ExecutionException e) {
@@ -87,7 +85,7 @@ public class Ranking extends Fragment {
         }
 
         //ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getActivity().getBaseContext(), android.R.layout.simple_list_item_1, lista_nombre);
-        ConectadosAdaptador adp = new ConectadosAdaptador(getActivity(),lista_nombre,lista_mail,lista_saldo,usuario_conectado);
+        ConectadosAdaptador adp = new ConectadosAdaptador(getActivity(),lista_nombre,lista_mail,lista_saldo);
         listAPP.setAdapter(adp);
     }
 

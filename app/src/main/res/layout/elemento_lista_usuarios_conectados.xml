@@ -34,11 +34,7 @@
             android:textStyle="bold"
             android:id="@+id/txUsuConect" />
 
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="42dp"
-                android:id="@+id/imgOnline"
-                android:src="@drawable/coinstack"/>
+
 
         </LinearLayout>
 

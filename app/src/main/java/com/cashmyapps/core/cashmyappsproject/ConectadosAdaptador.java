@@ -17,17 +17,17 @@ public class ConectadosAdaptador extends ArrayAdapter {
     private String[] nombre_user;
     private String[] mail_user;
     private String[] saldo_user;
-    private String[] user_conect;
 
 
-    public ConectadosAdaptador(Activity context,String[] nombres, String[] mails, String[] saldos, String[] conectado){
+
+    public ConectadosAdaptador(Activity context,String[] nombres, String[] mails, String[] saldos){
         super(context,R.layout.elemento_lista_usuarios_conectados,nombres);
 
         this.actividad = context;
         this.nombre_user = nombres;
         this.mail_user = mails;
         this.saldo_user = saldos;
-        this.user_conect = conectado;
+
 
 
     }
@@ -39,7 +39,6 @@ public class ConectadosAdaptador extends ArrayAdapter {
         TextView nombre = (TextView) rowView.findViewById(R.id.txUsuConect);
         //TextView cuentaAsociada = (TextView)rowView.findViewById(R.id.txCorreoAsociado);
         TextView ppi = (TextView) rowView.findViewById(R.id.txCoins);
-        ImageView imgOnline = (ImageView) rowView.findViewById(R.id.imgOnline);
         ImageView img1st = (ImageView) rowView.findViewById(R.id.img1st);
 
 
@@ -60,15 +59,6 @@ public class ConectadosAdaptador extends ArrayAdapter {
                 break;
         }
 
-
-        if(user_conect[position].equals("N"))
-        {
-            imgOnline.setImageResource(R.drawable.offline);
-        }
-        else
-        {
-            imgOnline.setImageResource(R.drawable.online);
-        }
         nombre.setText(nombre_user[position]);
         //cuentaAsociada.setText(mail_user[position]);
         ppi.setText(saldo_user[position]+" Coins");
