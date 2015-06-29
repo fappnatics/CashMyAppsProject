@@ -54,6 +54,7 @@
     <string name="dialogo_no">No</string>
     <string name="dialogo_aceptar">Accept</string>
     <string name="dialogo_cancelar">Cancel</string>
+    <string name="dialogo_calificar">¿Te gusta CashMaker? ¡Danos 5 estrellas!</string>
     <string name="dialogo_solicitud_cobro_aceptada">Your withdraw has been received and it will be processed in the next 24/48h, if you have any doubt please contact us.</string>
     <string name="dialogo_solicitud_cobro_rechazada"> An error has occurred during your request or the service is not available. Please try again later.</string>
     <string name="dialogo_solicitud_cobro_aceptada_titulo">Request accepted</string>

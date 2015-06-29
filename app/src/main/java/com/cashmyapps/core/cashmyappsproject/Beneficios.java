@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import org.apache.http.HttpResponse;
@@ -80,7 +81,6 @@ public class Beneficios extends Fragment {
         saldo_user = (TextView)getActivity().findViewById(R.id.txCobroSaldo);
         cuenta = correo.getText().toString();
 
-
         try {
             resultado = new JSONParser(Constantes.GET_SALDO.replace("[MAIL]",cuenta)).execute(this,"foo").get();
             jArray = new JSONObject(resultado).getJSONArray("usuarios");
@@ -115,12 +115,12 @@ public class Beneficios extends Fragment {
                 try {
                     resultado = new JSONParser(Constantes.GET_CUENTA_PAYPAL.replace("[MAIL]",cuenta)).execute(this,"foo").get();
                     LayoutInflater paypal = LayoutInflater.from(getActivity());
-                    final View view = paypal.inflate(R.layout.alerta_paypal,null);
+                    final View view = paypal.inflate(R.layout.calificar,null);
                     AlertDialog.Builder alerta_paypal = new AlertDialog.Builder(getActivity());
                     cuenta_paypal = (TextView)view.findViewById(R.id.txPayPal);
                     jObject = new JSONObject(resultado);
                     jArray = jObject.getJSONArray("usuarios");
-                    cuenta_paypal.setText(jArray.getJSONObject(0).getString("MAIL_PAYPAL"));
+                    //cuenta_paypal.setText(jArray.getJSONObject(0).getString("MAIL_PAYPAL"));
                     alerta_paypal.setView(view);
 
                     alerta_paypal.setPositiveButton(getResources().getString(R.string.boton_confirmar), new DialogInterface.OnClickListener() {
@@ -280,6 +280,7 @@ public class Beneficios extends Fragment {
         protected void onPostExecute(String v) {
 
             //TODO aquí hay que hacer el descuento del saldo y el mensaje que confirma la transacción.
+
 
 
 

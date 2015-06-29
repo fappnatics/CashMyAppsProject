@@ -53,6 +53,7 @@
     <string name="dialogo_no">Keine</string>
     <string name="dialogo_aceptar">Akzeptieren</string>
     <string name="dialogo_cancelar">Stornieren</string>
+    <string name="dialogo_calificar">¿Te gusta CashMaker? ¡Danos 5 estrellas!</string>
     <string name="dialogo_solicitud_cobro_aceptada">Ihre zurückziehen empfangen wurde, und es wird in den nächsten 24 /48 verarbeitet werden, wenn Sie irgendwelche Zweifel haben, kontaktieren Sie uns bitte.</string>
     <string name="dialogo_solicitud_cobro_rechazada">Fehler bei Ihrer Anfrage aufgetreten ist oder der Dienst nicht verfügbar ist. Bitte versuchen Sie es später noch einmal.</string>
     <string name="dialogo_solicitud_cobro_aceptada_titulo">Akzeptiert Anfrage</string>

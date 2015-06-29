@@ -54,6 +54,7 @@
     <string name="dialogo_no">No</string>
     <string name="dialogo_aceptar">Aceptar</string>
     <string name="dialogo_cancelar">Cancelar</string>
+    <string name="dialogo_calificar">¿Te gusta CashMaker? ¡Danos 5 estrellas!</string>
     <string name="dialogo_solicitud_cobro_aceptada">Su solicitud de cobro ha sido tramitada y se realizará en 24/48h, si tiene alguna duda, por favor, contáctenos.</string>
     <string name="dialogo_solicitud_cobro_rechazada">Ha ocurrido un error durante su tramitación o el servicio no está disponible. Por favor, inténtelo de nuevo más tarde.</string>
     <string name="dialogo_solicitud_cobro_aceptada_titulo">Solicitud aceptada</string>
