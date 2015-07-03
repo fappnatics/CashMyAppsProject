@@ -322,11 +322,14 @@ public class ListaApps extends Fragment {
                     in.putExtra("cuenta",mail);
                     in.putExtra("cod_refer",refer);
 
-                    if(!ServicioPostback.isRunning())
+                    if(ServicioPostback.isRunning()){
+                        getActivity().stopService(in);
+                        getActivity().startService(in);}
+                    else
                         getActivity().startService(in);
-
-
                 }
+
+                new JSONParser(Constantes.SET_BORRAR_CEROS_POSTBACK).execute();
 
 
 

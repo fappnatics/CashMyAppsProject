@@ -28,6 +28,7 @@ public final class Constantes {
    public static final String GET_POSTBACK_USER = "http://www.cashmyapps.net/get_postback_user.php?CODREFER=[CODREFER]";
    public static final String GET_USER_EXISTE = "http://www.cashmyapps.net/get_existe_usuario.php?CUENTAS=[CUENTAS]";
    public static final String SET_CUENTA_PAYPAL = "http://cashmyapps.net/set_cuenta_paypal.php?MAIL=[MAIL]&PAYPAL=[PAYPAL]";
+   public static final String SET_BORRAR_CEROS_POSTBACK = "http://www.cashmyapps.net/set_limpiar_ceros_postback.php";
    public static final String SET_DESCONTAR_SALDO = "http://www.cashmyapps.net/set_descontar_saldo.php?MAIL=[MAIL]&COINS=[COINS]&FECHA=[FECHA]&TIPO=[TIPO]";
    public static final String PAGAR_REFERIDO = "http://www.cashmyapps.net/set_pagar_referido.php?&REFERENTE=[REFERENTE]" +
                                                                                                 "&REFERIDO=[REFERIDO]" +
