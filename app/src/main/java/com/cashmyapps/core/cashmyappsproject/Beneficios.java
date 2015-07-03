@@ -147,13 +147,9 @@ public class Beneficios extends Fragment {
                                             replace("[FECHA]", new Fechas().getFechaActual()).
                                             replace("[TIPO]", "1")).execute();
 
-                                    try {
-                                        new EnviarMail(Constantes.SET_CUENTA_PAYPAL.replace("[MAIL]",cuenta).replace("[PAYPAL]",cuenta_paypal.getText())).execute().get();
-                                    } catch (InterruptedException e) {
-                                        e.printStackTrace();
-                                    } catch (ExecutionException e) {
-                                        e.printStackTrace();
-                                    }
+
+                                        new EnviarMail(Constantes.SET_CUENTA_PAYPAL.replace("[MAIL]",cuenta).replace("[PAYPAL]",cuenta_paypal.getText())).execute();
+
 
                                 }
                                 else {
@@ -221,13 +217,9 @@ public class Beneficios extends Fragment {
                                         replace("[FECHA]", new Fechas().getFechaActual()).
                                         replace("[TIPO]", "2")).execute();
 
-                                try {
-                                    new EnviarMail(Constantes.SET_CUENTA_PAYPAL.replace("[MAIL]",cuenta).replace("[PAYPAL]",cuenta_paypal.getText())).execute().get();
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                } catch (ExecutionException e) {
-                                    e.printStackTrace();
-                                }
+
+                                    new EnviarMail(Constantes.SET_CUENTA_PAYPAL.replace("[MAIL]",cuenta).replace("[PAYPAL]",cuenta_paypal.getText())).execute();
+
 
                             }
                             else {
@@ -296,13 +288,9 @@ public class Beneficios extends Fragment {
                                         replace("[FECHA]", new Fechas().getFechaActual()).
                                         replace("[TIPO]", "3")).execute();
 
-                                try {
-                                    new EnviarMail(Constantes.SET_CUENTA_PAYPAL.replace("[MAIL]",cuenta).replace("[PAYPAL]",cuenta_paypal.getText())).execute().get();
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                } catch (ExecutionException e) {
-                                    e.printStackTrace();
-                                }
+
+                                    new EnviarMail(Constantes.SET_CUENTA_PAYPAL.replace("[MAIL]",cuenta).replace("[PAYPAL]",cuenta_paypal.getText())).execute();
+
 
                             }
                             else {
