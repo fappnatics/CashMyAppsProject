@@ -60,6 +60,8 @@
     <string name="dialogo_solicitud_cobro_aceptada_titulo">Request accepted</string>
     <string name="dialogo_solicitud_cobro_rechazada_titulo">Request rejected</string>
     <string name="dialogo_solicitud_cobro_procesando">Pocesando solicitud</string>
+    <string name="dialogo_solicitud_cobro_error_correo">El correo no es correcto</string>
+    <string name="dialogo_solicitud_cobro_error_titulo">Error</string>
     <string name="dialogo_referido_texto_incorrecto">The text is not correct, please review it and try again.</string>
     <string name="dialogo_error_instalacion">Oooops, something is wrong, please try again later</string>
     <string name="dialogo_error_alta_usuario">Oooops, something happened while trying to add the new user, please, try again later</string>
@@ -81,6 +83,7 @@
     <string name="layout_cobro_tucodigo">Your code</string>
     <string name="layout_cobro_codigoamigo">Friend code</string>
     <string name="layout_cobro_correopaypal">Confirma tu correo PayPal</string>
+    <string name="layout_cobro_correopaypalerror">El correo no es válido</string>
     <string name="layout_perfil_nombre">Nombre</string>
     <string name="layout_perfil_correo">Correo</string>
 
@@ -93,6 +96,11 @@
 
     <!--Imágenes -->
     <drawable name="oferta_footer">@drawable/sharefooter_en</drawable>
+
+    <!--HTML-->
+    <string name="html_amazon5">el gift tarjeta Amazon valorda en 5$ a cambio de 5000 coins</string>
+    <string name="html_amazon2">el gift tarjeta Amazon valorda en 2$ a cambio de 2000 coins</string>
+    <string name="html_paypal5">el gift pago PayPal valorda en 5$ a cambio de 5000 coins</string>
 
 
 

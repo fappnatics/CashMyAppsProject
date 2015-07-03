@@ -21,14 +21,14 @@ public final class Constantes {
    public static final String GET_CUENTA_REFERENTE="http://www.cashmyapps.net/get_cuenta_referente.php?COD_REFER=[COD_REFER]";
    public static final String GET_SALDO="http://www.cashmyapps.net/get_saldo.php?MAIL=[MAIL]";
    public static final String GET_CUENTA_PAYPAL="http://www.cashmyapps.net/get_cuenta_paypal.php?mail=[MAIL]";
-   public static final String SOLICITAR_COBRO="http://www.cashmyapps.net/solicitudes_cobro.php?MAIL=[MAIL]&COINS=[COINS]";
+   public static final String SOLICITAR_COBRO="http://www.cashmyapps.net/solicitudes_cobro.php?MAIL=[MAIL]&TIPO_SOLICITUD=[TIPO]";
    public static final String INSERTAR_SOLICITAR_COBRO="http://www.cashmyapps.net/insert_solicitud_cobro.php?MAIL=[MAIL]&COINS=[COINS]&FECHA=[FECHA]&PAGADO=[PAGADO]";
    public static final String GET_CODREFER_EXISTE = "http://www.cashmyapps.net/get_existe_refer.php?COD_REFER=[COD_REFER]&MAIL=[MAIL]";
    public static final String COMPROBAR_COD_PAGO = "http://www.cashmyapps.net/comprobar_codigo_pago.php?COD_PAGO=[COD_PAGO]";
    public static final String GET_POSTBACK_USER = "http://www.cashmyapps.net/get_postback_user.php?CODREFER=[CODREFER]";
    public static final String GET_USER_EXISTE = "http://www.cashmyapps.net/get_existe_usuario.php?CUENTAS=[CUENTAS]";
    public static final String SET_CUENTA_PAYPAL = "http://cashmyapps.net/set_cuenta_paypal.php?MAIL=[MAIL]&PAYPAL=[PAYPAL]";
-   public static final String SET_DESCONTAR_SALDO = "http://www.cashmyapps.net/set_descontar_saldo.php?MAIL=[MAIL]&COINS=[COINS]";
+   public static final String SET_DESCONTAR_SALDO = "http://www.cashmyapps.net/set_descontar_saldo.php?MAIL=[MAIL]&COINS=[COINS]&FECHA=[FECHA]&TIPO=[TIPO]";
    public static final String PAGAR_REFERIDO = "http://www.cashmyapps.net/set_pagar_referido.php?&REFERENTE=[REFERENTE]" +
                                                                                                 "&REFERIDO=[REFERIDO]" +
                                                                                                 "&FECHA=[FECHA]"+
