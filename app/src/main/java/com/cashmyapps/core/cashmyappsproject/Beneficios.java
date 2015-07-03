@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -58,6 +57,7 @@ public class Beneficios extends Fragment {
     private AlertDialog.Builder alerta_paypal;
     private AlertDialog.Builder error;
     private int tipo_pago;
+
 
 
 

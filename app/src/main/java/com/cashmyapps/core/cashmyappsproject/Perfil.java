@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -50,18 +51,23 @@ public class Perfil extends Fragment {
     private String saldo_coins;
     private TextView txNombre;
     private TextView txMail ;
+    private TextView txPayPal ;
     private TextView txCod_refer;
-    private Button btAceptar ;
+    private Button btPayPasl;
     private TextView txRefer;
+    private TextView txCambioCorreo;
     private EditText txReferir;
     private Context contexto;
     private TextView txCorreo;
     private Button btReferido;
     private String cuenta_referente;
     private String cuenta_referido;
+    private String cuenta_paypal;
     private String cod_refer;
     private String pais;
     private String fecha;
+    private AlertDialog.Builder alerta_paypal;
+    private AlertDialog.Builder error;
 
 
 
@@ -150,13 +156,16 @@ public class Perfil extends Fragment {
                     mail = jArray.getJSONObject(0).getString("MAIL");
                     saldo_coins = jArray.getJSONObject(0).getString("SALDO")+" Coins";
                     refer = jArray.getJSONObject(0).getString("COD_REFER");
+                    cuenta_paypal = jArray.getJSONObject(0).getString("MAIL_PAYPAL");
 
 
                     TextView txNombre = (TextView)getActivity().findViewById(R.id.txNombre);
                     TextView txSaldo = (TextView)getActivity().findViewById(R.id.txSaldo);
+                    txPayPal = (TextView)getActivity().findViewById(R.id.txPayPal);
 
                     txNombre.setText(nombre);
                     txSaldo.setText(saldo_coins);
+                    txPayPal.setText(cuenta_paypal);
 
                     //new JSONParser(Constantes.CONEXION_USUARIO.replace("[MAIL]",mail).replace("[CONECTADO]","S"));
 
@@ -166,6 +175,7 @@ public class Perfil extends Fragment {
                     txRefer = (TextView)getActivity().findViewById(R.id.txReferido);
                     txReferir = (EditText)getActivity().findViewById(R.id.txReferir);
                     btReferido = (Button)getActivity().findViewById(R.id.btReferido);
+                    btPayPasl = (Button)getActivity().findViewById(R.id.btPayPal);
                     String resultado = new JSONParser(Constantes.URL_GET_BBDD_JSON+"?mail="+txCorreo.getText()).execute(this,"foo").get();
                     JSONObject jObject = new JSONObject(resultado);
                     JSONArray jArray = jObject.getJSONArray("usuarios");
@@ -197,14 +207,75 @@ public class Perfil extends Fragment {
 
                                 new GetCodRefer(Constantes.GET_CODREFER_EXISTE.replace("[MAIL]", cuenta_referido).replace("[COD_REFER]", txReferir.getText().toString())).execute();
 
-                            } else {
-                                Toast.makeText(contexto, getResources().getString(R.string.dialogo_referido_texto_incorrecto), Toast.LENGTH_LONG).show();
-
-                            }
-
-
+                                }
                         }
                     });
+
+
+                btPayPasl.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        LayoutInflater paypal = LayoutInflater.from(getActivity());
+                        final View view = paypal.inflate(R.layout.alerta_paypal_cambio,null);
+                        txCambioCorreo = (TextView)view.findViewById(R.id.txNuevoCorreo);
+                        txCambioCorreo.setText(txPayPal.getText());
+                        alerta_paypal = new AlertDialog.Builder(getActivity());
+                        alerta_paypal.setView(view);
+                        alerta_paypal.setPositiveButton(getActivity().getResources().getString(R.string.boton_confirmar), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                new JSONParser(Constantes.SET_CUENTA_PAYPAL.replace("[MAIL]",cuenta_referido).replace("[PAYPAL]",txPayPal.getText())).execute();
+
+
+                                LayoutInflater factory = LayoutInflater.from(getActivity());
+                                final View view = factory.inflate(R.layout.alerta_icono,null);
+                                AlertDialog.Builder alerta = new AlertDialog.Builder(getActivity());
+                                alerta.setView(view);
+                                alerta.setMessage(getResources().getString(R.string.layout_cambio_correopaypal_realizado));
+
+                                alerta.setPositiveButton(getResources().getString(R.string.boton_aceptar), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                });
+                                alerta.show();
+
+                            }
+                        });
+                        alerta_paypal.setNegativeButton(getActivity().getResources().getString(R.string.dialogo_cancelar), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+
+                        if(isValidEmail(txPayPal.getText()))
+                            alerta_paypal.show();
+
+                        else {
+                            error = new AlertDialog.Builder(getActivity());
+                            error.setMessage("El correo no es correcto");
+                            error.setTitle("Error");
+                            error.setPositiveButton(getResources().getString(R.string.boton_aceptar), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+                            error.setIcon(R.drawable.error32);
+
+                            error.show();
+                        }
+
+
+
+
+
+
+                    }
+                });
 
 
 
@@ -359,6 +430,14 @@ public class Perfil extends Fragment {
             }
 
 
+        }
+    }
+
+    public final static boolean isValidEmail(CharSequence target) {
+        if (TextUtils.isEmpty(target)) {
+            return false;
+        } else {
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
         }
     }
 

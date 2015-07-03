@@ -85,6 +85,8 @@
     <string name="layout_cobro_tucodigo">Tu código</string>
     <string name="layout_cobro_codigoamigo">Código de amigo</string>
     <string name="layout_cobro_correopaypal">Confirma tu correo PayPal</string>
+    <string name="layout_cambio_correopaypal">El correo PayPal se modificará. ¿Es correcto?</string>
+    <string name="layout_cambio_correopaypal_realizado">Cambio realizado</string>
     <string name="layout_perfil_nombre">Nombre</string>
     <string name="layout_perfil_correo">Correo</string>
 
