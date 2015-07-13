@@ -45,7 +45,11 @@ public class CustomAdapter extends ArrayAdapter {
     private String result="";
     private List<String> lista_apps;
     private Double saldo;
+    private Double auxiliar;
     private  String cod_pago;
+    private  String strAux;
+    private  int finalRound;
+
 
     public CustomAdapter(Activity context, String[] nombre_apps, Bitmap[] imagen, String[] resumen_apps, String[] ppi_app, Integer[] imageId,Uri[] url, String cuenta) {
         super(context, R.layout.elementolista, nombre_apps);
@@ -83,13 +87,22 @@ public class CustomAdapter extends ArrayAdapter {
         resumen_app.setText(resumen_apps[position]);
 
         Log.i("PPI: ",ppi_app[position]);
+
+
+
+
         if(String.format("%.2f",Double.parseDouble(ppi_app[position])*0.2*100).equals("0,00"))
             ppi.setText("PPI: 10 COIN");
         else
         {
-            saldo = Double.parseDouble(ppi_app[position])*100;
-            ppi.setText("PPI: "+saldo.intValue()+" COINS");
+            auxiliar = Double.parseDouble(ppi_app[position])*0.2;
+            strAux = String.format("%.2f", auxiliar);
+            auxiliar = Double.parseDouble(strAux.replace(",", "."));
+            auxiliar=auxiliar*1000;
+            finalRound = new Double(auxiliar).intValue();
+            ppi.setText("PPI: "+finalRound+" COINS");
         }
+
         imgEstrellas.setImageResource(imageId[position]);
         botones.setMovementMethod(LinkMovementMethod.getInstance());
         if(uris[position].toString().equals("nolink")){
@@ -159,5 +172,8 @@ public class CustomAdapter extends ArrayAdapter {
 
         return rowView;
     }
+
+
+
 
    }

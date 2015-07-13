@@ -3,7 +3,6 @@ package com.cashmyapps.core.cashmyappsproject;
 import android.accounts.Account;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -28,11 +27,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -40,8 +36,6 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
-
-import java.io.InputStream;
 import java.util.ArrayList;
 
 
@@ -110,32 +104,6 @@ public class MainActivity extends ActionBarActivity
         TextView txCorreo = (TextView)findViewById(R.id.txCorreo);
         txCorreo.setText(i.getExtras().getString("cuenta"));
 
-    /*    try {
-
-
-            cuenta = i.getExtras().getString("cuenta");
-
-           cod_refer=jArray.getJSONObject(0).getString("COD_REFER");
-
-
-            //Informacion para los fragments.
-
-            //Invocamos al servicio
-          Intent in = new Intent(MainActivity.this,ServicioPostback.class);
-            in.putExtra("cuenta",cuenta);
-            in.putExtra("cod_refer",cod_refer);
-
-            if(!ServicioPostback.isRunning())
-                MainActivity.this.startService(in);
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-*/
 
     }
 
@@ -174,15 +142,6 @@ public class MainActivity extends ActionBarActivity
                 getSupportActionBar().setTitle(getResources().getString(R.string.titulo_user_info));
                 getSupportActionBar().setSubtitle(getResources().getString(R.string.subtitulo_user_info));
 
-                /*
-                fragment = new Compartir();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.container, Compartir.newInstance(position + 1))
-                        .commit();
-
-                getSupportActionBar().setTitle(getResources().getString(R.string.titulo_compartir));
-                getSupportActionBar().setSubtitle(getResources().getString(R.string.subtitulo_compartir));*/
-
                 break;
             case 2:
 
@@ -213,6 +172,25 @@ public class MainActivity extends ActionBarActivity
                 getSupportActionBar().setTitle(getResources().getString(R.string.titulo_cobros));
                 getSupportActionBar().setSubtitle(getResources().getString(R.string.subtitulo_cobros));
                 break;
+
+            case 5:
+                fragment = new AboutUS();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, AboutUS.newInstance(position + 1))
+                        .commit();
+                getSupportActionBar().setTitle(getResources().getString(R.string.titulo_about));
+                getSupportActionBar().setSubtitle(getResources().getString(R.string.subtitulo_about));
+                break;
+
+            case 6:
+                fragment = new FAQ();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, FAQ.newInstance(position + 1))
+                        .commit();
+                getSupportActionBar().setTitle(getResources().getString(R.string.titulo_faq));
+                getSupportActionBar().setSubtitle(getResources().getString(R.string.subtitulo_faq));
+                break;
+
             default:
                 Toast.makeText(this.getApplicationContext(), "Opcion no disponible", Toast.LENGTH_LONG);
                 fragment = new Compartir();

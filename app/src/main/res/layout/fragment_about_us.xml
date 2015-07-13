@@ -1,0 +1,20 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@layout/fondo_login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.cashmyapps.core.cashmyappsproject.AboutUS">
+
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="7dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
+        android:id="@+id/webViewAbout"
+        android:layout_gravity="center" />
+
+
+
+</FrameLayout>

@@ -20,6 +20,12 @@
     <string name="titulo_cobros">Cobro</string>
     <string name="subtitulo_cobros">Obtén tu beneficio</string>
 
+    <string name="titulo_about">Nosotros</string>
+    <string name="subtitulo_about">Acerca de nosotros</string>
+
+    <string name="titulo_faq">FAQ</string>
+    <string name="subtitulo_faq">Preguntas frecuentes</string>
+
     <!--Contenido de los fragments -->
     <string name="cont_login_cabecera_nuevo_cashmaker">¿Nuevo en CashMaker? \n Selecciona una cuenta de registro</string>
     <string name="cont_login_selec_cuenta_acceso">Selecciona una cuenta de acceso.</string>
@@ -106,6 +112,11 @@
     <string name="html_paypal5">el gift pago PayPal valorda en 5$ a cambio de 5000 coins.</string>
 
 
+    <!--Ayuda-->
+    <string name="html_aboutus">file:///android_asset/Aboutus_es.html</string>
+    <string name="html_faq">file:///android_asset/FAQ_es.html</string>
+
+
 
 
 
@@ -115,6 +126,8 @@
         <item>Ver ofertas</item>
         <item>Ranking</item>
         <item>Obtener mis beneficios</item>
+        <item>Acerca de</item>
+        <item>FAQ</item>
     </string-array>
 
 
@@ -126,6 +139,8 @@
         <item>@drawable/lista32</item>
         <item>@drawable/podium64</item>
         <item>@drawable/billetes64</item>
+        <item>@drawable/aboutus32</item>
+        <item>@drawable/faq32</item>
     </array>
 
     <string name="title_activity_login">Login</string>

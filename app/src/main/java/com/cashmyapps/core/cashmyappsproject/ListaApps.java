@@ -133,8 +133,9 @@ public class ListaApps extends Fragment {
             }
 
 
-
+            //Mercado de aplicaciones por localización y lenguaje.<
             market = Constantes.URL_GEENAPP.replace("[PAIS]",codigoPais).replace("[LANG]", Locale.getDefault().getLanguage());
+
             Log.i("MERCADO: ",market);
             jObject= new JSONObject();
             result = new JSONParser(market).execute(this,"foo").get();
