@@ -20,18 +20,18 @@
     <string name="titulo_cobros">Zurückziehen</string>
     <string name="subtitulo_cobros">Erhalten Sie Ihre Belohnung</string>
 
-    <string name="titulo_about">Nosotros</string>
-    <string name="subtitulo_about">Acerca de nosotros</string>
+    <string name="titulo_about">Über uns</string>
+    <string name="subtitulo_about">Über uns</string>
 
     <string name="titulo_faq">FAQ</string>
-    <string name="subtitulo_faq">Preguntas frecuentes</string>
+    <string name="subtitulo_faq">Häufig gestellte Fragen</string>
 
     <!--Contenido de los fragments -->
     <string name="cont_login_cabecera_nuevo_cashmaker">Neu in CashMaker? \n Wählen Sie ein Konto zu registrieren lassen</string>
     <string name="cont_login_selec_cuenta_acceso">Wählen Sie ein Konto, um den Zugang</string>
 
     <!--Contenido de los datos a compartir -->
-    <string name="compartir_cashmaker">Descarga Cashmaker y Gana Dinero \n https://goo.gl/S6Elds</string>
+    <string name="compartir_cashmaker">Laden Sie CashMaker und verdienen Sie Geld \n https://goo.gl/S6Elds</string>
 
 
 
@@ -39,8 +39,8 @@
     <string name="boton_instalar">Installieren</string>
     <string name="boton_instalada">Installiert</string>
     <string name="boton_aceptar">Akzeptieren</string>
-    <string name="boton_confirmar">Confirmar</string>
-    <string name="boton_modificar">Modificar</string>
+    <string name="boton_confirmar">Bestätigen</string>
+    <string name="boton_modificar">Ändern</string>
     <string name="boton_compartir">Aktie</string>
     <string name="boton_cobro">Klage zurückzunehmen</string>
     <string name="boton_cobro_amazon5"> 5000 coins </string>
@@ -54,19 +54,19 @@
     <string name="dialogo_titulo_salir">Abfahrt</string>
     <string name="dialogo_titulo_atencion">Achtung</string>
     <string name="dialogo_cuerpo_salir">Sicher, dass Sie beenden?</string>
-    <string name="dialogo_cuerpo_atencion">Dieses Konto wird gesperrt , kontaktieren Sie bitte unser Support-Team bei soportecashmyapps@gmail.com</string>
+    <string name="dialogo_cuerpo_atencion">Dieses Konto wird gesperrt , kontaktieren Sie bitte unser Support-Team bei info@cashmakertheapp.com</string>
     <string name="dialogo_si">Ja</string>
     <string name="dialogo_no">Keine</string>
     <string name="dialogo_aceptar">Akzeptieren</string>
     <string name="dialogo_cancelar">Stornieren</string>
-    <string name="dialogo_calificar">¿Te gusta CashMaker? ¡Danos 5 estrellas!</string>
+    <string name="dialogo_calificar">Mögen Sie CashMaker? Geben Sie uns 5 Sternen!</string>
     <string name="dialogo_solicitud_cobro_aceptada">Ihre zurückziehen empfangen wurde, und es wird in den nächsten 24 /48 verarbeitet werden, wenn Sie irgendwelche Zweifel haben, kontaktieren Sie uns bitte.</string>
     <string name="dialogo_solicitud_cobro_rechazada">Fehler bei Ihrer Anfrage aufgetreten ist oder der Dienst nicht verfügbar ist. Bitte versuchen Sie es später noch einmal.</string>
     <string name="dialogo_solicitud_cobro_aceptada_titulo">Akzeptiert Anfrage</string>
     <string name="dialogo_solicitud_cobro_rechazada_titulo">Antrag abgelehnt</string>
-    <string name="dialogo_solicitud_cobro_procesando">Pocesando solicitud</string>
-    <string name="dialogo_solicitud_cobro_error_correo">El correo no es correcto</string>
-    <string name="dialogo_solicitud_cobro_error_titulo">Error</string>
+    <string name="dialogo_solicitud_cobro_procesando">Verarbeitungsanforderung</string>
+    <string name="dialogo_solicitud_cobro_error_correo">Die E-Mail ist ungültig</string>
+    <string name="dialogo_solicitud_cobro_error_titulo">Fehler</string>
     <string name="dialogo_referido_texto_incorrecto">Der Text ist nicht korrekt, überprüfen Sie es bitte und versuchen es noch einmal.</string>
     <string name="dialogo_error_instalacion">Oooops, stimmt etwas nicht, versuchen Sie es später erneut</string>
     <string name="dialogo_error_alta_usuario">Oooops, etwas passiert beim Versuch, den neuen Benutzer hinzuzufügen, bitte versuchen Sie es später erneut</string>
@@ -87,42 +87,42 @@
     <string name="layout_login_cuentas">Registriert Wählen Sie ein Konto bekommen</string>
     <string name="layout_cobro_tucodigo">Ihr Code</string>
     <string name="layout_cobro_codigoamigo">Freundes-Code</string>
-    <string name="layout_cobro_correopaypal">Confirma tu correo PayPal</string>
-    <string name="layout_cobro_correopaypalerror">El correo no es válido</string>
-    <string name="layout_cambio_correopaypal">El correo PayPal se modificará. ¿Es correcto?</string>
-    <string name="layout_cambio_correopaypal_realizado">Cambio realizado</string>
-    <string name="layout_perfil_nombre">Nombre</string>
-    <string name="layout_perfil_correo">Correo</string>
+    <string name="layout_cobro_correopaypal">Bestätigen Sie Ihre E-Mail PayPal</string>
+    <string name="layout_cobro_correopaypalerror">Die E-Mail ist ungültig</string>
+    <string name="layout_cambio_correopaypal">Die PayPal E-Mail wird geändert werden. Ist das korrekt?</string>
+    <string name="layout_cambio_correopaypal_realizado">Geändert</string>
+    <string name="layout_perfil_nombre">Name</string>
+    <string name="layout_perfil_correo">Email</string>
 
     <!--Imágenes -->
     <drawable name="oferta_footer">@drawable/sharefooter_es</drawable>
 
     <!--HTML-->
-    <string name="html_amazon5">el gift tarjeta Amazon valorda en 5$ a cambio de 5000 coins</string>
-    <string name="html_amazon2">el gift tarjeta Amazon valorda en 2$ a cambio de 2000 coins</string>
-    <string name="html_paypal5">el gift pago PayPal valorda en 5$ a cambio de 5000 coins</string>
+    <string name="html_amazon5">das Geschenk Amazon Karte im Wert von $5 im Austausch für 5000 Münzen</string>
+    <string name="html_amazon2">das Geschenk Amazon Karte im Wert von $2 im Austausch für 2000 Münzen</string>
+    <string name="html_paypal5">das Geschenk PayPal-Zahlung in Höhe von $5 Austausch für 5000 Münzen</string>
+
+
+
+    <!--Contenido de los fragments -->
+    <string name="cabecera_user_info">Informationen Konto</string>
+    <string name="cabecera_compartir">Von einem Freund empfohlen worden?</string>
+    <string name="cabecera_cobro">Unsere Gutschein-Partner</string>
 
     <!--Ayuda-->
     <string name="html_aboutus">file:///android_asset/Aboutus_de.html</string>
     <string name="html_faq">file:///android_asset/FAQ_de.html</string>
 
 
-
-    <!--Contenido de los fragments -->
-    <string name="cabecera_user_info">Informationen Konto</string>
-    <string name="cabecera_compartir">Referred by a friend?</string>
-    <string name="cabecera_cobro">Withdraw benefits</string>
-
-
     <!--TRADUCIR: HASTA AQUÍ -->
 
     <!-- Lista de elementos e navegación -->
     <string-array name="nav_options">
-        <item>Compártelo</item>
-        <item>Ver ofertas</item>
-        <item>Ranking</item>
-        <item>Obtener mis beneficios</item>
-        <item>Acerca de</item>
+        <item>Teile es</item>
+        <item>Angebote</item>
+        <item>Rang</item>
+        <item>Holen Sie sich meine Belohnungen</item>
+        <item>Über unse</item>
         <item>FAQ</item>
     </string-array>
     <!-- Iconos de navegación -->
@@ -131,8 +131,8 @@
         <item>@drawable/lista32</item>
         <item>@drawable/podium64</item>
         <item>@drawable/billetes64</item>
-        <item>@drawable/aboutus32</item>
-        <item>@drawable/faq32</item>
+        <item>@drawable/about64</item>
+        <item>@drawable/faq64</item>
     </array>
 
     <string name="title_activity_login">Login</string>

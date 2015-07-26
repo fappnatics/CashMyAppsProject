@@ -7,6 +7,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -31,8 +34,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.InputStream;
+import java.lang.reflect.GenericArrayType;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
@@ -53,12 +58,14 @@ public class Perfil extends Fragment {
     private TextView txMail ;
     private TextView txPayPal ;
     private TextView txCod_refer;
+    private TextView lbMensajeFinal;
     private Button btPayPasl;
     private TextView txRefer;
     private TextView txCambioCorreo;
     private EditText txReferir;
     private Context contexto;
     private TextView txCorreo;
+    private TextView txSaldo;
     private Button btReferido;
     private String cuenta_referente;
     private String cuenta_referido;
@@ -68,6 +75,8 @@ public class Perfil extends Fragment {
     private String fecha;
     private AlertDialog.Builder alerta_paypal;
     private AlertDialog.Builder error;
+    private SoundPool sp;
+    private MediaPlayer mp;
 
 
 
@@ -95,8 +104,6 @@ public class Perfil extends Fragment {
     }
 
 
-
-
     public static Perfil newInstance(int sectionnumber){
 
         Perfil frag = new Perfil();
@@ -118,7 +125,7 @@ public class Perfil extends Fragment {
         @Override
         protected void onPreExecute() {
             progressDialog = new ProgressDialog(getActivity());
-            progressDialog.setMessage("Cargando datos de usuario...");
+            progressDialog.setMessage(getActivity().getResources().getString(R.string.dialogo_carga_perfil));
             progressDialog.show();
         }
 
@@ -157,10 +164,10 @@ public class Perfil extends Fragment {
                     saldo_coins = jArray.getJSONObject(0).getString("SALDO")+" Coins";
                     refer = jArray.getJSONObject(0).getString("COD_REFER");
                     cuenta_paypal = jArray.getJSONObject(0).getString("MAIL_PAYPAL");
-
+                    lbMensajeFinal = (TextView)getActivity().findViewById(R.id.lbMensajeFinal);
 
                     TextView txNombre = (TextView)getActivity().findViewById(R.id.txNombre);
-                    TextView txSaldo = (TextView)getActivity().findViewById(R.id.txSaldo);
+                    txSaldo = (TextView)getActivity().findViewById(R.id.txSaldo);
                     txPayPal = (TextView)getActivity().findViewById(R.id.txPayPal);
 
                     txNombre.setText(nombre);
@@ -174,7 +181,7 @@ public class Perfil extends Fragment {
                     cuenta_referido = txCorreo.getText().toString();
                     txRefer = (TextView)getActivity().findViewById(R.id.txReferido);
                     txReferir = (EditText)getActivity().findViewById(R.id.txReferir);
-                    btReferido = (Button)getActivity().findViewById(R.id.btReferido);
+                    btReferido = (Button)getActivity().findViewById(R.id.btReferidoP);
                     btPayPasl = (Button)getActivity().findViewById(R.id.btPayPal);
                     String resultado = new JSONParser(Constantes.URL_GET_BBDD_JSON+"?mail="+txCorreo.getText()).execute(this,"foo").get();
                     JSONObject jObject = new JSONObject(resultado);
@@ -187,10 +194,7 @@ public class Perfil extends Fragment {
                     if(!jArray.getJSONObject(0).getString("REFERIDO_POR").equals("") && jArray.getJSONObject(0).getString("REFERIDO_POR")!=null){
 
                         txReferir.setText(jArray.getJSONObject(0).getString("REFERIDO_POR"));
-                        btReferido.setEnabled(false);
-                        btReferido.setText(" Referido ");
-                        btReferido.setBackgroundColor(Color.rgb(138, 138, 138));
-                        btReferido.setTextColor(Color.DKGRAY);
+                        btReferido.setVisibility(View.INVISIBLE);
                         txReferir.setEnabled(false);
                         txReferir.setBackgroundColor(Color.DKGRAY);
                         txReferir.setTextColor(Color.LTGRAY);
@@ -269,20 +273,10 @@ public class Perfil extends Fragment {
                             error.show();
                         }
 
-
-
-
-
-
                     }
                 });
 
-
-
-
-
                 }
-
 
             }catch (Exception s){
                 Log.i("Error carga: ",s.getMessage());
@@ -328,14 +322,10 @@ public class Perfil extends Fragment {
         @Override
         protected void onPreExecute() {
 
-            progressDialog = new ProgressDialog(contexto);
-            progressDialog.setMessage(getResources().getString(R.string.dialogo_carga_refer));
+            progressDialog = new ProgressDialog(getActivity());
+            progressDialog.setMessage(getActivity().getResources().getString(R.string.dialogo_solicitud_cobro_procesando));
             progressDialog.show();
-            progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                public void onCancel(DialogInterface arg0) {
-                    GetCodRefer.this.cancel(true);
-                }
-            });
+
         }
 
 
@@ -374,59 +364,51 @@ public class Perfil extends Fragment {
 
 
                 String res = new JSONParser(Constantes.GET_CUENTA_REFERENTE.replace("[COD_REFER]",txReferir.getText())).execute(this,"foo").get();
-                JSONObject jObject2 = new JSONObject(res);
-                JSONArray jArray2 = jObject2.getJSONArray("usuarios");
-                cuenta_referente = jArray2.getJSONObject(0).getString("MAIL");
 
+                if(res.contains("\"success\":1}")) {
 
+                    JSONObject jObject2 = new JSONObject(res);
+                    JSONArray jArray2 = jObject2.getJSONArray("usuarios");
+                    cuenta_referente = jArray2.getJSONObject(0).getString("MAIL");
 
+                    //Se da de alta en la tabla TAB_CAJA
+                    new JSONParser(Constantes.PAGAR_REFERIDO.replace("[REFERENTE]", cuenta_referente).replace("[REFERIDO]", cuenta_referido).replace("[FECHA]", new Fechas().getFechaActual()).replace("[COD_PAGO]", new GeneradorCodigos().generarCodigos("RF")).replace("[COD_REFERIDO]", cod_refer).replace("[COD_REFERENTE]", txReferir.getText())).execute(this, "foo");
 
-                //Se da de alta en la tabla TAB_CAJA
-                String caja = new JSONParser(Constantes.PAGAR_REFERIDO.replace("[REFERENTE]",cuenta_referente)
-                        .replace("[REFERIDO]",cuenta_referido)
-                        .replace("[FECHA]",new Fechas().getFechaActual())
-                        .replace("[COD_PAGO]",generarCodigos())
-                        .replace("[COD_REFERIDO]",cod_refer)
-                        .replace("[COD_REFERENTE]",txReferir.getText())).execute(this,"foo").get();
+                   }
 
-
-
-
-                progressDialog.dismiss();
-
-                LayoutInflater factory = LayoutInflater.from(contexto);
-                final View view = factory.inflate(R.layout.alerta_icono,null);
-                AlertDialog.Builder alerta = new AlertDialog.Builder(contexto);
-                alerta.setView(view);
-
-
-                alerta.setTitle(getResources().getString(R.string.dialogo_titulo_salir));
-                alerta.setMessage(getResources().getString(R.string.dialogo_peticion_refer_ok));
-
-                alerta.setPositiveButton(getResources().getString(R.string.dialogo_titulo_salir), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        return;
-                    }
-                });
-
-                if(v.equals("{\"success\":1}")){
-                    btReferido.setEnabled(false);
-                    btReferido.setText("Referido");
-                    btReferido.setBackgroundColor(Color.DKGRAY);
+                if(res.contains("\"success\":1}")) {
+                    progressDialog.dismiss();
+                    btReferido.setVisibility(View.INVISIBLE);
                     txReferir.setEnabled(false);
                     txReferir.setBackgroundColor(Color.DKGRAY);
                     txReferir.setTextColor(Color.LTGRAY);
+                    txSaldo.setText(Integer.parseInt(txSaldo.getText().toString().substring(0, txSaldo.getText().toString().indexOf(" "))) + 200 + " coins");
+                    //Sonido de éxito
+                    mp = MediaPlayer.create(getActivity(),R.raw.success);
+                    mp.start();
+
+                    lbMensajeFinal.setVisibility(View.VISIBLE);
+                    lbMensajeFinal.setText(getResources().getString(R.string.dialogo_peticion_refer_ok));
+                    lbMensajeFinal.setTextColor(Color.WHITE);
+
+
+
                 }
+                else{
+                    progressDialog.dismiss();
+                    lbMensajeFinal.setVisibility(View.VISIBLE);
+                    lbMensajeFinal.setTextColor(Color.RED);
+                    lbMensajeFinal.setText(getResources().getString(R.string.dialogo_peticion_refer_ko));
+                    //Sonido de éxito
+                    mp = MediaPlayer.create(getActivity(),R.raw.error);
+                    mp.start();
 
-
-
-                alerta.show();
+                }
 
 
             } catch (Exception e) {
                 e.printStackTrace();
-                progressDialog.dismiss();
+
             }
 
 
@@ -441,28 +423,6 @@ public class Perfil extends Fragment {
         }
     }
 
-    private String generarCodigos() throws ExecutionException, InterruptedException {
 
-        Boolean code = true;
-        String output="";
 
-        while(code) {
-            char[] chars = "0123456789".toCharArray();
-            StringBuilder sb = new StringBuilder();
-            Random random = new Random();
-            for (int i = 0; i < 8; i++) {
-                char c = chars[random.nextInt(chars.length)];
-                sb.append(c);
-            }
-            output = "RF-" + sb.toString();
-            String result = new JSONParser(Constantes.COMPROBAR_COD_PAGO.replace("[COD_PAGO]",output)).execute(this,"foo").get();
-
-            if(result.contains("LIBRE")){
-                code=false;
-            }
-
-        }
-
-        return output;
-    }
 }

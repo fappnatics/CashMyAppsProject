@@ -9,67 +9,69 @@
     <string name="subtitulo_user_info">Information</string>
 
     <string name="titulo_lista_apps">Offers</string>
-    <string name="subtitulo_lista_apps">App list</string>
+    <string name="subtitulo_lista_apps">List of Apps</string>
 
     <string name="titulo_compartir">Share</string>
     <string name="subtitulo_compartir">Invite a friend</string>
 
     <string name="titulo_ranking">Ranking</string>
-    <string name="subtitulo_ranking">The most installed</string>
+    <string name="subtitulo_ranking">Top ten CashMaker users</string>
 
-    <string name="titulo_cobros">Withdraw</string>
-    <string name="subtitulo_cobros">Obtain your reward</string>
+    <string name="titulo_cobros">Rewards</string>
+    <string name="subtitulo_cobros">Get your reward</string>
 
-    <string name="titulo_about">Nosotros</string>
-    <string name="subtitulo_about">Acerca de nosotros</string>
+    <string name="titulo_about">About Us</string>
+    <string name="subtitulo_about">About Us</string>
 
     <string name="titulo_faq">FAQ</string>
-    <string name="subtitulo_faq">Preguntas frecuentes</string>
+    <string name="subtitulo_faq">Frequently Asked Questions</string>
 
     <!--Contenido de los fragments -->
     <string name="cont_login_cabecera_nuevo_cashmaker">New in CashMaker? \n Select an account to get registered</string>
     <string name="cont_login_selec_cuenta_acceso">Select an account to access</string>
 
     <!--Contenido de los datos a compartir -->
-    <string name="compartir_cashmaker">Descarga Cashmaker y Gana Dinero \n https://goo.gl/h24j6C</string>
+    <string name="compartir_cashmaker">Join CashMaker and start making money \n https://goo.gl/h24j6C</string>
 
 
     <!--Botones -->
     <string name="boton_instalar">Install</string>
     <string name="boton_instalada">Installed</string>
     <string name="boton_aceptar">Accept</string>
-    <string name="boton_confirmar">Confirmar</string>
-    <string name="boton_modificar">Modificar</string>
+    <string name="boton_confirmar">Confirm</string>
+    <string name="boton_modificar">Modify</string>
     <string name="boton_compartir">Share</string>
-    <string name="boton_cobro"> Claim withdraw</string>
+    <string name="boton_cobro"> Claim reward</string>
     <string name="boton_cobro_amazon5"> 5000 coins </string>
     <string name="boton_cobro_amazon2"> 2000 coins </string>
     <string name="boton_cobro_PayPal5"> 5000 coins </string>
     <string name="boton_login_registrarse">Register</string>
 
     <!--Diálogos -->
-    <string name="dialogo_carga_apps">Loading app list...</string>
+    <string name="dialogo_carga_apps">Loading list of apps...</string>
     <string name="dialogo_carga_splash">Loading app...</string>
-    <string name="dialogo_carga_refer">Procesando petición...</string>
-    <string name="dialogo_peticion_refer_ok">La petición se ha procesado correctamente.</string>
+    <string name="dialogo_carga_perfil">Loading user profile...</string>
+    <string name="dialogo_carga_refer">Processing your request...</string>
+    <string name="dialogo_peticion_refer_ok">The request has been correctly processed.</string>
+    <string name="dialogo_peticion_refer_ko">There is no any user with this friend code, please try again</string>
     <string name="dialogo_titulo_salir">Exit</string>
     <string name="dialogo_titulo_atencion">Attention</string>
     <string name="dialogo_cuerpo_salir">Sure that you want to exit?</string>
-    <string name="dialogo_cuerpo_atencion">This account is blocked, please, contact our support team at soportecashmyapps@gmail.com</string>
+    <string name="dialogo_cuerpo_atencion">This account is blocked, please, contact our support team at info@cashmakertheapp.com</string>
     <string name="dialogo_si">Yes</string>
     <string name="dialogo_no">No</string>
     <string name="dialogo_aceptar">Accept</string>
     <string name="dialogo_cancelar">Cancel</string>
-    <string name="dialogo_calificar">¿Te gusta CashMaker? ¡Danos 5 estrellas!</string>
-    <string name="dialogo_solicitud_cobro_aceptada">Your withdraw has been received and it will be processed in the next 24/48h, if you have any doubt please contact us.</string>
+    <string name="dialogo_calificar">Do you like CashMaker? Give us 5 stars!</string>
+    <string name="dialogo_solicitud_cobro_aceptada">Your request has been received and it will be processed in the next 24/48h, if you have any doubt please contact us.</string>
     <string name="dialogo_solicitud_cobro_rechazada"> An error has occurred during your request or the service is not available. Please try again later.</string>
     <string name="dialogo_solicitud_cobro_aceptada_titulo">Request accepted</string>
     <string name="dialogo_solicitud_cobro_rechazada_titulo">Request rejected</string>
-    <string name="dialogo_solicitud_cobro_procesando">Pocesando solicitud</string>
-    <string name="dialogo_solicitud_cobro_error_correo">El correo no es correcto</string>
+    <string name="dialogo_solicitud_cobro_procesando">Processing request</string>
+    <string name="dialogo_solicitud_cobro_error_correo">The email is not correct</string>
     <string name="dialogo_solicitud_cobro_error_titulo">Error</string>
     <string name="dialogo_referido_texto_incorrecto">The text is not correct, please review it and try again.</string>
-    <string name="dialogo_error_instalacion">Oooops, something is wrong, please try again later</string>
+    <string name="dialogo_error_instalacion">Oooops, something went wrong, please try again later</string>
     <string name="dialogo_error_alta_usuario">Oooops, something happened while trying to add the new user, please, try again later</string>
     <string name="dialogo_error_conexion">Mobile connection not available, please connect to any network and try again</string>
 
@@ -87,28 +89,29 @@
     <string name="layout_login_registro">New in CashMaker?</string>
     <string name="layout_login_cuentas">Select an account to get registered</string>
     <string name="layout_cobro_tucodigo">Your code</string>
+    <string name="layout_cobro_tusaldo">Your coins</string>
     <string name="layout_cobro_codigoamigo">Friend code</string>
-    <string name="layout_cobro_correopaypal">Confirma tu correo PayPal</string>
-    <string name="layout_cobro_correopaypalerror">El correo no es válido</string>
-    <string name="layout_cambio_correopaypal">El correo PayPal se modificará. ¿Es correcto?</string>
-    <string name="layout_cambio_correopaypal_realizado">Cambio realizado</string>
-    <string name="layout_perfil_nombre">Nombre</string>
-    <string name="layout_perfil_correo">Correo</string>
+    <string name="layout_cobro_correopaypal">Confirm your PayPal email</string>
+    <string name="layout_cobro_correopaypalerror">The email is not valid</string>
+    <string name="layout_cambio_correopaypal">Your PayPal email will be modified. Is that correct?</string>
+    <string name="layout_cambio_correopaypal_realizado">Changed</string>
+    <string name="layout_perfil_nombre">Name</string>
+    <string name="layout_perfil_correo">Email</string>
 
 
 
     <!--Contenido de los fragments -->
     <string name="cabecera_user_info">Account information</string>
     <string name="cabecera_compartir">Referred by a friend?</string>
-    <string name="cabecera_cobro">Withdraw benefits</string>
+    <string name="cabecera_cobro">Get rewards</string>
 
     <!--Imágenes -->
     <drawable name="oferta_footer">@drawable/sharefooter_en</drawable>
 
     <!--HTML-->
-    <string name="html_amazon5">el gift tarjeta Amazon valorda en 5$ a cambio de 5000 coins</string>
-    <string name="html_amazon2">el gift tarjeta Amazon valorda en 2$ a cambio de 2000 coins</string>
-    <string name="html_paypal5">el gift pago PayPal valorda en 5$ a cambio de 5000 coins</string>
+    <string name="html_amazon5">the gift Amazon card worth $5 in exchange for 5000 coins</string>
+    <string name="html_amazon2">the gift Amazon card worth $2 in exchange for 2000 coins</string>
+    <string name="html_paypal5">the gift PayPal payment worth $5 in exchange for 5000 coins</string>
 
     <!--Ayuda-->
     <string name="html_aboutus">file:///android_asset/Aboutus_en.html</string>
@@ -118,11 +121,11 @@
 
     <!-- Lista de elementos e navegación -->
     <string-array name="nav_options">
-        <item>Compártelo</item>
-        <item>Ver ofertas</item>
+        <item>Profile</item>
+        <item>Offers</item>
         <item>Ranking</item>
-        <item>Obtener mis beneficios</item>
-        <item>Acerca de</item>
+        <item>Get my rewards</item>
+        <item>About Us</item>
         <item>FAQ</item>
     </string-array>
 
@@ -131,7 +134,7 @@
 
     <!-- Iconos de navegación -->
     <array name="navigation_iconos">
-        <item>@drawable/share48</item>
+        <item>@drawable/user32</item>
         <item>@drawable/lista32</item>
         <item>@drawable/podium64</item>
         <item>@drawable/billetes64</item>

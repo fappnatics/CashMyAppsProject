@@ -14,7 +14,7 @@
     <string name="subtitulo_compartir">Invita a un amigo</string>
 
     <string name="titulo_ranking">Clasificación</string>
-    <string name="subtitulo_ranking">Los más instalados</string>
+    <string name="subtitulo_ranking">Top diez usuarios de CashMaker</string>
 
     <string name="titulo_cobros">Cobro</string>
     <string name="subtitulo_cobros">Obtén tu beneficio</string>
@@ -50,8 +50,10 @@
     <!--Diálogos -->
     <string name="dialogo_carga_apps">Cargando lista de ofertas...</string>
     <string name="dialogo_carga_splash">Cargando aplicación...</string>
+    <string name="dialogo_carga_perfil">Cargando perfil de usuario...</string>
     <string name="dialogo_carga_refer">Procesando petición...</string>
     <string name="dialogo_peticion_refer_ok">La petición se ha procesado correctamente.</string>
+    <string name="dialogo_peticion_refer_ko">No existen ningún usuario con ese código, por favor, vuelve a intentarlo.</string>
     <string name="dialogo_titulo_salir">Salir</string>
     <string name="dialogo_titulo_atencion">Atención</string>
     <string name="dialogo_cuerpo_salir">¿Seguro que quieres salir de la aplicación?</string>
@@ -86,6 +88,7 @@
     <string name="layout_login_codamigo">¿Tienes un código de amigo?</string>
     <string name="layout_login_cuentas">Selecciona una cuenta para registrarte</string>
     <string name="layout_cobro_tucodigo">Tu código</string>
+    <string name="layout_cobro_tusaldo">Tu saldo</string>
     <string name="layout_cobro_codigoamigo">Código de amigo</string>
     <string name="layout_cobro_correopaypal">Confirma tu correo PayPal</string>
     <string name="layout_cobro_correopaypalerror">El correo no es válido</string>
@@ -105,9 +108,9 @@
     <drawable name="oferta_footer">@drawable/sharefooter_es</drawable>
 
     <!--HTML-->
-    <string name="html_amazon5">el gift tarjeta Amazon valorda en 5$ a cambio de 5000 coins</string>
-    <string name="html_amazon2">el gift tarjeta Amazon valorda en 2$ a cambio de 2000 coins</string>
-    <string name="html_paypal5">el gift pago PayPal valorda en 5$ a cambio de 5000 coins</string>
+    <string name="html_amazon5">el gift tarjeta Amazon valorado en 5$ a cambio de 5000 coins</string>
+    <string name="html_amazon2">el gift tarjeta Amazon valorado en 2$ a cambio de 2000 coins</string>
+    <string name="html_paypal5">el gift pago PayPal valorado en 5$ a cambio de 5000 coins</string>
 
     <!--Ayuda-->
     <string name="html_aboutus">file:///android_asset/Aboutus_es.html</string>

@@ -45,6 +45,7 @@ public class Beneficios extends Fragment {
     private String cuenta;
     private String resultado;
     private String saldo;
+    private String aviso_paypal;
     private String correo_paypal;
     private TextView saldo_user;
     private TextView correo;
@@ -96,7 +97,7 @@ public class Beneficios extends Fragment {
             jArray = new JSONObject(resultado).getJSONArray("usuarios");
             saldo = jArray.getJSONObject(0).getString("SALDO");
             saldo_user.setText(saldo+" coins");
-            txSaldo.setText(saldo);
+            txSaldo.setText(saldo+" coins");
 
             if(Integer.parseInt(saldo)<5000){
 
@@ -135,6 +136,7 @@ public class Beneficios extends Fragment {
                     jArray = jObject.getJSONArray("usuarios");
                     cuenta_paypal.setText(jArray.getJSONObject(0).getString("MAIL_PAYPAL"));
                     correo_paypal = jArray.getJSONObject(0).getString("MAIL_PAYPAL");
+                    aviso_paypal = cuenta_paypal.getText().toString();
                     alerta_paypal.setView(view);
                     alerta_paypal.setPositiveButton(getResources().getString(R.string.boton_confirmar), new DialogInterface.OnClickListener() {
                         @Override
@@ -203,52 +205,12 @@ public class Beneficios extends Fragment {
                     cuenta_paypal = (TextView)view.findViewById(R.id.txPayPal);
                     jObject = new JSONObject(resultado);
                     jArray = jObject.getJSONArray("usuarios");
-                    cuenta_paypal.setText(jArray.getJSONObject(0).getString("MAIL_PAYPAL"));
-                    correo_paypal = jArray.getJSONObject(0).getString("MAIL_PAYPAL");
-                    alerta_paypal.setView(view);
-                    alerta_paypal.setPositiveButton(getResources().getString(R.string.boton_confirmar), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
 
-                            if(isValidEmail(cuenta_paypal.getText())) {
-                                new SolicitudCobro(Constantes.SET_DESCONTAR_SALDO.replace("[MAIL]", cuenta).
-                                        replace("[COINS]", "2000").
-                                        replace("[FECHA]", new Fechas().getFechaActual()).
-                                        replace("[TIPO]", "2")).execute();
+                    new SolicitudCobro(Constantes.SET_DESCONTAR_SALDO.replace("[MAIL]", cuenta).
+                            replace("[COINS]", "2000").
+                            replace("[FECHA]", new Fechas().getFechaActual()).
+                            replace("[TIPO]", "2")).execute();
 
-
-                                    new EnviarMail(Constantes.SET_CUENTA_PAYPAL.replace("[MAIL]",cuenta).replace("[PAYPAL]",cuenta_paypal.getText())).execute();
-
-
-                            }
-                            else {
-                                error = new AlertDialog.Builder(getActivity());
-                                error.setMessage("El correo no es correcto");
-                                error.setTitle("Error");
-                                error.setPositiveButton(getResources().getString(R.string.boton_aceptar), new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-
-                                    }
-                                });
-                                error.setIcon(R.drawable.error32);
-
-                                error.show();
-
-                            }
-
-
-                        }
-                    });
-
-                    alerta_paypal.setNegativeButton(getResources().getString(R.string.dialogo_cancelar), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    });
-
-                    alerta_paypal.show();
 
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -380,7 +342,7 @@ public class Beneficios extends Fragment {
             if(tipo_pago==2)
                 new EnviarMail(Constantes.SOLICITAR_COBRO.replace("[MAIL]",cuenta).replace("[TIPO]","Amazon2")).execute();
             if(tipo_pago==3)
-                    new EnviarMail(Constantes.SOLICITAR_COBRO.replace("[MAIL]",cuenta).replace("[TIPO]","PayPal5")).execute();
+                    new EnviarMail(Constantes.SOLICITAR_COBRO.replace("[MAIL]",cuenta).replace("[TIPO]","PayPal5%20en%20el%20correo%20PayPal%20"+cuenta_paypal.getText())).execute();
 
 
             onResume();
@@ -401,6 +363,8 @@ public class Beneficios extends Fragment {
                     }
                 });
                 alerta.show();
+
+
 
             }
 
