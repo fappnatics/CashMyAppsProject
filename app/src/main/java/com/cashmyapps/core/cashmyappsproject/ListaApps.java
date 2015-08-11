@@ -351,8 +351,8 @@ public class ListaApps extends Fragment {
                 desc_corta[s]=descripcion_app.get(s);
                 ppi_array[s]=ppi_apps.get(s);
 
-
-               if(lista_apps_instaladas!=null && lista_apps_instaladas.contains(url.get(s).replace("http://",""))) {
+                //modificar la forma de buscar las insalaciones.
+               if(lista_apps_instaladas!=null && lista_apps_instaladas.contains(url.get(s).replace("http://","").replace("&gee_tool=offerjson",""))) {
                    url_apps[s] = Uri.parse("nolink");
                    Log.i("INSTALADA: ",url.get(s));
                }

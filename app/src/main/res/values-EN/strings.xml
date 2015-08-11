@@ -40,6 +40,7 @@
     <string name="boton_aceptar">Accept</string>
     <string name="boton_confirmar">Confirm</string>
     <string name="boton_modificar">Modify</string>
+    <string name="boton_copiar">Copy</string>
     <string name="boton_compartir">Share</string>
     <string name="boton_cobro"> Claim reward</string>
     <string name="boton_cobro_amazon5"> 5000 coins </string>
@@ -77,6 +78,7 @@
 
     <!--Notificaciones -->
     <string name="nf_nuevo_pago">New payments CashMaker</string>
+    <string name="nf_copiar_codigo">Code copied to clipboard</string>
     <string name="nf_app_inst_plural">You have received new payments for the installed apps [APPS] \n Value: [PPI].</string>
     <string name="nf_app_inst_singular">You have received a new payment for the installed app [APPS] \n Value: [PPI].</string>
 

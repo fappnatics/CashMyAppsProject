@@ -2,11 +2,13 @@ package com.cashmyapps.core.cashmyappsproject;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
+import android.telephony.TelephonyManager;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -101,6 +103,8 @@ public class CustomAdapter extends ArrayAdapter {
             auxiliar=auxiliar*1000;
             finalRound = new Double(auxiliar).intValue();
             ppi.setText("PPI: "+finalRound+" COINS");
+            saldo = auxiliar;
+
         }
 
         imgEstrellas.setImageResource(imageId[position]);
@@ -120,7 +124,8 @@ public class CustomAdapter extends ArrayAdapter {
             @Override
             public void onClick(View v) {
                 Intent launcher = new Intent(Intent.ACTION_VIEW,uris[position]);
-                String pais = Locale.getDefault().getCountry();
+                TelephonyManager tm = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
+                String pais = tm.getNetworkCountryIso().toUpperCase();
                 Date d = new Date();
                 String fecha_alta = new SimpleDateFormat("dd-MM-yyyy").format(d);
                 try {

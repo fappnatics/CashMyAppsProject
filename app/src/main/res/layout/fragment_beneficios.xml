@@ -104,7 +104,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Tu saldo:"
+            android:text="@string/layout_cobro_tusaldo"
             android:textColor="#ffffff"
             android:id="@+id/txTitulo"
             android:textSize="20dp"

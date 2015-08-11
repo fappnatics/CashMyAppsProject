@@ -3,6 +3,8 @@ package com.cashmyapps.core.cashmyappsproject;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -60,13 +62,14 @@ public class Perfil extends Fragment {
     private TextView txCod_refer;
     private TextView lbMensajeFinal;
     private Button btPayPasl;
+    private Button btReferido;
+    private Button btCopiar;
     private TextView txRefer;
     private TextView txCambioCorreo;
     private EditText txReferir;
     private Context contexto;
     private TextView txCorreo;
     private TextView txSaldo;
-    private Button btReferido;
     private String cuenta_referente;
     private String cuenta_referido;
     private String cuenta_paypal;
@@ -77,6 +80,7 @@ public class Perfil extends Fragment {
     private AlertDialog.Builder error;
     private SoundPool sp;
     private MediaPlayer mp;
+    private ClipboardManager porta;
 
 
 
@@ -96,6 +100,7 @@ public class Perfil extends Fragment {
                              Bundle savedInstanceState) {
 
         TextView cuenta_main = (TextView)getActivity().findViewById(R.id.txCorreo);
+
         String prueba = cuenta_main.getText().toString();
         new MainParser(Constantes.URL_GET_BBDD_JSON+"?mail="+cuenta_main.getText()).execute(this,"foo");
 
@@ -165,7 +170,7 @@ public class Perfil extends Fragment {
                     refer = jArray.getJSONObject(0).getString("COD_REFER");
                     cuenta_paypal = jArray.getJSONObject(0).getString("MAIL_PAYPAL");
                     lbMensajeFinal = (TextView)getActivity().findViewById(R.id.lbMensajeFinal);
-
+                    btCopiar = (Button)getActivity().findViewById(R.id.btCopiar);
                     TextView txNombre = (TextView)getActivity().findViewById(R.id.txNombre);
                     txSaldo = (TextView)getActivity().findViewById(R.id.txSaldo);
                     txPayPal = (TextView)getActivity().findViewById(R.id.txPayPal);
@@ -214,6 +219,20 @@ public class Perfil extends Fragment {
                                 }
                         }
                     });
+
+
+
+
+                btCopiar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        porta = (ClipboardManager)getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                        ClipData cd = ClipData.newPlainText("cod_refer",txRefer.getText());
+                        porta.setPrimaryClip(cd);
+                        Toast.makeText(contexto,getActivity().getResources().getString(R.string.nf_copiar_codigo),Toast.LENGTH_LONG).show();
+                    }
+                });
 
 
                 btPayPasl.setOnClickListener(new View.OnClickListener() {
@@ -383,7 +402,7 @@ public class Perfil extends Fragment {
                     txReferir.setBackgroundColor(Color.DKGRAY);
                     txReferir.setTextColor(Color.LTGRAY);
                     txSaldo.setText(Integer.parseInt(txSaldo.getText().toString().substring(0, txSaldo.getText().toString().indexOf(" "))) + 200 + " coins");
-                    //Sonido de éxito
+                    //Sonido de exito
                     mp = MediaPlayer.create(getActivity(),R.raw.success);
                     mp.start();
 
@@ -399,7 +418,7 @@ public class Perfil extends Fragment {
                     lbMensajeFinal.setVisibility(View.VISIBLE);
                     lbMensajeFinal.setTextColor(Color.RED);
                     lbMensajeFinal.setText(getResources().getString(R.string.dialogo_peticion_refer_ko));
-                    //Sonido de éxito
+                    //Sonido de error
                     mp = MediaPlayer.create(getActivity(),R.raw.error);
                     mp.start();
 
