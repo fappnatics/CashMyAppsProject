@@ -1,6 +1,5 @@
 package com.cashmyapps.core.cashmyappsproject;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -274,8 +273,7 @@ public class ListaApps extends Fragment {
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.e("LISTAAPPS",e.getMessage().toString());
-                    String error = Constantes.ERRORES_APP.replace("[CUENTA]",cuenta).replace("[ERROR]",e.getMessage()).replace("[FECHA",fecha).replace(" ","%20");
-                    new JSONParser(error).execute(this,"foo");
+
                 }
 
             return imagenes;
@@ -319,7 +317,7 @@ public class ListaApps extends Fragment {
 
 
                     //Invocamos al servicio
-                    Intent in = new Intent(getActivity(),ServicioPostback.class);
+                   /* Intent in = new Intent(getActivity(),ServicioPostback.class);
                     in.putExtra("cuenta",mail);
                     in.putExtra("cod_refer",refer);
 
@@ -327,9 +325,8 @@ public class ListaApps extends Fragment {
                         getActivity().stopService(in);
                         getActivity().startService(in);}
                     else
-                        getActivity().startService(in);
+                        getActivity().startService(in);*/
                 }
-
                 new JSONParser(Constantes.SET_BORRAR_CEROS_POSTBACK).execute();
 
 
@@ -347,7 +344,12 @@ public class ListaApps extends Fragment {
             for(int s=0;s<nombre_app.size();s++)
             {
                 nom_apps[s]=nombre_app.get(s);
-                img_apps[s]=imagenes_apps.get(s);
+
+                    if(imagenes_apps.size()!=0)
+                    img_apps[s]=imagenes_apps.get(s);
+                    //else
+                    //img_apps[s]= BitmapFactory.decodeResource(context.getResources(),R.drawable.noimage);
+
                 desc_corta[s]=descripcion_app.get(s);
                 ppi_array[s]=ppi_apps.get(s);
 
@@ -395,7 +397,10 @@ public class ListaApps extends Fragment {
                 of.setNOM_APP(nom_apps[i]);
                 of.setDESC(desc_corta[i]);
                 of.setESTRELLAS(estrellas[i]);
+
+                if(img_apps.length!=0)
                 of.setIMG(img_apps[i]);
+
                 of.setPPI(ppi_array[i]);
                 of.setURL(url_apps[i]);
 

@@ -155,15 +155,17 @@ public class ServicioPostback extends Service {
                         calcular= String.format("%.2f",Double.parseDouble(jArray.getJSONObject(s).getString("GEE_PPI"))*0.2);
                         coins += Double.parseDouble(calcular.replace(",","."))*100;
                         //Pagamos la recompensa al usuario y registramos la transacción.
-                        new JSONParser(Constantes.PAGAR_RECOMPENSA+
-                                                  "GIFT="+coins+
-                                                  "&MAIL="+cuenta+
-                                                  "&COD_PAGO="+new GeneradorCodigos().generarCodigos("IN")+
-                                                  "&COINS="+coins.intValue()+
-                                                  "&PPI="+calcular.replace(",",".")+
-                                                  "&FECHA="+ new Fechas().getFechaActual()+
-                                                  "&COD_REFER="+cod_refer+
-                                                  "&GEE_UNIQUE="+gee_unique).execute();
+                        String pago = Constantes.PAGAR_RECOMPENSA+
+                                "GIFT="+coins+
+                                "&MAIL="+cuenta+
+                                "&COD_PAGO="+new GeneradorCodigos().generarCodigos("IN")+
+                                "&COINS="+coins.intValue()+
+                                "&PPI="+calcular.replace(",",".")+
+                                "&FECHA="+ new Fechas().getFechaActual()+
+                                "&COD_REFER="+cod_refer+
+                                "&GEE_UNIQUE="+gee_unique;
+                        Log.i("PAGO POSTBACK: ",pago);
+                        new JSONParser(pago).execute();
 
 
                     }
