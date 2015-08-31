@@ -170,7 +170,15 @@ public class ListaApps extends Fragment {
 
                 id_app.add(jObject.getJSONObject("content").getJSONObject(i+"").getString("idapp"));
                 nombre_app.add(jObject.getJSONObject("content").getJSONObject(i+"").getString("app"));
+
+
+                if(jObject.getJSONObject("content").getJSONObject(i + "").getString("image").contains("https"))
+                imagen_app.add(jObject.getJSONObject("content").getJSONObject(i + "").getString("image").replace("https","http"));
+                else
                 imagen_app.add(jObject.getJSONObject("content").getJSONObject(i + "").getString("image"));
+
+
+
                 short_desc_app.add(jObject.getJSONObject("content").getJSONObject(i + "").getString("quote"));
                 descripcion_app.add(jObject.getJSONObject("content").getJSONObject(i + "").getString("description"));
                 url.add(jObject.getJSONObject("content").getJSONObject(i + "").getString("url"));
@@ -317,7 +325,7 @@ public class ListaApps extends Fragment {
 
 
                     //Invocamos al servicio
-                   /* Intent in = new Intent(getActivity(),ServicioPostback.class);
+                   Intent in = new Intent(getActivity(),ServicioPostback.class);
                     in.putExtra("cuenta",mail);
                     in.putExtra("cod_refer",refer);
 
@@ -325,7 +333,7 @@ public class ListaApps extends Fragment {
                         getActivity().stopService(in);
                         getActivity().startService(in);}
                     else
-                        getActivity().startService(in);*/
+                        getActivity().startService(in);
                 }
                 new JSONParser(Constantes.SET_BORRAR_CEROS_POSTBACK).execute();
 
