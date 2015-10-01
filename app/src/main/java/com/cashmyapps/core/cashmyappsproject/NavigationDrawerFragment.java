@@ -117,6 +117,7 @@ public class NavigationDrawerFragment extends Fragment {
         NavItem.add(new Item_object(titulos[3], NavIcons.getResourceId(3, -1)));
         NavItem.add(new Item_object(titulos[4], NavIcons.getResourceId(4, -1)));
         NavItem.add(new Item_object(titulos[5], NavIcons.getResourceId(5, -1)));
+        NavItem.add(new Item_object(titulos[6], NavIcons.getResourceId(6, -1)));
 
 
         NavigationAdapter navAdapter = new NavigationAdapter(getActivity(),NavItem);

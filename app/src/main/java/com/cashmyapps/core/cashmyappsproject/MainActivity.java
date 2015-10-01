@@ -191,6 +191,15 @@ public class MainActivity extends ActionBarActivity
                 getSupportActionBar().setSubtitle(getResources().getString(R.string.subtitulo_faq));
                 break;
 
+            case 7:
+                fragment = new Adscendmedia();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, Adscendmedia.newInstance(position + 1))
+                        .commit();
+                getSupportActionBar().setTitle(getResources().getString(R.string.titulo_adscend));
+                getSupportActionBar().setSubtitle(getResources().getString(R.string.subtitulo_adscend));
+                break;
+
             default:
                 Toast.makeText(this.getApplicationContext(), "Opcion no disponible", Toast.LENGTH_LONG);
                 fragment = new Compartir();

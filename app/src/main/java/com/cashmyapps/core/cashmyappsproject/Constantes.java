@@ -6,8 +6,12 @@ package com.cashmyapps.core.cashmyappsproject;
 @SuppressWarnings("unused")
 public final class Constantes {
 
+    //Proveedores
    public static final String URL_GEENAPP2 ="http://offer.geenapptool.com/155/?device=android&country=[PAIS]&lang=[LANG]";
    public static final String URL_GEENAPP ="http://offer.geenapptool.com/162/?device=android&country=[PAIS]&lang=[LANG]";
+   public static final String URL_ADSCENDMEDIA ="http://asmwall.com/adwall/publisher/35894/profile/2838?subid1=";
+
+
    public static final String URL_GET_BBDD_JSON="http://www.cashmyapps.net/get_datos_usuario.php";
    public static final String ALTA_USUARIO="http://www.cashmyapps.net/set_nuevo_usuario.php/?";
    public static final String PAGAR_RECOMPENSA="http://www.cashmyapps.net/set_usuario_pagar_recompensa.php?";

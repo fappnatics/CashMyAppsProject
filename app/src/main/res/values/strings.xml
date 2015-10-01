@@ -26,6 +26,9 @@
     <string name="titulo_faq">FAQ</string>
     <string name="subtitulo_faq">Preguntas frecuentes</string>
 
+    <string name="titulo_adscend">AdscendMedia</string>
+    <string name="subtitulo_adscend">Ofertas AdscendMEdia</string>
+
     <!--Contenido de los fragments -->
     <string name="cont_login_cabecera_nuevo_cashmaker">¿Nuevo en CashMaker? \n Selecciona una cuenta de registro</string>
     <string name="cont_login_selec_cuenta_acceso">Selecciona una cuenta de acceso.</string>
@@ -125,10 +128,11 @@
     <string-array name="nav_options">
         <item>Perfil</item>
         <item>Ver ofertas</item>
-        <item>Ranking</item>
+        <item>Ranking</item>sr
         <item>Obtener mis beneficios</item>
         <item>Acerca de</item>
         <item>FAQ</item>
+        <item>AdscendMedia</item>
     </string-array>
 
 
@@ -142,6 +146,7 @@
         <item>@drawable/billetes64</item>
         <item>@drawable/aboutus32</item>
         <item>@drawable/faq32</item>
+        <item>@drawable/adscendico</item>
     </array>
 
     <string name="title_activity_login">Login</string>
